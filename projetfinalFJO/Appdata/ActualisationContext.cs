@@ -1,18 +1,21 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace projetfinalFJO.Appdata
 {
     public partial class ActualisationContext : DbContext
     {
+        private readonly IConfiguration Configuration;
         public ActualisationContext()
         {
         }
 
-        public ActualisationContext(DbContextOptions<ActualisationContext> options)
+        public ActualisationContext(DbContextOptions<ActualisationContext> options, IConfiguration Configuration)
             : base(options)
         {
+            this.Configuration = Configuration;
         }
 
         public virtual DbSet<ActualisationInformation> ActualisationInformation { get; set; }
