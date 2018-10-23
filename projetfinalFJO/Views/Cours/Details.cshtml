@@ -1,0 +1,54 @@
+﻿@model projetfinalFJO.Appdata.Cours
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cours</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PonderationCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PonderationCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartementCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartementCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypedeCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypedeCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdsessionNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdsessionNavigation.NomSession)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NoProgrammeNavigation.NoProgramme)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.NoCours">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

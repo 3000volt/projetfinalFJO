@@ -1,0 +1,57 @@
+﻿@model projetfinalFJO.Appdata.Cours
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Cours</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PonderationCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PonderationCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartementCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartementCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypedeCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypedeCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdsessionNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdsessionNavigation.NomSession)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NoProgrammeNavigation.NoProgramme)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="NoCours" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
