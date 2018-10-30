@@ -12,7 +12,7 @@ namespace projetfinalFJO.Appdata
 
         public ActualisationContext(DbContextOptions<ActualisationContext> options)
             : base(options)
-        {//Test
+        {
         }
 
         public virtual DbSet<ActualisationInformation> ActualisationInformation { get; set; }
@@ -37,7 +37,7 @@ namespace projetfinalFJO.Appdata
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(" Server=localhost;Database=Actualisation ;User Id=sa;Password=sql");
             }
         }
