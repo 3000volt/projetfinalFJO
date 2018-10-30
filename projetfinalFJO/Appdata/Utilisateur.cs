@@ -12,7 +12,6 @@ namespace projetfinalFJO.Appdata
             Membresdesactualisations = new HashSet<Membresdesactualisations>();
             RepartitionHeureCours = new HashSet<RepartitionHeureCours>();
             RepartitionHeuresession = new HashSet<RepartitionHeuresession>();
-            UtilisateurPossedeRole = new HashSet<UtilisateurPossedeRole>();
         }
 
         public string AdresseCourriel { get; set; }
@@ -26,6 +25,5 @@ namespace projetfinalFJO.Appdata
         public ICollection<Membresdesactualisations> Membresdesactualisations { get; set; }
         public ICollection<RepartitionHeureCours> RepartitionHeureCours { get; set; }
         public ICollection<RepartitionHeuresession> RepartitionHeuresession { get; set; }
-        public ICollection<UtilisateurPossedeRole> UtilisateurPossedeRole { get; set; }
     }
 }
