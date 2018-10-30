@@ -7,11 +7,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using projetfinalFJO.Appdata;
+using projetfinalFJO.Models;
 using projetfinalFJO.Models.Authentification;
 
 namespace projetfinalFJO.Controllers
 {
+
     [Authorize]
     public class LoginController : Controller
     {
@@ -19,17 +23,21 @@ namespace projetfinalFJO.Controllers
         private readonly RoleManager<LoginRole> _roleManager;
         private readonly SignInManager<LoginUser> _signInManager;
         private readonly ILogger _logger;
+        private readonly ActualisationContext context;
 
         public LoginController(
             UserManager<LoginUser> userManager,
             RoleManager<LoginRole> roleManager,
             SignInManager<LoginUser> signInManager,
-            ILogger<LoginController> logger)
+            ILogger<LoginController> logger,
+            ActualisationContext cont
+            )
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _logger = logger;
+            this.context = cont;
         }
         [HttpGet]
         [AllowAnonymous]
@@ -55,6 +63,8 @@ namespace projetfinalFJO.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    //TODO : Prendre les infos de l'utilisateur ici
+                    this.context.Utilisateur.Select(user => user.Nom== model.UserName);//
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
@@ -95,6 +105,10 @@ namespace projetfinalFJO.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //
+                    this.context.Utilisateur.Add(new Utilisateur { AdresseCourriel=model.Email, Nom=model.Nom, Prenom=model.Prenom, RegisterDate=new DateTime().Date});
+                    this.context.SaveChanges();
+
                     _logger.LogInformation("User created a new account with password.");
                     var roleresult = await _userManager.AddToRoleAsync(user, model.Role);
                     if (roleresult.Succeeded)

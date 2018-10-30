@@ -37,7 +37,7 @@ namespace projetfinalFJO.Appdata
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(" Server=localhost;Database=Actualisation ;User Id=sa;Password=sql");
             }
         }
@@ -442,10 +442,6 @@ namespace projetfinalFJO.Appdata
                 entity.Property(e => e.Nom)
                     .IsRequired()
                     .HasMaxLength(30);
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(50);
 
                 entity.Property(e => e.Prenom)
                     .IsRequired()

@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using projetfinalFJO.Appdata;
 using projetfinalFJO.Models.Authentification;
+using projetfinalFJO.Appdata;
 
 namespace projetfinalFJO
 {
