@@ -12,7 +12,7 @@ namespace projetfinalFJO.Appdata
 
         public ActualisationContext(DbContextOptions<ActualisationContext> options)
             : base(options)
-        {
+        {//Test
         }
 
         public virtual DbSet<ActualisationInformation> ActualisationInformation { get; set; }
