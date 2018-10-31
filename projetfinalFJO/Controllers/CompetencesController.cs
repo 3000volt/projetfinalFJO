@@ -22,7 +22,9 @@ namespace projetfinalFJO.Controllers
         public async Task<IActionResult> Index()
         {
             var actualisationContext = _context.Competences.Include(c => c.IdfamilleNavigation);
-            return View(await actualisationContext.ToListAsync());
+            ViewBag.ListCompetence = await actualisationContext.ToListAsync();
+            ViewBag.Competence = new Competences();
+            return View();
         }
 
         // GET: Competences/Details/5

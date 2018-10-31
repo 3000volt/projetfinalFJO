@@ -1,0 +1,53 @@
+﻿@model projetfinalFJO.Appdata.Competences
+
+<h4>Competences</h4>
+<hr />
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Ajouter des Compétences</div>
+    <form asp-controller="Competences" asp-action="_AddPartialcompetence" data-ajax-mode="replace" data-ajax-update="#divliste" data-ajax="true" data-ajax-method="POST" data-ajax-complete="onComplete">
+        <div class="modal-body form-horizontal">
+            <div class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CodeCompetence" class="control-label"></label>
+                    <input asp-for="CodeCompetence" class="form-control" />
+                    <span asp-validation-for="CodeCompetence" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ObligatoireCégep" class="control-label"></label>
+                    <input asp-for="ObligatoireCégep" class="form-control" />
+                    <span asp-validation-for="ObligatoireCégep" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ContextRealisation" class="control-label"></label>
+                    <input asp-for="ContextRealisation" class="form-control" />
+                    <span asp-validation-for="ContextRealisation" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Idfamille" class="control-label"></label>
+                    <select asp-for="Idfamille" class="form-control" asp-items="ViewBag.Idfamille"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+
+                <div class="form-group">
+                    <button id="btCancel" type="reset" class="btn btn-primary">Cancel</button>
+                    <button id="btSubmit" type="submit" class="btn btn-primary">Submit</button>
+                    <div class="col-lg-6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

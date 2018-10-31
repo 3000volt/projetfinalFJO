@@ -4,50 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<div id="principale">
+    <h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ObligatoireCégep)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContextRealisation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdfamilleNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ObligatoireCégep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContextRealisation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdfamilleNavigation.NomFamille)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CodeCompetence">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CodeCompetence">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CodeCompetence">Delete</a>
-            </td>
-        </tr>
+    <div id="divliste">
+        <partial name="_ListPartial" model="ViewBag.ListCompetence" />
+    </div>
+
+    <div id="divaddmodal">
+        <partial name="_AddPartialcompetence" model="ViewBag.Competence" />
+    </div>
+</div>
+@section Scripts
+    {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
 }
-    </tbody>
-</table>
