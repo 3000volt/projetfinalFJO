@@ -11,11 +11,11 @@ namespace projetfinalFJO.Models.Authentification
     {
         [Required]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
-        [Display(Name = "UserName")]
+        [Display(Name = "Prénom")]
         public string Nom { get; set; }
         [Required]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
-        [Display(Name = "UserName")]
+        [Display(Name = "Nom")]
         public string Prenom { get; set; }
         [Required]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
