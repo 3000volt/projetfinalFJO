@@ -1,0 +1,42 @@
+﻿@model projetfinalFJO.Appdata.Competences
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Competences</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ObligatoireCégep)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ObligatoireCégep)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ContextRealisation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ContextRealisation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdfamilleNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdfamilleNavigation.NomFamille)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CodeCompetence">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
