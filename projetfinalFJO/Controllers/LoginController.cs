@@ -64,7 +64,7 @@ namespace projetfinalFJO.Controllers
                 if (result.Succeeded)
                 {
                     //TODO : Prendre les infos de l'utilisateur ici
-                    this.context.Utilisateur.Select(user => user.AdresseCourriel == model.UserName);//
+                    this.context.Utilisateur.Select(user => user.AdresseCourriel== model.UserName);//
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
