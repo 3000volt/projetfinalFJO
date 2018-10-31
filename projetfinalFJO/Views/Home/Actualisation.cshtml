@@ -1,0 +1,59 @@
+﻿@model IEnumerable<projetfinalFJO.Models.ActualisationViewModel>
+
+@{
+    ViewData["Title"] = "Actualisation";
+}
+
+<h2>Actualisation</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumActualisation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomActualisation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoProgramme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomProgramme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Approuve)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumActualisation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomActualisation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoProgramme)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomProgramme)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Approuve)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
