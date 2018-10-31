@@ -64,7 +64,7 @@ namespace projetfinalFJO.Controllers
                 if (result.Succeeded)
                 {
                     //TODO : Prendre les infos de l'utilisateur ici
-                    this.context.Utilisateur.Select(user => user.Nom== model.UserName);//
+                    this.context.Utilisateur.Select(user => user.AdresseCourriel== model.UserName);//
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
@@ -101,7 +101,7 @@ namespace projetfinalFJO.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new LoginUser { UserName = model.UserName, Email = model.Email };
+                var user = new LoginUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
