@@ -30,6 +30,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
                     @{if (this.User.IsInRole("King")) //SRDP
                         {
                             <li><a asp-area="" asp-controller="Home" asp-action="Index">Actualisation</a></li>
@@ -54,13 +55,10 @@
                         }
                         else if (this.User.IsInRole("Commite_Programme"))
                         {
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
-
-
                             <li><a asp-area="" asp-controller="Home" asp-action="Contact">Génération des rapports</a></li>
-                            }
                         }
-                    </ul>
+                    }
+                </ul>
                     @await Html.PartialAsync("_LoginPartial")
                 </div>
             </div>
