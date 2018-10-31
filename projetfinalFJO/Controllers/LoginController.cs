@@ -105,7 +105,7 @@ namespace projetfinalFJO.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //
+                    
                     this.context.Utilisateur.Add(new Utilisateur { AdresseCourriel=model.Email, Nom=model.Nom, Prenom=model.Prenom, RegisterDate=DateTime.Now});
                     this.context.SaveChanges();
 
