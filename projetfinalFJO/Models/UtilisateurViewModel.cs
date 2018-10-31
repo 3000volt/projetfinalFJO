@@ -11,6 +11,5 @@ namespace projetfinalFJO.Models
         public DateTime RegisterDate { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
-
     }
 }
