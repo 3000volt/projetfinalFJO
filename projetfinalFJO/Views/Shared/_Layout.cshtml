@@ -30,47 +30,73 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Roles" asp-action="List">GestRoles</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
+                    @{if (this.User.IsInRole("King")) //SRDP
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Actualisation</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="About">Gérer un utilisateur</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Gérer un programme</a></li>
+                        }
+                        else if (this.User.IsInRole("Sous_Commite"))
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
+
+
+                            <li><a asp-area="" asp-controller="Home" asp-action="About">Gestion des cours</a></li>
+
+
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Gestion des compétences</a></li>
+
+
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Gestion des analyses</a></li>
+
+
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Génération des rapports</a></li>
+                        }
+                        else if (this.User.IsInRole("Commite_Programme"))
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
+
+
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Génération des rapports</a></li>
+                            }
+                        }
+                    </ul>
+                    @await Html.PartialAsync("_LoginPartial")
+                </div>
             </div>
+        </nav>
+
+        <partial name="_CookieConsentPartial" />
+
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; 2018 - projetfinalFJO</p>
+            </footer>
         </div>
-    </nav>
 
-    <partial name="_CookieConsentPartial" />
+        <environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - projetfinalFJO</p>
-        </footer>
-    </div>
-
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
-    @RenderSection("Scripts", required: false)
-</body>
+        @RenderSection("Scripts", required: false)
+    </body>
 </html>
