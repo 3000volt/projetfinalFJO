@@ -17,6 +17,7 @@ namespace projetfinalFJO.Controllers
         private ActualisationContext contexte;
         List<ActualisationInformation> listeActualisation;
         List<Programmes> listeProgrammes;
+        List<Utilisateur> listeUtilisateur;
 
         //Constructeur du controleur
         public HomeController(IConfiguration iConfig)
@@ -29,7 +30,7 @@ namespace projetfinalFJO.Controllers
         {
             return View();
         }
-        [HttpGet]
+
         public IActionResult Actualisation()
         {
             listeActualisation = this.contexte.ActualisationInformation.ToList();
@@ -45,7 +46,7 @@ namespace projetfinalFJO.Controllers
             }).ToList();
             return View(actuListe);
         }
-
+        //Méthode privé pour retirer le nom du programme
         private string Selection(string num)
         {
             listeProgrammes = this.contexte.Programmes.ToList();
@@ -54,11 +55,10 @@ namespace projetfinalFJO.Controllers
             return numero;
         }
 
-        public IActionResult Contact()
+        public IActionResult GererUtilisateur()
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            this.listeUtilisateur = this.contexte.Utilisateur.ToList();
+            return View(listeUtilisateur);
         }
 
         public IActionResult Privacy()
