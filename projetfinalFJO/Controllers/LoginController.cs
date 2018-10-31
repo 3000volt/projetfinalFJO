@@ -106,7 +106,7 @@ namespace projetfinalFJO.Controllers
                 if (result.Succeeded)
                 {
                     //
-                    this.context.Utilisateur.Add(new Utilisateur { AdresseCourriel=model.Email, Nom=model.Nom, Prenom=model.Prenom, RegisterDate=new DateTime().Date});
+                    this.context.Utilisateur.Add(new Utilisateur { AdresseCourriel=model.Email, Nom=model.Nom, Prenom=model.Prenom, RegisterDate=DateTime.Now});
                     this.context.SaveChanges();
 
                     _logger.LogInformation("User created a new account with password.");
