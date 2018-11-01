@@ -25,12 +25,8 @@ namespace projetfinalFJO.Controllers
         private readonly ILogger _logger;
         private readonly ActualisationContext context;
 
-        public LoginController(
-            UserManager<LoginUser> userManager,
-            RoleManager<LoginRole> roleManager,
-            SignInManager<LoginUser> signInManager,
-            ILogger<LoginController> logger,
-            ActualisationContext cont
+        public LoginController( UserManager<LoginUser> userManager,RoleManager<LoginRole> roleManager,
+            SignInManager<LoginUser> signInManager,ILogger<LoginController> logger,ActualisationContext cont
             )
         {
             _userManager = userManager;
