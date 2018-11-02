@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<projetfinalFJO.Appdata.Competences>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Gestion des compétences";
 }
 
-<h2>Index</h2>
+<h3>Gestion des compétences</h3>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a> Ajouter une compétence
 </p>
 <table class="table">
-    <thead>
+    <thead class="thead-inverse">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeCompetence)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ObligatoireCégep)
             </th>
@@ -28,26 +31,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ObligatoireCégep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContextRealisation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdfamilleNavigation.NomFamille)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CodeCompetence">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CodeCompetence">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CodeCompetence">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodeCompetence)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ObligatoireCégep)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContextRealisation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdfamilleNavigation.NomFamille)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.CodeCompetence"><span class="glyphicon glyphicon-edit" aria-hidden="true"> Modifier</span></a> |
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.CodeCompetence"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"> Details</span></a> |
+                    <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.CodeCompetence"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Supprimer</span></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

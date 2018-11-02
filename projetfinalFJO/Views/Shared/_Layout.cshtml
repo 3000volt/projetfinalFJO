@@ -30,7 +30,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @{if (this.User.IsInRole("King")) //SRDP
+                    @{if (this.User.IsInRole("Admin")) //SRDP
                         {
                             <li><a asp-area="" asp-controller="Home" asp-action="Actualisation">Actualisation</a></li>
 
@@ -69,9 +69,7 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-
             <div class="col-lg-10 well" style="background-color:white">
-                Meducci
                 @RenderBody()
             </div>
             <div class="col-lg-2 well " style="background-color:antiquewhite; height:786px">

@@ -3,6 +3,7 @@
 
 // Write your JavaScript code.
 // Write your JavaScript code.
+/*
 $(function () {
     var formModal = fndefinirModal();
     $("#createRoleModal").on("click", function () { $(formModal).dialog("open"); });
@@ -30,4 +31,4 @@ function onComplete() {
     var formModal = fndefinirModal();
     $("#createRoleModal").on("click", function () { $(formModal).dialog("open"); });
     $('form input[type="text"]').prop("value", "");
-}
+}*/
