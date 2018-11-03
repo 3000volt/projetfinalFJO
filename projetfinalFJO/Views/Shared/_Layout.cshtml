@@ -30,11 +30,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @{if (this.User.IsInRole("Admin")) //SRDP
+                    @{if (this.User.IsInRole("King")) //SRDP
                         {
                             <li><a asp-area="" asp-controller="Home" asp-action="Actualisation">Actualisation</a></li>
 
-                            <li><a asp-area="" asp-controller="Home" asp-action="About">Gérer un utilisateur</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="GererUtilisateur">Gérer un utilisateur</a></li>
 
                             <li><a asp-area="" asp-controller="Home" asp-action="Contact">Gérer un programme</a></li>
                         }
