@@ -24,6 +24,7 @@ namespace projetfinalFJO.Controllers
         private List<LoginUser> listeUtilisateurLogin;
         private List<LoginRole> listeRoleLogin;
         private readonly UserManager<LoginUser> _userManager;
+        private List<Membresdesactualisations> listeMemrbesActualisation;
 
         //Constructeur du controleur
         public HomeController(IConfiguration iConfig, UserManager<LoginUser> userManager, LoginDbContext log)
@@ -77,12 +78,9 @@ namespace projetfinalFJO.Controllers
             List<UtilisateurViewModel> listeUtilisateurs = new List<UtilisateurViewModel>();
             string userEmail;
             string userID;
+            //Liste de tout les utilisateurs avec leur roles
             var liste = this.contextLogin.UserRoles.ToList();
 
-            //for(int i = 0; i < this.listeUtilisateurLogin.Count(); i++)
-            //{
-            // userId = this.listeUtilisateurLogin.Select(x=>x. ==)
-            //}
             foreach (LoginUser util in this.listeUtilisateurLogin)
             {
                 //Récupérer le Email du user
@@ -104,13 +102,47 @@ namespace projetfinalFJO.Controllers
                     RegisterDate = dateEnr,
                     Nom = nomUt,
                     Prenom = prenomUt,
-                    Role = nomRole
-                   
-                    
+                    Role = nomRole                    
                 });
             }
             return View(listeUtilisateurs);
         }
+
+
+
+        public ActionResult MembresActualisation(int numActu)
+        {
+            //Prendre les éléments du contexte ayant le numéro de l'actualisation en paramètre
+            this.listeMemrbesActualisation = this.contexteActu.Membresdesactualisations.ToList().FindAll(x => x.NumActualisation == numActu);
+            //Trouver les utilisateurs pour transférer leur viewModel
+            List<UtilisateurViewModel> listeUtilisateurs = new List<UtilisateurViewModel>();
+            string courriel;
+            Utilisateur util;
+            foreach (Membresdesactualisations me in listeMemrbesActualisation)
+            {
+                courriel = me.AdresseCourriel;
+                //Trouver l'utilisatuer dans la liste des utilisateurs
+                util = this.listeUtilisateurActu.Find(x => x.AdresseCourriel == courriel);
+                //Id Utilisateur
+                string utilisateurID = this.listeUtilisateurLogin.Find(x => x.UserName == me.AdresseCourriel).Id;
+                //Trouver son role
+                //Id
+                string roleId = this.contextLogin.UserRoles.ToList().Find(x => x.UserId == utilisateurID).RoleId;
+                //Trouver
+                string nomRole = this.listeRoleLogin.Find(x => x.Id == roleId).Name;
+                //Ajouter a la liste
+                listeUtilisateurs.Add(new UtilisateurViewModel
+                {
+                    Nom = util.Nom,
+                    Prenom = util.Prenom,
+                    Role = nomRole                    
+                });
+            }
+            return View(listeUtilisateurs);
+        }
+
+
+
 
         public IActionResult Privacy()
         {
