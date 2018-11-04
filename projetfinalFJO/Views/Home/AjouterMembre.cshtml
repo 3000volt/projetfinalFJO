@@ -1,17 +1,21 @@
-﻿@model IEnumerable<projetfinalFJO.Models.MembresActualisationViewModel>
+﻿@model IEnumerable<projetfinalFJO.Models.UtilisateurViewModel>
 
 @{
-    ViewData["Title"] = "MembresActualisation";
+    ViewData["Title"] = "AjouterMembre";
 }
 
-<h2>Memrbes de l'actualisation @ViewBag.NumActualisation</h2>
+<h2>Liste des membres</h2>
 
-<p>
-    <a asp-action="AjouterMembre" asp-route-numAct="@ViewBag.NumActualisation">Ajouter un membre à l'actualisation</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AdresseCourriel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegisterDate)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nom)
             </th>
@@ -28,6 +32,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.AdresseCourriel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegisterDate)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nom)
             </td>
             <td>
@@ -37,7 +47,8 @@
                 @Html.DisplayFor(modelItem => item.Role)
             </td>
             <td>
-                @Html.ActionLink("Retirer de l'actualisation", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Ajouter ce membre", "AjouterMembre2", new { courriel = item.AdresseCourriel, numAct = @ViewBag.NumActualisation })
+
             </td>
         </tr>
 }
