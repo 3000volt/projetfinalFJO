@@ -1,13 +1,11 @@
 ﻿@model IEnumerable<projetfinalFJO.Appdata.Programmes>
 
-<!DOCTYPE html>
+@{
+    ViewData["Title"] = "Index";
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
+<h2>Index</h2>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -65,5 +63,3 @@
 }
     </tbody>
 </table>
-</body>
-</html>
