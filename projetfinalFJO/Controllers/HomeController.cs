@@ -136,6 +136,7 @@ namespace projetfinalFJO.Controllers
                 {
                     Nom = util.Nom,
                     Prenom = util.Prenom,
+                    Courriel = util.AdresseCourriel,
                     Role = nomRole
                 });
             }
@@ -170,7 +171,7 @@ namespace projetfinalFJO.Controllers
             }
             //Retirer les utilisateurs déjà présent dans l'actualisation
             List<Membresdesactualisations> listeMembrePresent = this.contexteActu.Membresdesactualisations.ToList().FindAll(x => x.NumActualisation == numAct);
-            foreach(Membresdesactualisations membre in listeMembrePresent)
+            foreach (Membresdesactualisations membre in listeMembrePresent)
             {
                 string courriel = membre.AdresseCourriel;
                 //Trouver l'utilisateur
@@ -239,9 +240,54 @@ namespace projetfinalFJO.Controllers
             return RedirectToAction("Actualisation");
         }
 
+        [HttpGet]
+        public ActionResult SupprimerActualisation(int numActu)
+        {
+            //Trouver l'actualisation
+            List<ActualisationInformation> listeActu = this.contexteActu.ActualisationInformation.ToList();
+            List<ActualisationViewModel> listeActuModel = new List<ActualisationViewModel>();
+            foreach (ActualisationInformation actu in listeActu)
+            {
+                //Convertrir en View model
+                listeActuModel.Add(new ActualisationViewModel
+                {
+                    NumActualisation = actu.NumActualisation,
+                    NomActualisation = actu.NomActualisation,
+                    NoProgramme = actu.NoProgramme,
+
+                    NomProgramme = this.contexteActu.Programmes.ToList().Find(x => x.NoProgramme == actu.NoProgramme).NomProgramme,
+
+                    Approuve = actu.Approuve
+                });
+            }
+            ActualisationViewModel actualisationSupprimer = listeActuModel.Find(x => x.NumActualisation == numActu);
+            return View(actualisationSupprimer);
+        }
+
+        [HttpPost]
+        public ActionResult SupprimerActualisation2(int NumActualisation) //,string username, string password
+        {
+            //Retirer de la BD
+            this.contexteActu.SupprimerActualisation(NumActualisation);
+            //Retourner la listed es actualsiations
+            return RedirectToAction("Actualisation");
+        }
+
+        public ActionResult RetirerMembre(int numActualisation, string courriel)
+        {
+            //Retirer de la BD
+            this.contexteActu.RetirerMembreActu(numActualisation, courriel);
+            //Retourner la vue des utilisateurs de l,actualisation
+            return RedirectToAction("MembresActualisation", new {numAct = numActualisation});
+        }
+
+        public bool Confirmation()
+        {
+            return true;
+        }
 
 
-        public IActionResult Privacy()
+            public IActionResult Privacy()
         {
             return View();
         }

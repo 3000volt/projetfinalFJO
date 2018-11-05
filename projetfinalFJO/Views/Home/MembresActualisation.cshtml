@@ -28,18 +28,20 @@
         {
             if (item.Role == "King")
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Prenom)
-                    </td>
-
-                    <td>
-                        @Html.ActionLink("Retirer de l'actualisation", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courriel)
+            </td>
+            <td>
+                @Html.ActionLink("Retirer de l'actualisation", "RetirerMembre", new { numActualisation = @ViewBag.NumActualisation, courriel = item.Courriel })
+            </td>
+        </tr>
             }
 
         }
@@ -57,7 +59,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Prenom)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courriel)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -65,18 +69,20 @@
         {
             if (item.Role == "Sous_Commite")
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Prenom)
-                    </td>
-
-                    <td>
-                        @Html.ActionLink("Retirer de l'actualisation", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courriel)
+            </td>
+            <td>
+                @Html.ActionLink("Retirer de l'actualisation", "RetirerMembre", new { numActualisation = @ViewBag.NumActualisation, courriel = item.Courriel })
+            </td>
+        </tr>
             }
 
         }
@@ -94,7 +100,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Prenom)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courriel)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -102,18 +110,20 @@
         {
             if (item.Role == "Commite_Programme")
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Prenom)
-                    </td>
-
-                    <td>
-                        @Html.ActionLink("Retirer de l'actualisation", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.ActionLink("Retirer de l'actualisation", "RetirerMembre", new { numActualisation = @ViewBag.NumActualisation, courriel = item.Courriel })
+            </td>
+        </tr>
             }
 
         }

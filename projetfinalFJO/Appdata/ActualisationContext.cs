@@ -91,6 +91,43 @@ namespace projetfinalFJO.Appdata
             }
         }
 
+        public void SupprimerActualisation(int numAct)
+        {
+            //utiliser le connectionString pour pouvoir affecter la BD
+            using (SqlConnection con = new SqlConnection(this.ConnectionString))
+            {
+                //requete pour supprimer un livre
+                string sqlStr = "delete from ActualisationInformation where NumActualisation = @numActualisation";
+                //Code pour Affecter la BD
+                SqlCommand cmd = new SqlCommand(sqlStr, con);
+                cmd.CommandType = CommandType.Text;
+                con.Open();
+                //Associer la valeur de l isbn en paramettre
+                cmd.Parameters.AddWithValue("numActualisation", numAct);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        public void RetirerMembreActu(int numAct, string email)
+        {
+            //utiliser le connectionString pour pouvoir affecter la BD
+            using (SqlConnection con = new SqlConnection(this.ConnectionString))
+            {
+                //requete pour supprimer un livre
+                string sqlStr = "delete from Membresdesactualisations where NumActualisation = @numActualisation and AdresseCourriel = @adresseCourriel";
+                //Code pour Affecter la BD
+                SqlCommand cmd = new SqlCommand(sqlStr, con);
+                cmd.CommandType = CommandType.Text;
+                con.Open();
+                //Associer la valeur de l isbn en paramettre
+                cmd.Parameters.AddWithValue("numActualisation", numAct);
+                cmd.Parameters.AddWithValue("adresseCourriel", email);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ActualisationInformation>(entity =>

@@ -52,7 +52,7 @@
                 @Html.ActionLink("Voir actualisation", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Consulter la liste des utilisateurs", "MembresActualisation", new { numActu=item.NumActualisation  }) |
                 @Html.ActionLink("Actualiser", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Supprimer", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Supprimer", "SupprimerActualisation", new { numActu = item.NumActualisation  })
             </td>
         </tr>
 }
