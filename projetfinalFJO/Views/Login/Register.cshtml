@@ -1,57 +1,77 @@
 ﻿@model projetfinalFJO.Models.Authentification.RegisterViewModel
 
 @{
-    ViewData["Title"] = "Register";
+    Layout = "_LayoutAuthentification";
 }
 
-<h2>@ViewData["Title"]</h2>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Prenom"></label>
-                <input asp-for="Prenom" class="form-control" />
-                <span asp-validation-for="Prenom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nom"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                <span class="login100-form-title p-b-26">
+                    Welcome
+                </span>
+                <span class="login100-form-title p-b-48">
+                    <i class="zmdi zmdi-font"></i>
+                </span>
+                <div class="wrap-input100 validate-input">
+                    <input asp-for="Nom" class="input100" />
+                    <span asp-validation-for="Nom" class="focus-input100" data-placeholder="Nom"></span>
+                    <span asp-validation-for="Nom" class="text-danger"></span>
+                </div>
+                <div class="wrap-input100 validate-input">
+                    <input asp-for="Prenom" class="input100" />
+                    <span asp-validation-for="Prenom" class="focus-input100" data-placeholder="Prenom"></span>
+                    <span asp-validation-for="Prenom" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+                        <input asp-for="Email" class="input100" type="text">
+                        <span asp-validation-for="Email" class="focus-input100" data-placeholder="Email"></span>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input asp-for="Password" class="input100" type="password">
+                        <span asp-validation-for="Password" class="focus-input100" data-placeholder="Password"></span>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="wrap-input100 validate-input" data-validate="Enter confirm password">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input asp-for="ConfirmPassword" class="input100" type="password">
+                        <span asp-validation-for="ConfirmPassword" class="focus-input100" data-placeholder="Password"></span>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="wrap-input100 validate-input" data-validate="Selectionner un role">
+                        <label asp-for="Role" class="control-label"></label>
+                        <select asp-for="Role" asp-items="@Model.Roles" class="form-control"></select>
+                    </div>
+                </div>
 
-                <label asp-for="Role" class="control-label"></label>
-                <select asp-for="Role" asp-items="@Model.Roles" class="form-control"></select>
-            </div>
-            <button type="submit" class="btn btn-default">Register</button>
-        </form>
+                <div class="form-group">
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" id="btsubmit" type="submit">
+                                S'enregistrer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
