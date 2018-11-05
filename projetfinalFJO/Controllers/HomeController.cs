@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using projetfinalFJO.Appdata;
 using projetfinalFJO.Models;
@@ -30,7 +31,7 @@ namespace projetfinalFJO.Controllers
         public HomeController(IConfiguration iConfig, UserManager<LoginUser> userManager, LoginDbContext log)
         {
             this.config = iConfig;
-            this.contexteActu = new ActualisationContext();
+            this.contexteActu = new ActualisationContext(config.GetConnectionString("DefaultConnection"));
             this._userManager = userManager;
             this.contextLogin = log;
         }
@@ -122,14 +123,14 @@ namespace projetfinalFJO.Controllers
             {
                 courriel = me.AdresseCourriel;
                 //Trouver l'utilisatuer dans la liste des utilisateurs
-                util = this.listeUtilisateurActu.Find(x => x.AdresseCourriel == courriel);
+                util = this.contexteActu.Utilisateur.ToList().Find(x => x.AdresseCourriel == courriel);
                 //Id Utilisateur
-                string utilisateurID = this.listeUtilisateurLogin.Find(x => x.UserName == me.AdresseCourriel).Id;
+                string utilisateurID = this.contextLogin.Users.ToList().Find(x => x.UserName == me.AdresseCourriel).Id;
                 //Trouver son role
                 //Id
                 string roleId = this.contextLogin.UserRoles.ToList().Find(x => x.UserId == utilisateurID).RoleId;
                 //nom
-                string nomRole = this.listeRoleLogin.Find(x => x.Id == roleId).Name;
+                string nomRole = this.contextLogin.Roles.ToList().Find(x => x.Id == roleId).Name;
                 //Ajouter a la liste
                 listeUtilisateurs.Add(new MembresActualisationViewModel
                 {
@@ -147,8 +148,7 @@ namespace projetfinalFJO.Controllers
         {
             //Retourne la liste de totu les membres
             List<Utilisateur> listeUtilisateur = this.contexteActu.Utilisateur.ToList();
-            //Retirer les membres déja présent de la liste
-            //TODO
+
             //Transferer en ViewModel
             List<UtilisateurViewModel> listeUtilisateurVM = new List<UtilisateurViewModel>();
             foreach (Utilisateur util in listeUtilisateur)
@@ -168,47 +168,76 @@ namespace projetfinalFJO.Controllers
                     Role = nomRole
                 });
             }
+            //Retirer les utilisateurs déjà présent dans l'actualisation
+            List<Membresdesactualisations> listeMembrePresent = this.contexteActu.Membresdesactualisations.ToList().FindAll(x => x.NumActualisation == numAct);
+            foreach(Membresdesactualisations membre in listeMembrePresent)
+            {
+                string courriel = membre.AdresseCourriel;
+                //Trouver l'utilisateur
+                UtilisateurViewModel ut = listeUtilisateurVM.Find(x => x.AdresseCourriel == courriel);
+                //Retirer de la liste des utilisatuers ajoutables
+                listeUtilisateurVM.Remove(ut);
+            }
             //Conserver le numéro d'actualisation en cours
             ViewBag.NumActualisation = numAct;
             return View(listeUtilisateurVM);
         }
 
-        public ActionResult AjouterMembre2(string courriel, int numAct)
+        public ActionResult AjouterMembre2(string courriel, int numAct, int num)
         {
-            //Ajouter le membre ayant le courriel en parametre a l'actualisation
-            //Récupérer la liste
-            List<Membresdesactualisations> listeMembres = this.contexteActu.Membresdesactualisations.ToList().FindAll(x => x.NumActualisation == numAct);
-            listeMembres.Add(new Membresdesactualisations
+            //Créer l'objet du membre nouvellement ajouté
+            Membresdesactualisations nouveauM = new Membresdesactualisations
             {
                 NumActualisation = numAct,
                 AdresseCourriel = courriel
-            });
-            List<MembresActualisationViewModel> listeUtilisateurs = new List<MembresActualisationViewModel>();
-            Utilisateur util;
-            foreach (Membresdesactualisations me in listeMembres)
-            {
-                courriel = me.AdresseCourriel;
-                //Trouver l'utilisatuer dans la liste des utilisateurs
-                util = this.contexteActu.Utilisateur.ToList().Find(x => x.AdresseCourriel == courriel);
-                //Id Utilisateur
-                string utilisateurID = this.contextLogin.Users.ToList().Find(x => x.UserName == me.AdresseCourriel).Id;
-                //Trouver son role
-                //Id
-                string roleId = this.contextLogin.UserRoles.ToList().Find(x => x.UserId == utilisateurID).RoleId;
-                //nom
-                string nomRole = this.contextLogin.Roles.ToList().Find(x => x.Id == roleId).Name;
-                //Ajouter a la liste
-                listeUtilisateurs.Add(new MembresActualisationViewModel
-                {
-                    Nom = util.Nom,
-                    Prenom = util.Prenom,
-                    Role = nomRole
-                });
-            }
+            };
+            //Ajouter le nouveau membre a la bd de l'actualisation
+            this.contexteActu.InsererMembresdesactualisations(nouveauM);
+            //Créer la liste des membres de l'actualisation en cours
+            //List<Membresdesactualisations> listeMembres = this.contexteActu.Membresdesactualisations.ToList().FindAll(x => x.NumActualisation == numAct);
+            //List<MembresActualisationViewModel> listeUtilisateurs = new List<MembresActualisationViewModel>();
+            //Utilisateur util;
+            //foreach (Membresdesactualisations me in listeMembres)
+            //{
+            //    courriel = me.AdresseCourriel;
+            //    //Trouver l'utilisatuer dans la liste des utilisateurs
+            //    util = this.contexteActu.Utilisateur.ToList().Find(x => x.AdresseCourriel == courriel);
+            //    //Id Utilisateur
+            //    string utilisateurID = this.contextLogin.Users.ToList().Find(x => x.UserName == me.AdresseCourriel).Id;
+            //    //Trouver son role
+            //    //Id
+            //    string roleId = this.contextLogin.UserRoles.ToList().Find(x => x.UserId == utilisateurID).RoleId;
+            //    //nom
+            //    string nomRole = this.contextLogin.Roles.ToList().Find(x => x.Id == roleId).Name;
+            //    //Ajouter a la liste
+            //    listeUtilisateurs.Add(new MembresActualisationViewModel
+            //    {
+            //        Nom = util.Nom,
+            //        Prenom = util.Prenom,
+            //        Role = nomRole
+            //    });
+            //}
             //Retour a la vue des membres de l'actualisation en cours
-            return View("MembresActualisation", listeUtilisateurs);
+            return RedirectToAction("MembresActualisation", new { numActu = num });
         }
 
+        [HttpGet]
+        public ActionResult CreerActualisation()
+        {
+            //Méthode qui retourne la vue de création
+            ViewBag.Prog = new SelectList(this.contexteActu.Programmes.ToList(), "NoProgramme", "NomProgramme");
+            return View();
+            //https://stackoverflow.com/questions/16594958/how-to-use-a-viewbag-to-create-a-dropdownlist
+        }
+
+        [HttpPost]
+        public ActionResult CreerActualisation(ActualisationInformation actu)
+        {
+            //Ajouter l'actualisation à la BD
+            this.contexteActu.InsererActualisation(actu);
+            //Retourner la liste
+            return RedirectToAction("Actualisation");
+        }
 
 
 

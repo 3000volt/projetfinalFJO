@@ -47,7 +47,7 @@
                 @Html.DisplayFor(modelItem => item.Role)
             </td>
             <td>
-                @Html.ActionLink("Ajouter ce membre", "AjouterMembre2", new { courriel = item.AdresseCourriel, numAct = @ViewBag.NumActualisation })
+                @Html.ActionLink("Ajouter ce membre", "AjouterMembre2", new { courriel = item.AdresseCourriel, numAct = @ViewBag.NumActualisation, num = ViewBag.NumActualisation })
 
             </td>
         </tr>

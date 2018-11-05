@@ -1,0 +1,41 @@
+﻿@model projetfinalFJO.Appdata.ActualisationInformation
+
+@{
+    ViewData["Title"] = "CreerActualisation";
+}
+
+<h2>Création d'une actualisation</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreerActualisation">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NumActualisation" class="control-label"></label>
+                <input asp-for="NumActualisation" class="form-control" />
+                <span asp-validation-for="NumActualisation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NomActualisation" class="control-label"></label>
+                <input asp-for="NomActualisation" class="form-control" />
+                <span asp-validation-for="NomActualisation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoProgramme" class="control-label"></label>
+                @*@Html.DropDownList("AccountId", (IEnumerable<SelectListItem>)ViewBag.Accounts, null, new { @class = "form-control" })*@
+                @*@Html.DropDownList("NoProgramme", (IEnumerable<SelectListItem>)ViewBag.Prog, null, new { @class = "form-control" })*@
+                <select asp-for="NoProgramme" asp-items="ViewBag.Prog" ></select>
+                <span asp-validation-for="NoProgramme" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Créer l'actualisation" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Actualisation">Retour à la liste des actualisations</a>
+</div>
+

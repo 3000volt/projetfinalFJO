@@ -9,6 +9,8 @@
 <p>
     <a asp-action="AjouterMembre" asp-route-numAct="@ViewBag.NumActualisation">Ajouter un membre à l'actualisation</a>
 </p>
+<h2>Membres du King (SRDP)</h2>
+
 <table class="table">
     <thead>
         <tr>
@@ -18,28 +20,102 @@
             <th>
                 @Html.DisplayNameFor(model => model.Prenom)
             </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Role == "King")
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prenom)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Retirer de l'actualisation", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+<h2>Membres du Sous-commité</h2>
+
+<table class="table">
+    <thead>
+        <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Role)
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenom)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
+            if (item.Role == "Sous_Commite")
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prenom)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Retirer de l'actualisation", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+<h2>Membres du Commité du programmes</h2>
+
+<table class="table">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prenom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                @Html.ActionLink("Retirer de l'actualisation", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </th>
+            <th></th>
         </tr>
-}
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Role == "Commite_Programme")
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prenom)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Retirer de l'actualisation", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+
+        }
     </tbody>
 </table>
