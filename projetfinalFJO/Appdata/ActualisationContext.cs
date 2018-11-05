@@ -128,6 +128,7 @@ namespace projetfinalFJO.Appdata
             }
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ActualisationInformation>(entity =>

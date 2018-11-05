@@ -109,6 +109,21 @@ namespace projetfinalFJO.Controllers
             return View(listeUtilisateurs);
         }
 
+        [HttpGet]
+        public ActionResult SupprimerUtilisateur(string courriel)
+        {
+            //Trouver l'utilistaur
+            Utilisateur util = this.contexteActu.Utilisateur.ToList().Find(x => x.AdresseCourriel == courriel);
+            return View(util);
+        }
+
+        [HttpPost]
+        public ActionResult SupprimerUtilisateur2(string courriel)
+        {
+            //TODO : Supprimer des 2 bases de données!!
+
+            return RedirectToAction("GererUtilisateur");
+        }
 
 
         public ActionResult MembresActualisation(int numActu)

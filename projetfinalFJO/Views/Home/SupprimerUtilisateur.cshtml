@@ -1,0 +1,43 @@
+﻿@model projetfinalFJO.Appdata.Utilisateur
+
+@{
+    ViewData["Title"] = "SupprimerUtilisateur";
+}
+
+<h2>Supprimer un utilisateur</h2>
+
+<h3>Êtes-vous certain de vouloir supprimer cet utilisateur?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AdresseCourriel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdresseCourriel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RegisterDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegisterDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Prenom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Prenom)
+        </dd>
+    </dl>
+    
+    <form asp-action="SupprimerUtilisateur2">
+        <input type="submit" value="Supprimer l'utilisateur" class="btn btn-default" /> |
+        <a asp-action="GererUtilisateur">Retour à la liste d'utilisateurs</a>
+    </form>
+</div>
