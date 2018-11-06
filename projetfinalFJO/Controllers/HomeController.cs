@@ -72,13 +72,42 @@ namespace projetfinalFJO.Controllers
                     Role = nomRole
                 });
             }
+            ViewBag.Role = new SelectList(this.contextLogin.Roles.ToList(), "Id", "Name");
             return View(listeUtilisateurs);
         }
 
-   
+        [HttpGet]
+        public ActionResult SupprimerUtilisateur(string courriel)
+        {
+            //Trouver l'utilistaur
+            Utilisateur util = this.contexteActu.Utilisateur.ToList().Find(x => x.AdresseCourriel == courriel);
+            return View(util);
+        }
+
+        [HttpPost]
+        public ActionResult SupprimerUtilisateur2(string courriel)
+        {
+            //Utilisateur d'actualisation
+            this.contexteActu.SupprimerUtilisateur(courriel);
+            //ContextLogin
+            this.contextLogin.SupprimerUtilisateur(courriel);
+            return RedirectToAction("GererUtilisateur");
+        }
+
+        public ActionResult ChangerRole(string nomRole, string courriel)
+        {
+            //Trouver les Id respectifs
+            string userId = this.contextLogin.Users.ToList().Find(x => x.UserName == courriel).Id;
+            string roleId = this.contextLogin.Roles.ToList().Find(x => x.Name == nomRole).Id;
+            //Mettre a jour la BD
+            this.contextLogin.ModifierRole(userId, roleId);
+            //Retourner la vue de la liste des utilisateurs
+            return RedirectToAction("GererUtilisateur");
+
+        }
 
 
-            public IActionResult Privacy()
+        public IActionResult Privacy()
         {
             return View();
         }

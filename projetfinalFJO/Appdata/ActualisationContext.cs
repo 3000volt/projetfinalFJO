@@ -129,6 +129,24 @@ namespace projetfinalFJO.Appdata
             }
         }
 
+        public void SupprimerUtilisateur(string email)
+        {
+            //utiliser le connectionString pour pouvoir affecter la BD
+            using (SqlConnection con = new SqlConnection(this.ConnectionString))
+            {
+                //requete pour supprimer un livre
+                string sqlStr = "delete from Utilisateur where AdresseCourriel = @adresseCourriel";
+                //Code pour Affecter la BD
+                SqlCommand cmd = new SqlCommand(sqlStr, con);
+                cmd.CommandType = CommandType.Text;
+                con.Open();
+                //Associer la valeur de l isbn en paramettre
+                cmd.Parameters.AddWithValue("adresseCourriel", email);
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

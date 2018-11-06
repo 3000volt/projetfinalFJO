@@ -36,7 +36,7 @@
         </dd>
     </dl>
     
-    <form asp-action="SupprimerUtilisateur2">
+    <form asp-action="SupprimerUtilisateur2" asp-route-courriel="@Model.AdresseCourriel">
         <input type="submit" value="Supprimer l'utilisateur" class="btn btn-default" /> |
         <a asp-action="GererUtilisateur">Retour à la liste d'utilisateurs</a>
     </form>

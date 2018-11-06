@@ -44,11 +44,14 @@
                 @Html.DisplayFor(modelItem => item.Prenom)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Role)
+                @Html.DropDownListFor(modelItem => item.Role, (SelectList)ViewBag.Role, item.Role)
+                @*@Html.DropDownList("Name", (IEnumerable<SelectListItem>)ViewBag.Role, item.Role, new { @class = "form-control" })*@
+                @*<select asp-for="NoProgramme" asp-items="ViewBag.Prog"></select>
+                @Html.DisplayFor(modelItem => item.Role)*@
             </td>
             <td>
-                @Html.ActionLink("Changer le rôle de l'utilisateur", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Supprimmer l'utilisateur", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Changer le rôle de l'utilisateur", "ChangerRole", new {  nomRole = item.Role, courriel = item.AdresseCourriel }) |
+                @Html.ActionLink("Supprimmer l'utilisateur", "SupprimerUtilisateur", new { courriel = item.AdresseCourriel })
             </td>
         </tr>
 }
