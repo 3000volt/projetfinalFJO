@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using projetfinalFJO.Appdata;
 using projetfinalFJO.Models;
 using projetfinalFJO.Models.Authentification;
@@ -19,10 +21,7 @@ namespace projetfinalFJO.Controllers
         private IConfiguration config;
         private ActualisationContext contexteActu;
         private readonly LoginDbContext contextLogin;
-        private List<ActualisationInformation> listeActualisation;
-        private List<Programmes> listeProgrammes;
         private readonly UserManager<LoginUser> _userManager;
-        private List<Membresdesactualisations> listeMemrbesActualisation;
 
         //Constructeur du controleur
         public HomeController(IConfiguration iConfig, UserManager<LoginUser> userManager, LoginDbContext log)
@@ -35,77 +34,61 @@ namespace projetfinalFJO.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-
-        public IActionResult GererUtilisateur()
-        {
-            //instancier les listes
-            List<UtilisateurViewModel> listeUtilisateurs = new List<UtilisateurViewModel>();
-            string userEmail;
-            string userID;
-            //Liste de tout les utilisateurs avec leur roles
-            var liste = this.contextLogin.UserRoles.ToList();
-
-            foreach (LoginUser util in this.contextLogin.Users.ToList())
+            //Retourner les actualisations que l'utilisateur participe
+            List<Membresdesactualisations> membreActusPresent = this.contexteActu.Membresdesactualisations.ToList().FindAll(x => x.AdresseCourriel == this.User.Identity.Name);
+            List<ActualisationInformation> actus = new List<ActualisationInformation>();
+            foreach (Membresdesactualisations membre in membreActusPresent)
             {
-                //Récupérer le Email du user
-                userEmail = util.UserName;
-                //Trouver le ID du user
-                userID = util.Id;
-                //Trouver le nom et prenom de l'utilistaeur
-                string nomUt = this.contexteActu.Utilisateur.ToList().Find(x => x.AdresseCourriel == userEmail).Nom;
-                string prenomUt = this.contexteActu.Utilisateur.ToList().Find(x => x.AdresseCourriel == userEmail).Prenom;
-                //Trouver le ID du role du user
-                string roleID = liste.Find(x => x.UserId == userID).RoleId;
-                //Trouver le nom du role
-                string nomRole = this.contextLogin.Roles.ToList().Find(x => x.Id == roleID).Name;
-                DateTime dateEnr = this.contexteActu.Utilisateur.ToList().Find(x => x.AdresseCourriel == userEmail).RegisterDate;
-                //Ajouter a la liste du ViewModel
-                listeUtilisateurs.Add(new UtilisateurViewModel
-                {
-                    AdresseCourriel = userEmail,
-                    RegisterDate = dateEnr,
-                    Nom = nomUt,
-                    Prenom = prenomUt,
-                    Role = nomRole
+                actus.Add(new ActualisationInformation{
+                    NumActualisation = membre.NumActualisation,
+                    NomActualisation = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == membre.NumActualisation).NomActualisation,
+                    NoProgramme = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == membre.NumActualisation).NoProgramme,
+                    Approuve = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == membre.NumActualisation).Approuve
                 });
             }
-            ViewBag.Role = new SelectList(this.contextLogin.Roles.ToList(), "Id", "Name");
-            return View(listeUtilisateurs);
+            List<ActualisationViewModel> actuListe = actus.Select(x => new ActualisationViewModel
+            {
+                NumActualisation = x.NumActualisation,
+                NomActualisation = x.NomActualisation,
+                NoProgramme = x.NoProgramme,
+                NomProgramme = Selection(x.NoProgramme),
+                Approuve = x.Approuve
+            }).ToList();
+            return View(actuListe);
         }
 
-        [HttpGet]
-        public ActionResult SupprimerUtilisateur(string courriel)
+        //Méthode privé pour retirer le nom du programme
+        private string Selection(string num)
         {
-            //Trouver l'utilistaur
-            Utilisateur util = this.contexteActu.Utilisateur.ToList().Find(x => x.AdresseCourriel == courriel);
-            return View(util);
+            var listeProgrammes = this.contexteActu.Programmes.ToList();
+            Programmes prog = listeProgrammes.Find(x => x.NoProgramme == num);
+            string numero = prog.NomProgramme;
+            return numero;
         }
 
-        [HttpPost]
-        public ActionResult SupprimerUtilisateur2(string courriel)
+        public ActionResult ChoixActualisation(int num)
         {
-            //Utilisateur d'actualisation
-            this.contexteActu.SupprimerUtilisateur(courriel);
-            //ContextLogin
-            this.contextLogin.SupprimerUtilisateur(courriel);
-            return RedirectToAction("GererUtilisateur");
+            int numSession = num;
+            //Créer une session pour garder en mémoire l'actualisation en cours
+            this.HttpContext.Session.SetString("NumActualisation", numSession.ToString());
+            return RedirectToAction("Accueil");
         }
 
-        public ActionResult ChangerRole(string nomRole, string courriel)
+        public ActionResult Accueil()
         {
-            //Trouver les Id respectifs
-            string userId = this.contextLogin.Users.ToList().Find(x => x.UserName == courriel).Id;
-            string roleId = this.contextLogin.Roles.ToList().Find(x => x.Name == nomRole).Id;
-            //Mettre a jour la BD
-            this.contextLogin.ModifierRole(userId, roleId);
-            //Retourner la vue de la liste des utilisateurs
-            return RedirectToAction("GererUtilisateur");
-
+            int numActu = int.Parse(this.HttpContext.Session.GetString("NumActualisation"));
+            var actu = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == numActu);
+            //Transformer en View Model
+            ActualisationViewModel actuVM = new ActualisationViewModel
+            {
+                NumActualisation = actu.NumActualisation,
+                NomActualisation = actu.NomActualisation,
+                NoProgramme = actu.NoProgramme,
+                NomProgramme = Selection(actu.NoProgramme),
+                Approuve = actu.Approuve
+            };
+            return View(actuVM);
         }
-
 
         public IActionResult Privacy()
         {

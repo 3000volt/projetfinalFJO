@@ -34,13 +34,13 @@
                         {
                             <li><a asp-area="" asp-controller="Actualisation" asp-action="Actualisation">Actualisation</a></li>
 
-                            <li><a asp-area="" asp-controller="Home" asp-action="GererUtilisateur">Gérer un utilisateur</a></li>
+                            <li><a asp-area="" asp-controller="GererUtilisateur" asp-action="GererUtilisateur">Gérer un utilisateur</a></li>
 
                             <li><a asp-area="" asp-controller="Programmes" asp-action="Index">Gérer un programme</a></li>
                         }
                         else if (this.User.IsInRole("Sous_Commite"))
                         {
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Accueil">Accueil</a></li>
 
 
                             <li><a asp-area="" asp-controller="Home" asp-action="About">Gestion des cours</a></li>

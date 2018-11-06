@@ -24,9 +24,11 @@ namespace projetfinalFJO.Controllers
         private readonly SignInManager<LoginUser> _signInManager;
         private readonly ILogger _logger;
         private readonly ActualisationContext context;
+        private readonly LoginDbContext contextLogin;
 
         public LoginController( UserManager<LoginUser> userManager,RoleManager<LoginRole> roleManager,
-            SignInManager<LoginUser> signInManager,ILogger<LoginController> logger,ActualisationContext cont
+            SignInManager<LoginUser> signInManager,ILogger<LoginController> logger,ActualisationContext cont,
+            LoginDbContext log
             )
         {
             _userManager = userManager;
@@ -34,6 +36,7 @@ namespace projetfinalFJO.Controllers
             _signInManager = signInManager;
             _logger = logger;
             this.context = cont;
+            this.contextLogin = log;
         }
         [HttpGet]
         [AllowAnonymous]
@@ -41,7 +44,6 @@ namespace projetfinalFJO.Controllers
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
             ViewData["ReturnUrl"] = returnUrl ?? "/Home/Index";
             return View();
         }
@@ -62,7 +64,24 @@ namespace projetfinalFJO.Controllers
                     //TODO : Prendre les infos de l'utilisateur ici
                     this.context.Utilisateur.Select(user => user.AdresseCourriel== model.UserName);//
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+
+                    //Trouver le eamil du user
+                    string emailUser = model.UserName;
+                    //trouver le role du user
+                    string userId = this.contextLogin.Users.ToList().Find(x => x.UserName == emailUser).Id;
+                    string roleId = this.contextLogin.UserRoles.ToList().Find(x => x.UserId == userId).RoleId;
+                    string roleNom = this.contextLogin.Roles.ToList().Find(x => x.Id == roleId).Name;
+
+                    if (roleNom == "Admin")
+                    {
+                        ViewData["ReturnUrl"] = "../Actualisation/Actualisation";
+                        return RedirectToAction("Actualisation","Actualisation");
+                    }
+                    else
+                    {
+                        ViewData["ReturnUrl"] = returnUrl ?? "/Home/Index";
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
@@ -110,7 +129,7 @@ namespace projetfinalFJO.Controllers
                     if (roleresult.Succeeded)
                     {
                         _logger.LogInformation("User created a new account with password.");
-                        return RedirectToAction(nameof(HomeController.Index), "Home");
+                        return RedirectToAction(nameof(HomeController.Index), "Privacy");
 
                     }
                     else
@@ -145,7 +164,7 @@ namespace projetfinalFJO.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(HomeController.Privacy), "Home");
         }
         public IActionResult AccessDenied(string returnUrl = null)
         {

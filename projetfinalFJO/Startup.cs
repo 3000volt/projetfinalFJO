@@ -27,7 +27,7 @@ namespace projetfinalFJO
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSession();
             //ajouter le service d'authentification Identity
             services.AddIdentity<LoginUser, LoginRole>(options =>
             {
@@ -61,6 +61,8 @@ namespace projetfinalFJO
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSession();
+            app.UseMvc();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -73,11 +75,12 @@ namespace projetfinalFJO
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Privacy}/{id?}");
             });
         }
     }
