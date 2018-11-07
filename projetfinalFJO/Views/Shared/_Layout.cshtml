@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/sidebar.css" type="text/css" />
     <title>@ViewData["Title"] - projetfinalFJO</title>
 
     <environment include="Development">
@@ -30,56 +31,81 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @{if (this.User.IsInRole("Admin")) //SRDP
-                        {
-                            <li><a asp-area="" asp-controller="Actualisation" asp-action="Actualisation">Actualisation</a></li>
+                        @{if (this.User.IsInRole("Admin")) //SRDP
+                            {
+                                <li><a asp-area="" asp-controller="Actualisation" asp-action="Actualisation">Actualisation</a></li>
 
-                            <li><a asp-area="" asp-controller="GererUtilisateur" asp-action="GererUtilisateur">Gérer un utilisateur</a></li>
+                                <li><a asp-area="" asp-controller="GererUtilisateur" asp-action="GererUtilisateur">Gérer un utilisateur</a></li>
 
-                            <li><a asp-area="" asp-controller="Programmes" asp-action="Index">Gérer un programme</a></li>
+                                <li><a asp-area="" asp-controller="Programmes" asp-action="Index">Gérer un programme</a></li>
+
+
+                            }
+                            else if (this.User.IsInRole("Sous_Commite"))
+                            {
+                                <li><a asp-area="" asp-controller="Home" asp-action="Accueil">Accueil</a></li>
+
+
+                                <li><a asp-area="" asp-controller="Home" asp-action="About">Gestion des cours</a></li>
+
+
+                                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Gestion des compétences</a></li>
+
+
+                                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Gestion des analyses</a></li>
+
+
+                                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Génération des rapports</a></li>
+                            }
+                            else if (this.User.IsInRole("Commite_Programme"))
+                            {
+                                <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
+
+
+                                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Génération des rapports</a></li>
+                            }
                         }
-                        else if (this.User.IsInRole("Sous_Commite"))
-                        {
-                            <li><a asp-area="" asp-controller="Home" asp-action="Accueil">Accueil</a></li>
+                    </ul>
+                    @await Html.PartialAsync("_LoginPartial")
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 well" style="background-color:white">
+                    @RenderBody()
+                </div>
+                <div id="mySidebar" class="sidebar">
+                    @*<input type="text" id="txtCommentaires"/>*@
+                    <button id="openBtn"><</button>
+                <i class="fas fa-align-right"></i>
+                 <script>
+                    document.getElementById("openBtn").addEventListener("click", OuvrirFermer);
 
-
-                            <li><a asp-area="" asp-controller="Home" asp-action="About">Gestion des cours</a></li>
-
-
-                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Gestion des compétences</a></li>
-
-
-                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Gestion des analyses</a></li>
-
-
-                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Génération des rapports</a></li>
+                    function OuvrirFermer() {      
+                        if (document.getElementById("mySidebar").style.width == "250px") {
+                            return fermer();
                         }
-                        else if (this.User.IsInRole("Commite_Programme"))
-                        {
-                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
-
-
-                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Génération des rapports</a></li>
-                        }
+                        return ouvrir();
                     }
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
-        </div>
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-10 well" style="background-color:white">
-                @RenderBody()
-            </div>
-            <div class="col-lg-2 well " style="background-color:antiquewhite; height:786px">
-                Zone du chat
-            </div>
+                    function ouvrir() {
+                        document.getElementById("mySidebar").style.width = "250px";
+                        document.getElementById("main").style.marginLeft = "250px";
+                        //document.getElementById("txtCommentaires").style.width = "200px";
+                    }
+                    function fermer() {
+                        document.getElementById("mySidebar").style.width = "35px";
+                        document.getElementById("main").style.marginLeft = "35px"; 
+                        //document.getElementById("txtCommentaires").style.width = "0px";
+                    }
+                 </script>
+                </div>
 
 
+            </div>
         </div>
-    </div>
-    <partial name="_CookieConsentPartial" />
+
+        <partial name="_CookieConsentPartial" />
 
         <hr />
         <footer>
@@ -93,22 +119,22 @@
             <script src="~/lib/jquery-unobtrusive-ajax/jquery.unobtrusive-ajax.js"></script>
             <script src="~/js/site.js" asp-append-version="true"></script>
         </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
 
-    @RenderSection("Scripts", required: false)
-</body>
+        @RenderSection("Scripts", required: false)
+    </body>
 </html>
