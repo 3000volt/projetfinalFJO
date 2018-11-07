@@ -1,0 +1,34 @@
+﻿@model projetfinalFJO.Appdata.Elementcompetence
+
+<h4>Elementcompetence</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="_AddPartialelementcompetence">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ElementCompétence" class="control-label"></label>
+                <input asp-for="ElementCompétence" class="form-control" />
+                <span asp-validation-for="ElementCompétence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CriterePerformance" class="control-label"></label>
+                <input asp-for="CriterePerformance" class="form-control" />
+                <span asp-validation-for="CriterePerformance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Idelementcomp" class="control-label"></label>
+                <input asp-for="Idelementcomp" class="form-control" />
+                <span asp-validation-for="Idelementcomp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

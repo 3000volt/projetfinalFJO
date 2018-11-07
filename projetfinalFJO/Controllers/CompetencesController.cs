@@ -48,6 +48,8 @@ namespace projetfinalFJO.Controllers
         public IActionResult Create()
         {
             ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille");
+            ViewBag.competence = new Competences();
+            ViewBag.element = new Elementcompetence();
             return View();
         }
 
@@ -56,16 +58,16 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation,Idfamille")] Competences competences)
+        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation,Idfamille")] Competences competences)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(competences);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Ok("élément ajouté avec succès");
             }
             ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.Idfamille);
-            return View(competences);
+            return BadRequest("élément non ajouté");
         }
 
         // GET: Competences/Edit/5
