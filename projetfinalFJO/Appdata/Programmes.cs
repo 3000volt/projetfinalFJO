@@ -8,6 +8,7 @@ namespace projetfinalFJO.Appdata
         public Programmes()
         {
             ActualisationInformation = new HashSet<ActualisationInformation>();
+            Competences = new HashSet<Competences>();
             Cours = new HashSet<Cours>();
         }
 
@@ -20,6 +21,7 @@ namespace projetfinalFJO.Appdata
         public string CondtionsAdmission { get; set; }
 
         public ICollection<ActualisationInformation> ActualisationInformation { get; set; }
+        public ICollection<Competences> Competences { get; set; }
         public ICollection<Cours> Cours { get; set; }
     }
 }
