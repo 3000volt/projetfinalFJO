@@ -3,43 +3,38 @@
 
 // Write your JavaScript code.
 // Write your JavaScript code.
-/*
-$(function () {
-    var formModal = fndefinirModal();
-    $("#createRoleModal").on("click", function () { $(formModal).dialog("open"); });
-    $("#btSubmit").on("click", function () { $(formModal).dialog("close"); });
-    $("#btCancel").on("click", function () { $(formModal).dialog("close"); });
-});
 
-function fndefinirModal() {
-    var formModal = $("#divaddmodal").dialog({
-        autoOpen: false,
-        height: 400,
-        width: 350,
-        modal: true,
-
-
-        close: function () {
-            formModal.dialog("close");
-
-        }
-    });
-    return formModal;
-}
-
-function onComplete() {
-    var formModal = fndefinirModal();
-    $("#createRoleModal").on("click", function () { $(formModal).dialog("open"); });
-    $('form input[type="text"]').prop("value", "");
-}*/
-
-function fnAddAjax() {
+function fnAddcommpetenceAjax() {
     var url = "/Competences/Create";
     var data = {
         CodeCompetence: $("#CodeCompetence").val(),
         ObligatoireCégep: $("#ObligatoireC_gep").val(),
         Description: $("#Description").val(),
         ContextRealisation: $("#ContextRealisation").val(),
+    };
+    $.ajax({
+        data: JSON.stringify(data),
+        type: "POST",
+        url: url,
+        datatype: "text/plain",
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (request) {
+            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+        },
+        success: function (result) {
+            alert(status);
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
+    });
+    return false;
+}
+
+function fnAddelecommpetenceAjax() {
+    var url = "/Elementcompetences/Create";
+    var data = {
+        ElementCompétence: $("#ElementComp_tence").val(),
+        CriterePerformance: $("#CriterePerformance").val(),
+        Idelementcomp: $("#Idelementcomp").val(),
     };
     $.ajax({
         data: JSON.stringify(data),

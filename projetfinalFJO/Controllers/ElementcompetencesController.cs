@@ -53,15 +53,15 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ElementCompétence,CriterePerformance,Idelementcomp")] Elementcompetence elementcompetence)
+        public async Task<IActionResult> Create([FromBody][Bind("ElementCompétence,CriterePerformance,Idelementcomp")] Elementcompetence elementcompetence)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(elementcompetence);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Ok("élément ajouté avec succès");
             }
-            return View(elementcompetence);
+            return BadRequest("élément non ajouté");
         }
 
         // GET: Elementcompetences/Edit/5
