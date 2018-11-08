@@ -21,7 +21,7 @@ namespace projetfinalFJO.Controllers
         // GET: Competences
         public async Task<IActionResult> Index()
         {
-            var actualisationContext = _context.Competences.Include(c => c.IdfamilleNavigation);
+            var actualisationContext = _context.Competences.Include(c => c.IdfamilleNavigation).Include(c => c.NoProgrammeNavigation);
             return View(await actualisationContext.ToListAsync());
         }
 
@@ -35,6 +35,7 @@ namespace projetfinalFJO.Controllers
 
             var competences = await _context.Competences
                 .Include(c => c.IdfamilleNavigation)
+                .Include(c => c.NoProgrammeNavigation)
                 .FirstOrDefaultAsync(m => m.CodeCompetence == id);
             if (competences == null)
             {
@@ -48,6 +49,7 @@ namespace projetfinalFJO.Controllers
         public IActionResult Create()
         {
             ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille");
+            ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme");
             ViewBag.competence = new Competences();
             ViewBag.element = new Elementcompetence();
             return View();
@@ -58,7 +60,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation,Idfamille")] Competences competences)
+        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +69,7 @@ namespace projetfinalFJO.Controllers
                 return Ok("élément ajouté avec succès");
             }
             ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.Idfamille);
+            ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
             return BadRequest("élément non ajouté");
         }
 
@@ -84,6 +87,7 @@ namespace projetfinalFJO.Controllers
                 return NotFound();
             }
             ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.Idfamille);
+            ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
             return View(competences);
         }
 
@@ -92,7 +96,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation,Idfamille")] Competences competences)
+        public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
         {
             if (id != competences.CodeCompetence)
             {
@@ -120,6 +124,7 @@ namespace projetfinalFJO.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.Idfamille);
+            ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
             return View(competences);
         }
 
@@ -133,6 +138,7 @@ namespace projetfinalFJO.Controllers
 
             var competences = await _context.Competences
                 .Include(c => c.IdfamilleNavigation)
+                .Include(c => c.NoProgrammeNavigation)
                 .FirstOrDefaultAsync(m => m.CodeCompetence == id);
             if (competences == null)
             {
