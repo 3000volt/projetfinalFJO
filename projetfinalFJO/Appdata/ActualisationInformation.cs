@@ -13,7 +13,7 @@ namespace projetfinalFJO.Appdata
         public int NumActualisation { get; set; }
         public string NomActualisation { get; set; }
         public string NoProgramme { get; set; }
-        public bool Approuve { get; set; }
+        public bool? Approuve { get; set; }
 
         public Programmes NoProgrammeNavigation { get; set; }
         public ICollection<Membresdesactualisations> Membresdesactualisations { get; set; }

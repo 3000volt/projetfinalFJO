@@ -8,7 +8,6 @@ namespace projetfinalFJO.Appdata
 {
     public partial class ActualisationContext : DbContext
     {
-
         private readonly string ConnectionString;
 
         public ActualisationContext()
@@ -122,6 +121,7 @@ namespace projetfinalFJO.Appdata
 
         public virtual DbSet<ActualisationInformation> ActualisationInformation { get; set; }
         public virtual DbSet<AnalyseCompétence> AnalyseCompétence { get; set; }
+        public virtual DbSet<AnalyseElementsCompetence> AnalyseElementsCompetence { get; set; }
         public virtual DbSet<Commentaires> Commentaires { get; set; }
         public virtual DbSet<Competences> Competences { get; set; }
         public virtual DbSet<CompetencesElementCompetence> CompetencesElementCompetence { get; set; }
@@ -142,9 +142,10 @@ namespace projetfinalFJO.Appdata
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseSqlServer(" Server=localhost;Database=Actualisation ;User Id=sa;Password=sql");
-                optionsBuilder.UseSqlServer(" Server=localhost; Database=Actualisation; Integrated Security=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer(" Server=localhost;Database=Actualisation ;User Id=sa;Password=sql");
+                //optionsBuilder.UseSqlServer(" Server=localhost; Database=Actualisation; Integrated Security=True;");
             }
         }
 
@@ -212,6 +213,39 @@ namespace projetfinalFJO.Appdata
                     .HasConstraintName("FK__AnalyseCo__CodeC__5CD6CB2B");
             });
 
+            modelBuilder.Entity<AnalyseElementsCompetence>(entity =>
+            {
+                entity.HasKey(e => new { e.IdAnalyseAc, e.AdresseCourriel, e.Idelementcomp });
+
+                entity.Property(e => e.IdAnalyseAc)
+                    .HasColumnName("Id_Analyse_AC")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.AdresseCourriel).HasMaxLength(100);
+
+                entity.Property(e => e.Context)
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                entity.Property(e => e.NiveauTaxonomique)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Reformulation)
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                entity.Property(e => e.SavoirEtreProgramme).HasColumnType("text");
+
+                entity.Property(e => e.SavoirFaireProgramme).HasColumnType("text");
+
+                entity.HasOne(d => d.IdelementcompNavigation)
+                    .WithMany(p => p.AnalyseElementsCompetence)
+                    .HasForeignKey(d => d.Idelementcomp)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__AnalyseEl__Idele__71D1E811");
+            });
+
             modelBuilder.Entity<Commentaires>(entity =>
             {
                 entity.HasKey(e => e.NumCom);
@@ -262,7 +296,7 @@ namespace projetfinalFJO.Appdata
                 entity.HasOne(d => d.NoProgrammeNavigation)
                     .WithMany(p => p.Competences)
                     .HasForeignKey(d => d.NoProgramme)
-                    .HasConstraintName("FK__Competenc__NoPro__7B5B524B");
+                    .HasConstraintName("FK__Competenc__NoPro__6EF57B66");
             });
 
             modelBuilder.Entity<CompetencesElementCompetence>(entity =>
