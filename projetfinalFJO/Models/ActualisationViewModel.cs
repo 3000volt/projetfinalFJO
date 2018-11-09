@@ -13,7 +13,7 @@ namespace projetfinalFJO.Models
 
         public string NomProgramme { get; set; }
 
-        public bool Approuve { get; set; } 
+        public bool? Approuve { get; set; } 
 
     }
 }
