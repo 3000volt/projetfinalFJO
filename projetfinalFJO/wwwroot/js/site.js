@@ -9,7 +9,7 @@ function fnAddcommpetenceAjax() {
     var url = "/Competences/Create";
     var data = {
         CodeCompetence: $("#CodeCompetence").val(),
-        ObligatoireCégep: $("#ObligatoireC_gep").val(),
+        ObligatoireCégep: $("[name=Obli]:checked").val(),
         Description: $("#Description").val(),
         ContextRealisation: $("#ContextRealisation").val(), 
         NoProgramme: $("#NoProgramme").val()

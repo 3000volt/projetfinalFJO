@@ -1,18 +1,15 @@
 ﻿@model projetfinalFJO.Appdata.Competences
-
-
 @{
     ViewData["Title"] = "Create";
 }
 
-
 <div id="principale">
-    <h2>create</h2>
+    <h2>Ajout compétence & élément de compétence</h2>
 
     <div id="divliste">
         <partial name="_AddPartialcompetence" model="ViewBag.competence" />
     </div>
-
+    <hr />
     <div id="divaddmodal">
         <partial name="_AddPartialelementcompetence" model="ViewBag.element" />
     </div>
