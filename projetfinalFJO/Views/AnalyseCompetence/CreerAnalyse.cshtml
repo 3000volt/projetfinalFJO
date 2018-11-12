@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "CreerAnalyse";
+}
+
+<div id="principale">
+    <h2>Créer les analyses</h2>
+
+</div>
+
+<div id="divCompetence">
+    <partial name="_AnalyseCompetence" />@*model="ViewBag.CreerAnalyse"*@
+</div>
+
+<div id="divElementCompetence">
+    <partial name="_AnalyseElementCompetence" />@*model="ViewBag.CreerAnalyse"*@
+</div>
+
+
+@section Scripts
+    {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/Analyse.js"></script>
+}
