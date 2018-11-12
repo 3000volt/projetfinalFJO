@@ -22,27 +22,6 @@ namespace projetfinalFJO.Appdata
         {
             this.ConnectionString = connexion;
         }
-        public virtual DbSet<ActualisationInformation> ActualisationInformation { get; set; }
-        public virtual DbSet<AnalyseCompétence> AnalyseCompétence { get; set; }
-        public virtual DbSet<AnalyseElementsCompetence> AnalyseElementsCompetence { get; set; }
-        public virtual DbSet<Commentaires> Commentaires { get; set; }
-        public virtual DbSet<Competences> Competences { get; set; }
-        public virtual DbSet<CompetencesElementCompetence> CompetencesElementCompetence { get; set; }
-        public virtual DbSet<Cours> Cours { get; set; }
-        public virtual DbSet<CoursCompetences> CoursCompetences { get; set; }
-        public virtual DbSet<Elementcompetence> Elementcompetence { get; set; }
-        public virtual DbSet<Famillecompetence> Famillecompetence { get; set; }
-        public virtual DbSet<Groupe> Groupe { get; set; }
-        public virtual DbSet<Membresdesactualisations> Membresdesactualisations { get; set; }
-        public virtual DbSet<Prealables> Prealables { get; set; }
-        public virtual DbSet<Programmes> Programmes { get; set; }
-        public virtual DbSet<RepartirHeureCompetence> RepartirHeureCompetence { get; set; }
-        public virtual DbSet<RepartitionHeureCours> RepartitionHeureCours { get; set; }
-        public virtual DbSet<RepartitionHeuresession> RepartitionHeuresession { get; set; }
-        public virtual DbSet<Session> Session { get; set; }
-        public virtual DbSet<Utilisateur> Utilisateur { get; set; }
-
-
         public void InsererActualisation(ActualisationInformation actu)
         {
             //utiliser le connectionString pour pouvoir affecter la BD
@@ -136,6 +115,28 @@ namespace projetfinalFJO.Appdata
                 con.Close();
             }
         }
+        public virtual DbSet<ActualisationInformation> ActualisationInformation { get; set; }
+        public virtual DbSet<AnalyseCompétence> AnalyseCompétence { get; set; }
+        public virtual DbSet<AnalyseElementsCompetence> AnalyseElementsCompetence { get; set; }
+        public virtual DbSet<Commentaires> Commentaires { get; set; }
+        public virtual DbSet<Competences> Competences { get; set; }
+        public virtual DbSet<CompetencesElementCompetence> CompetencesElementCompetence { get; set; }
+        public virtual DbSet<Cours> Cours { get; set; }
+        public virtual DbSet<CoursCompetences> CoursCompetences { get; set; }
+        public virtual DbSet<Elementcompetence> Elementcompetence { get; set; }
+        public virtual DbSet<Famillecompetence> Famillecompetence { get; set; }
+        public virtual DbSet<Groupe> Groupe { get; set; }
+        public virtual DbSet<Membresdesactualisations> Membresdesactualisations { get; set; }
+        public virtual DbSet<Prealables> Prealables { get; set; }
+        public virtual DbSet<Programmes> Programmes { get; set; }
+        public virtual DbSet<RepartirHeureCompetence> RepartirHeureCompetence { get; set; }
+        public virtual DbSet<RepartitionHeureCours> RepartitionHeureCours { get; set; }
+        public virtual DbSet<RepartitionHeuresession> RepartitionHeuresession { get; set; }
+        public virtual DbSet<Session> Session { get; set; }
+        public virtual DbSet<Utilisateur> Utilisateur { get; set; }
+
+
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
