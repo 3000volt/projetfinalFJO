@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using projetfinalFJO.Appdata;
 
 namespace projetfinalFJO.Controllers
@@ -64,6 +66,9 @@ namespace projetfinalFJO.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Mettre la session a cette compétence
+                this.HttpContext.Session.SetString("Competence", JsonConvert.SerializeObject(competences));
+                //Ajouter a la bd
                 _context.Add(competences);
                 await _context.SaveChangesAsync();
                 return Ok("élément ajouté avec succès");
