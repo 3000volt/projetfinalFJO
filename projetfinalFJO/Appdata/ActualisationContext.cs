@@ -9,7 +9,6 @@ namespace projetfinalFJO.Appdata
     public partial class ActualisationContext : DbContext
     {
         private readonly string ConnectionString;
-
         public ActualisationContext()
         {
         }
@@ -23,6 +22,26 @@ namespace projetfinalFJO.Appdata
         {
             this.ConnectionString = connexion;
         }
+        public virtual DbSet<ActualisationInformation> ActualisationInformation { get; set; }
+        public virtual DbSet<AnalyseCompétence> AnalyseCompétence { get; set; }
+        public virtual DbSet<AnalyseElementsCompetence> AnalyseElementsCompetence { get; set; }
+        public virtual DbSet<Commentaires> Commentaires { get; set; }
+        public virtual DbSet<Competences> Competences { get; set; }
+        public virtual DbSet<CompetencesElementCompetence> CompetencesElementCompetence { get; set; }
+        public virtual DbSet<Cours> Cours { get; set; }
+        public virtual DbSet<CoursCompetences> CoursCompetences { get; set; }
+        public virtual DbSet<Elementcompetence> Elementcompetence { get; set; }
+        public virtual DbSet<Famillecompetence> Famillecompetence { get; set; }
+        public virtual DbSet<Groupe> Groupe { get; set; }
+        public virtual DbSet<Membresdesactualisations> Membresdesactualisations { get; set; }
+        public virtual DbSet<Prealables> Prealables { get; set; }
+        public virtual DbSet<Programmes> Programmes { get; set; }
+        public virtual DbSet<RepartirHeureCompetence> RepartirHeureCompetence { get; set; }
+        public virtual DbSet<RepartitionHeureCours> RepartitionHeureCours { get; set; }
+        public virtual DbSet<RepartitionHeuresession> RepartitionHeuresession { get; set; }
+        public virtual DbSet<Session> Session { get; set; }
+        public virtual DbSet<Utilisateur> Utilisateur { get; set; }
+
 
         public void InsererActualisation(ActualisationInformation actu)
         {
@@ -117,35 +136,12 @@ namespace projetfinalFJO.Appdata
                 con.Close();
             }
         }
-
-
-        public virtual DbSet<ActualisationInformation> ActualisationInformation { get; set; }
-        public virtual DbSet<AnalyseCompétence> AnalyseCompétence { get; set; }
-        public virtual DbSet<AnalyseElementsCompetence> AnalyseElementsCompetence { get; set; }
-        public virtual DbSet<Commentaires> Commentaires { get; set; }
-        public virtual DbSet<Competences> Competences { get; set; }
-        public virtual DbSet<CompetencesElementCompetence> CompetencesElementCompetence { get; set; }
-        public virtual DbSet<Cours> Cours { get; set; }
-        public virtual DbSet<CoursCompetences> CoursCompetences { get; set; }
-        public virtual DbSet<Elementcompetence> Elementcompetence { get; set; }
-        public virtual DbSet<Famillecompetence> Famillecompetence { get; set; }
-        public virtual DbSet<Membresdesactualisations> Membresdesactualisations { get; set; }
-        public virtual DbSet<Prealables> Prealables { get; set; }
-        public virtual DbSet<Programmes> Programmes { get; set; }
-        public virtual DbSet<RepartirHeureCompetence> RepartirHeureCompetence { get; set; }
-        public virtual DbSet<RepartitionHeureCours> RepartitionHeureCours { get; set; }
-        public virtual DbSet<RepartitionHeuresession> RepartitionHeuresession { get; set; }
-        public virtual DbSet<Session> Session { get; set; }
-        public virtual DbSet<Utilisateur> Utilisateur { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(" Server=localhost;Database=Actualisation ;User Id=sa;Password=sql");
-                //optionsBuilder.UseSqlServer(" Server=localhost; Database=Actualisation; Integrated Security=True;");
             }
         }
 
@@ -204,13 +200,13 @@ namespace projetfinalFJO.Appdata
                     .WithMany(p => p.AnalyseCompétence)
                     .HasForeignKey(d => d.AdresseCourriel)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AnalyseCo__Adres__5BE2A6F2");
+                    .HasConstraintName("FK__AnalyseCo__Adres__5DCAEF64");
 
                 entity.HasOne(d => d.CodeCompetenceNavigation)
                     .WithMany(p => p.AnalyseCompétence)
                     .HasForeignKey(d => d.CodeCompetence)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__AnalyseCo__CodeC__5CD6CB2B");
+                    .HasConstraintName("FK__AnalyseCo__CodeC__5EBF139D");
             });
 
             modelBuilder.Entity<AnalyseElementsCompetence>(entity =>
@@ -238,6 +234,12 @@ namespace projetfinalFJO.Appdata
                 entity.Property(e => e.SavoirEtreProgramme).HasColumnType("text");
 
                 entity.Property(e => e.SavoirFaireProgramme).HasColumnType("text");
+
+                entity.HasOne(d => d.AdresseCourrielNavigation)
+                    .WithMany(p => p.AnalyseElementsCompetence)
+                    .HasForeignKey(d => d.AdresseCourriel)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__AnalyseEl__Adres__72C60C4A");
 
                 entity.HasOne(d => d.IdelementcompNavigation)
                     .WithMany(p => p.AnalyseElementsCompetence)
@@ -269,7 +271,7 @@ namespace projetfinalFJO.Appdata
                     .WithMany(p => p.Commentaires)
                     .HasForeignKey(d => d.AdresseCourriel)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Commentai__Adres__571DF1D5");
+                    .HasConstraintName("FK__Commentai__Adres__59063A47");
             });
 
             modelBuilder.Entity<Competences>(entity =>
@@ -291,7 +293,7 @@ namespace projetfinalFJO.Appdata
                 entity.HasOne(d => d.IdfamilleNavigation)
                     .WithMany(p => p.Competences)
                     .HasForeignKey(d => d.Idfamille)
-                    .HasConstraintName("FK__Competenc__Idfam__5629CD9C");
+                    .HasConstraintName("FK__Competenc__Idfam__5812160E");
 
                 entity.HasOne(d => d.NoProgrammeNavigation)
                     .WithMany(p => p.Competences)
@@ -305,17 +307,19 @@ namespace projetfinalFJO.Appdata
 
                 entity.Property(e => e.CodeCompetence).HasMaxLength(15);
 
+                entity.Property(e => e.Idelementcomp).ValueGeneratedOnAdd();
+
                 entity.HasOne(d => d.CodeCompetenceNavigation)
                     .WithMany(p => p.CompetencesElementCompetence)
                     .HasForeignKey(d => d.CodeCompetence)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Competenc__CodeC__5FB337D6");
+                    .HasConstraintName("FK__Competenc__CodeC__619B8048");
 
                 entity.HasOne(d => d.IdelementcompNavigation)
                     .WithMany(p => p.CompetencesElementCompetence)
                     .HasForeignKey(d => d.Idelementcomp)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Competenc__Idele__60A75C0F");
+                    .HasConstraintName("FK__Competenc__Idele__628FA481");
             });
 
             modelBuilder.Entity<Cours>(entity =>
@@ -349,13 +353,13 @@ namespace projetfinalFJO.Appdata
                 entity.HasOne(d => d.IdsessionNavigation)
                     .WithMany(p => p.Cours)
                     .HasForeignKey(d => d.Idsession)
-                    .HasConstraintName("FK__Cours__Idsession__59063A47");
+                    .HasConstraintName("FK__Cours__Idsession__5AEE82B9");
 
                 entity.HasOne(d => d.NoProgrammeNavigation)
                     .WithMany(p => p.Cours)
                     .HasForeignKey(d => d.NoProgramme)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Cours__NoProgram__5812160E");
+                    .HasConstraintName("FK__Cours__NoProgram__59FA5E80");
             });
 
             modelBuilder.Entity<CoursCompetences>(entity =>
@@ -372,20 +376,18 @@ namespace projetfinalFJO.Appdata
                     .WithMany(p => p.CoursCompetences)
                     .HasForeignKey(d => d.CodeCompetence)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CoursComp__CodeC__5AEE82B9");
+                    .HasConstraintName("FK__CoursComp__CodeC__5CD6CB2B");
 
                 entity.HasOne(d => d.NoCoursNavigation)
                     .WithMany(p => p.CoursCompetences)
                     .HasForeignKey(d => d.NoCours)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CoursComp__NoCou__59FA5E80");
+                    .HasConstraintName("FK__CoursComp__NoCou__5BE2A6F2");
             });
 
             modelBuilder.Entity<Elementcompetence>(entity =>
             {
                 entity.HasKey(e => e.Idelementcomp);
-
-                entity.Property(e => e.Idelementcomp).ValueGeneratedNever();
 
                 entity.Property(e => e.CriterePerformance)
                     .IsRequired()
@@ -400,11 +402,18 @@ namespace projetfinalFJO.Appdata
             {
                 entity.HasKey(e => e.Idfamille);
 
-                entity.Property(e => e.Idfamille).ValueGeneratedNever();
-
                 entity.Property(e => e.NomFamille)
                     .IsRequired()
                     .HasMaxLength(30);
+            });
+
+            modelBuilder.Entity<Groupe>(entity =>
+            {
+                entity.HasKey(e => e.Idgroupe);
+
+                entity.Property(e => e.NomGroupe)
+                    .IsRequired()
+                    .HasMaxLength(15);
             });
 
             modelBuilder.Entity<Membresdesactualisations>(entity =>
@@ -440,7 +449,7 @@ namespace projetfinalFJO.Appdata
                     .WithMany(p => p.Prealables)
                     .HasForeignKey(d => d.NoCours)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Prealable__NoCou__628FA481");
+                    .HasConstraintName("FK__Prealable__NoCou__6477ECF3");
             });
 
             modelBuilder.Entity<Programmes>(entity =>
@@ -462,28 +471,28 @@ namespace projetfinalFJO.Appdata
 
                 entity.Property(e => e.CodeCompetence).HasMaxLength(15);
 
+                entity.Property(e => e.Idsession).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.NbHsessionCompetence).HasColumnName("NbHSessionCompetence");
 
                 entity.HasOne(d => d.CodeCompetenceNavigation)
                     .WithMany(p => p.RepartirHeureCompetence)
                     .HasForeignKey(d => d.CodeCompetence)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RepartirH__CodeC__5DCAEF64");
+                    .HasConstraintName("FK__RepartirH__CodeC__5FB337D6");
 
                 entity.HasOne(d => d.IdsessionNavigation)
                     .WithMany(p => p.RepartirHeureCompetence)
                     .HasForeignKey(d => d.Idsession)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RepartirH__Idses__5EBF139D");
+                    .HasConstraintName("FK__RepartirH__Idses__60A75C0F");
             });
 
             modelBuilder.Entity<RepartitionHeureCours>(entity =>
             {
                 entity.HasKey(e => e.IdAnalyseRhc);
 
-                entity.Property(e => e.IdAnalyseRhc)
-                    .HasColumnName("Id_Analyse_RHC")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.IdAnalyseRhc).HasColumnName("Id_Analyse_RHC");
 
                 entity.Property(e => e.AdresseCourriel)
                     .IsRequired()
@@ -526,9 +535,7 @@ namespace projetfinalFJO.Appdata
             {
                 entity.HasKey(e => e.IdAnalyseRhs);
 
-                entity.Property(e => e.IdAnalyseRhs)
-                    .HasColumnName("Id_Analyse_RHS")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.IdAnalyseRhs).HasColumnName("Id_Analyse_RHS");
 
                 entity.Property(e => e.AdresseCourriel)
                     .IsRequired()
@@ -538,33 +545,23 @@ namespace projetfinalFJO.Appdata
                     .IsRequired()
                     .HasMaxLength(15);
 
-                entity.Property(e => e.NoCours)
-                    .IsRequired()
-                    .HasMaxLength(15);
-
                 entity.HasOne(d => d.AdresseCourrielNavigation)
                     .WithMany(p => p.RepartitionHeuresession)
                     .HasForeignKey(d => d.AdresseCourriel)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Repartiti__Adres__6383C8BA");
+                    .HasConstraintName("FK__Repartiti__Adres__656C112C");
 
                 entity.HasOne(d => d.CodeCompetenceNavigation)
                     .WithMany(p => p.RepartitionHeuresession)
                     .HasForeignKey(d => d.CodeCompetence)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Repartiti__CodeC__6477ECF3");
+                    .HasConstraintName("FK__Repartiti__CodeC__66603565");
 
                 entity.HasOne(d => d.IdsessionNavigation)
                     .WithMany(p => p.RepartitionHeuresession)
                     .HasForeignKey(d => d.Idsession)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Repartiti__Idses__66603565");
-
-                entity.HasOne(d => d.NoCoursNavigation)
-                    .WithMany(p => p.RepartitionHeuresession)
-                    .HasForeignKey(d => d.NoCours)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Repartiti__NoCou__6754599E");
+                    .HasConstraintName("FK__Repartiti__Idses__6754599E");
             });
 
             modelBuilder.Entity<Session>(entity =>

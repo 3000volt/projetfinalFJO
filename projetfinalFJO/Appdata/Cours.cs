@@ -10,7 +10,6 @@ namespace projetfinalFJO.Appdata
             CoursCompetences = new HashSet<CoursCompetences>();
             Prealables = new HashSet<Prealables>();
             RepartitionHeureCours = new HashSet<RepartitionHeureCours>();
-            RepartitionHeuresession = new HashSet<RepartitionHeuresession>();
         }
 
         public string NoCours { get; set; }
@@ -26,6 +25,5 @@ namespace projetfinalFJO.Appdata
         public ICollection<CoursCompetences> CoursCompetences { get; set; }
         public ICollection<Prealables> Prealables { get; set; }
         public ICollection<RepartitionHeureCours> RepartitionHeureCours { get; set; }
-        public ICollection<RepartitionHeuresession> RepartitionHeuresession { get; set; }
     }
 }

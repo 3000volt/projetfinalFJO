@@ -9,25 +9,20 @@
 <div id="principale">
     <h2>create</h2>
 
-    <div id="divliste">
+    <div id="competence">
         <partial name="_AddPartialcompetence" model="ViewBag.competence" />
     </div>
 
-    <div id="divaddmodal">
+    <div id="elementcomp" style="display:none;">
         <partial name="_AddPartialelementcompetence" model="ViewBag.element" />
-    </div>
-    <div id="accordion">
+        <div id="accordion">
 
-    </div>
+        </div>
+    </div> 
 </div>
 
-@*<script type="text/javascript">
-    $
-
-</script>*@
-
 @section Scripts
-    {
+{
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 }
 

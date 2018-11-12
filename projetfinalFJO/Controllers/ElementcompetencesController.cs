@@ -53,7 +53,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("ElementCompétence,CriterePerformance,Idelementcomp")] Elementcompetence elementcompetence)
+        public async Task<IActionResult> Create([FromBody][Bind("ElementCompétence,CriterePerformance")] Elementcompetence elementcompetence)
         {
             if (ModelState.IsValid)
             {

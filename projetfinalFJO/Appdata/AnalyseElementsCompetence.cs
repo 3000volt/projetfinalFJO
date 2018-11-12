@@ -15,6 +15,7 @@ namespace projetfinalFJO.Appdata
         public string AdresseCourriel { get; set; }
         public int Idelementcomp { get; set; }
 
+        public Utilisateur AdresseCourrielNavigation { get; set; }
         public Elementcompetence IdelementcompNavigation { get; set; }
     }
 }

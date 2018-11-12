@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Repartition_Heure";
+}
+
+<div id="principale">
+    <h2>Repartition Des Heures</h2>
+
+    <div id="competence">
+        <partial name="_PartialRep_Heure" model="ViewBag.CompHeureRep" />
+    </div>
+
+    <div id="elementcomp">
+        <partial name="_PartialRep_Heure_session" model="ViewBag.SessionRep" />
+        <div id="accordion">
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+}

@@ -24,6 +24,7 @@ function fnAddcommpetenceAjax() {
         },
         success: function (result) {
             alert(status);
+            $('#elementcomp').show();
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -35,7 +36,6 @@ function fnAddelecommpetenceAjax() {
     var data = {
         ElementCompétence: $("#ElementComp_tence").val(),
         CriterePerformance: $("#CriterePerformance").val(),
-        Idelementcomp: $("#Idelementcomp").val(),
     };
     $.ajax({
         data: JSON.stringify(data),
@@ -48,13 +48,14 @@ function fnAddelecommpetenceAjax() {
         },
         success: function (result) {
             alert(status);
+            var name = $("#ElementComp_tence").val();
             fnAssocierelecommpetenceAjax();
             $("#accordion").append("<div class=\"card\"><div class=\"card-header\" id=\"headingOne\">" +
                 "<h5 class=\"mb-0\">"+
-                            "<button class=\"btn btn-link\" data-toggle=\"collapse\" data-target=\"#collapseOne\" aria-expanded=\"true\" aria-controls=\"collapseOne\">"+
-                                ""+$("#ElementComp_tence").val()+""+
+                            "<button class=\"btn btn-link\" data-toggle=\"collapse\" data-target=\"#"+name+"\" aria-expanded=\"true\" aria-controls=\"collapseOne\">"+
+                                ""+name+""+
                         "</button></h5></div>"+
-                    "<div id=\"collapseOne\" class=\"collapse\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"+
+                    "<div id="+name+" class=\"collapse\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"+
                         "<div class=\"card-body\">loic ngando</div>"+
                     "</div></div> ")
         },
@@ -85,3 +86,5 @@ function fnAssocierelecommpetenceAjax() {
     });
     return false;
 }
+/*==================================================================
+  [ Show pass ]*/

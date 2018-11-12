@@ -8,6 +8,7 @@ namespace projetfinalFJO.Appdata
         public Utilisateur()
         {
             AnalyseCompétence = new HashSet<AnalyseCompétence>();
+            AnalyseElementsCompetence = new HashSet<AnalyseElementsCompetence>();
             Commentaires = new HashSet<Commentaires>();
             Membresdesactualisations = new HashSet<Membresdesactualisations>();
             RepartitionHeureCours = new HashSet<RepartitionHeureCours>();
@@ -20,6 +21,7 @@ namespace projetfinalFJO.Appdata
         public string Prenom { get; set; }
 
         public ICollection<AnalyseCompétence> AnalyseCompétence { get; set; }
+        public ICollection<AnalyseElementsCompetence> AnalyseElementsCompetence { get; set; }
         public ICollection<Commentaires> Commentaires { get; set; }
         public ICollection<Membresdesactualisations> Membresdesactualisations { get; set; }
         public ICollection<RepartitionHeureCours> RepartitionHeureCours { get; set; }
