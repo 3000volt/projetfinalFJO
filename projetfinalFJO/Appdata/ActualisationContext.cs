@@ -144,8 +144,8 @@ namespace projetfinalFJO.Appdata
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseSqlServer(" Server=localhost;Database=Actualisation ;User Id=sa;Password=sql");
-                optionsBuilder.UseSqlServer(" Server=localhost; Database=Actualisation; Integrated Security=True;");
+                optionsBuilder.UseSqlServer(" Server=localhost;Database=Actualisation ;User Id=sa;Password=sql");
+                //optionsBuilder.UseSqlServer(" Server=localhost; Database=Actualisation; Integrated Security=True;");
             }
         }
 
