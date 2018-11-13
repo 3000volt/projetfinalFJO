@@ -21,7 +21,7 @@ namespace projetfinalFJO.Controllers
         public ActionResult CreerAnalyse()
         {
             //Trouver le numero en cours grace a la session
-            string num = JsonConvert.DeserializeObject<Competences>(this.HttpContext.Session.GetString("Competence")).CodeCompetence;
+            string num = /*JsonConvert.DeserializeObject<Competences>(this.HttpContext.Session.GetString("Competence")).CodeCompetence;*/ "oui";
             //Trouver le numéro de la compétence concerné
             //Trouver la liste des éléments de compétences que contient cette compétence
             List<CompetencesElementCompetence> compE = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == num);

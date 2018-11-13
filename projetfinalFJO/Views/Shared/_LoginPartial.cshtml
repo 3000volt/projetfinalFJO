@@ -9,10 +9,10 @@
     <form asp-area="" asp-controller="Login" asp-action="Logout" method="post" id="logoutForm" class="form-inline">
         <ul class="nav justify-content-end">
             <li class="mt-2">
-                <a style="color:white" class="mr-sm-3 mt-2" >Hello @UserManager.GetUserName(User)!</a>
+                <a style="color:white" class="mr-sm-3 mt-2" >Bonjour @UserManager.GetUserName(User)!</a>
             </li>
             <li class="mr-sm-2">
-                <button type="submit" class="btn btn-link navbar-btn navbar-link mr-sm-2">Log out</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link mr-sm-2">Déconnexion</button>
             </li>
         </ul>
     </form>
@@ -20,7 +20,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="" asp-controller="Login" asp-action="Register" class="mr-sm-3"> Register </a></li>
-        <li><a asp-area="" asp-controller="Login" asp-action="Login" class="mr-sm-2">Log in</a></li>
+        <li><a asp-area="" asp-controller="Login" asp-action="Register" class="mr-sm-3"> S'enregistrer </a></li>
+        <li><a asp-area="" asp-controller="Login" asp-action="Login" class="mr-sm-2">Connexion</a></li>
     </ul>
 }
