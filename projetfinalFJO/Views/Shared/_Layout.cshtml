@@ -55,7 +55,7 @@
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="#">Home 1</a>77777
+                            <a href="#">Home 1</a>
                         </li>
                         <li>
                             <a href="#">Home 2</a>
@@ -114,29 +114,29 @@
                         <ul class="navbar-nav mr-auto">
                             @{if (this.User.IsInRole("Admin")) //SRDP
                                 {
-                                    <li class="nav-item active">
+                                    <li class="nav-item">
                                         <a class="nav-link" id="#" asp-action="Actualisation" asp-controller="Actualisation">Actualisation </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Gérer un utilisateur</a>
+                                        <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Gestion d'utilisateur</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gérer un programme</a>
+                                        <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gestion de programmes</a>
                                     </li>
                                 }
                                 else if (this.User.IsInRole("Sous_Commite"))
                                 {
-                                    <li class="nav-item active">
-                                        <a class="nav-link" asp-action="Index" asp-controller="Programmes">Accueil <span class="sr-only">(current)</span></a>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="Index" asp-controller="Programmes">Accueil</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gestion des cours</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gestion des compétences</a>
+                                        <a class="nav-link" asp-action="Index" asp-controller="Competences">Gestion des compétences</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gestion des analyses</a>
+                                        <a class="nav-link" asp-action="CreerAnalyse" asp-controller="AnalyseCompetence">Gestion des analyses</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-action="Index" asp-controller="Programmes">Génération des rapports</a>
@@ -144,8 +144,8 @@
                                 }
                                 else if (this.User.IsInRole("Commite_Programme"))
                                 {
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Accueil</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Génération des rapports</a>
