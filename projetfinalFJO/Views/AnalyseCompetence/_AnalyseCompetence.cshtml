@@ -1,60 +1,63 @@
 ﻿@model projetfinalFJO.Appdata.AnalyseCompétence
 
-<h4>Analyse de la compétence</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="_CreerCompetence">
+<h4><u>Analyse de la compétence</u></h4>
+<form asp-action="_CreerCompetence">
+    <div class="row">
+        <div class="col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CodeCompetence" class="control-label"></label>
+                <label asp-for="IdAnalyseAc" class="control-label">Numéro d'analyse</label>
+                <input asp-for="IdAnalyseAc" class="form-control" />
+                <span asp-validation-for="IdAnalyseAc" class="text-danger"></span>
+           </div>
+            <div class="form-group">
+                <label asp-for="CodeCompetence" class="control-label">Code de compétence</label>
                 <input asp-for="CodeCompetence" value="@ViewBag.Competence" readonly class="form-control" />
                 <span asp-validation-for="CodeCompetence" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NiveauTaxonomique" class="control-label"></label>
+                <label asp-for="NiveauTaxonomique" class="control-label">Niveau taxonomique</label>
                 <input asp-for="NiveauTaxonomique" class="form-control" />
                 <span asp-validation-for="NiveauTaxonomique" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Reformulation" class="control-label"></label>
-                <input asp-for="Reformulation" class="form-control" />
-                <span asp-validation-for="Reformulation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Context" class="control-label"></label>
-                <input asp-for="Context" class="form-control" />
-                <span asp-validation-for="Context" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SavoirFaireProgramme" class="control-label"></label>
-                <input asp-for="SavoirFaireProgramme" class="form-control" />
-                <span asp-validation-for="SavoirFaireProgramme" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SavoirEtreProgramme" class="control-label"></label>
-                <input asp-for="SavoirEtreProgramme" class="form-control" />
-                <span asp-validation-for="SavoirEtreProgramme" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="IdAnalyseAc" class="control-label"></label>
-                <input asp-for="IdAnalyseAc" class="form-control" />
-                <span asp-validation-for="IdAnalyseAc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AdresseCourriel" class="control-label"></label>
+                <label asp-for="AdresseCourriel" class="control-label">Courriel</label>
                 <input asp-for="AdresseCourriel" class="form-control" />
                 <span asp-validation-for="AdresseCourriel" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
-                <input type="button" value="Create" class="btn btn-default" onclick="AnalyseCompetence()" />
+                <label asp-for="Reformulation" class="control-label"></label>
+                <textarea asp-for="Reformulation" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;"></textarea>
+                <span asp-validation-for="Reformulation" class="text-danger"></span>
             </div>
-        </form>
+            <div class="form-group">
+                <label asp-for="Context" class="control-label">Contexte</label>
+                <textarea asp-for="Context" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;"></textarea>
+                <span asp-validation-for="Context" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SavoirFaireProgramme" class="control-label">Savoir faire</label>
+                <textarea asp-for="SavoirFaireProgramme" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;"></textarea>
+                <span asp-validation-for="SavoirFaireProgramme" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SavoirEtreProgramme" class="control-label">Savoir être</label>
+                <textarea asp-for="SavoirEtreProgramme" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;"></textarea>
+                <span asp-validation-for="SavoirEtreProgramme" class="text-danger"></span>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="form-group">
+        <input type="button" value="Créer analyse" class="btn btn-default" onclick="AnalyseCompetence()" />
+    </div>
+</form>
+
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour à la liste d'analyse</a>
 </div>
 

@@ -24,22 +24,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="NbHeure" class="control-label"></label>
-                <input asp-for="NbHeure" class="form-control" />
+                <input asp-for="NbHeure" class="form-control"  type="number"/>
                 <span asp-validation-for="NbHeure" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NbUnite" class="control-label"></label>
-                <input asp-for="NbUnite" class="form-control" />
+                <input asp-for="NbUnite" class="form-control" type="number" />
                 <span asp-validation-for="NbUnite" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NbCompetencesObligatoires" class="control-label"></label>
-                <input asp-for="NbCompetencesObligatoires" class="form-control" />
+                <input asp-for="NbCompetencesObligatoires" class="form-control" type="number" />
                 <span asp-validation-for="NbCompetencesObligatoires" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NbCompetencesOptionnelles" class="control-label"></label>
-                <input asp-for="NbCompetencesOptionnelles" class="form-control" />
+                <input asp-for="NbCompetencesOptionnelles" class="form-control" type="number" />
                 <span asp-validation-for="NbCompetencesOptionnelles" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -55,7 +55,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour à la liste</a>
 </div>
 
 @section Scripts {
