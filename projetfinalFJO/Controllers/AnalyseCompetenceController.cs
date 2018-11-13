@@ -12,16 +12,20 @@ namespace projetfinalFJO.Controllers
     public class AnalyseCompetenceController : Controller
     {
         private readonly ActualisationContext _context;
+        private IHttpContextAccessor _contextAccessor;
 
-        public AnalyseCompetenceController(ActualisationContext context)
+        public AnalyseCompetenceController(ActualisationContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
+            _contextAccessor = contextAccessor;
+            //contextAccessor -> https://stackoverflow.com/questions/51943383/accessing-session-state-outside-controller
         }
 
         public ActionResult CreerAnalyse()
         {
+            var context = _contextAccessor.HttpContext;
             //Trouver le numero en cours grace a la session
-            string num = /*JsonConvert.DeserializeObject<Competences>(this.HttpContext.Session.GetString("Competence")).CodeCompetence;*/ "oui";
+            string num = JsonConvert.DeserializeObject<Competences>(this.HttpContext.Session.GetString("Competence")).CodeCompetence;// "oui";
             //Trouver le numéro de la compétence concerné
             //Trouver la liste des éléments de compétences que contient cette compétence
             List<CompetencesElementCompetence> compE = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == num);

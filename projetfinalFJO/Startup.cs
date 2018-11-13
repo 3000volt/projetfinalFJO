@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using projetfinalFJO.Models.Authentification;
 using projetfinalFJO.Appdata;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace projetfinalFJO
 {
@@ -28,6 +29,7 @@ namespace projetfinalFJO
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSession();
+            services.AddDistributedMemoryCache();
             //ajouter le service d'authentification Identity
             services.AddIdentity<LoginUser, LoginRole>(options =>
             {
@@ -45,7 +47,7 @@ namespace projetfinalFJO
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             // ajouter le service EntityFramework
@@ -54,6 +56,8 @@ namespace projetfinalFJO
 
             services.AddDbContext<ActualisationContext>(options =>
                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
