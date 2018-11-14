@@ -25,7 +25,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Elementcompetences/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -33,7 +33,7 @@ namespace projetfinalFJO.Controllers
             }
 
             var elementcompetence = await _context.Elementcompetence
-                .FirstOrDefaultAsync(m => m.Idelementcomp == id);
+                .FirstOrDefaultAsync(m => m.ElementCompétence == id);
             if (elementcompetence == null)
             {
                 return NotFound();
@@ -64,8 +64,9 @@ namespace projetfinalFJO.Controllers
             return BadRequest("élément non ajouté");
         }
 
+
         // GET: Elementcompetences/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -85,9 +86,9 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ElementCompétence,CriterePerformance,Idelementcomp")] Elementcompetence elementcompetence)
+        public async Task<IActionResult> Edit(string id, [Bind("ElementCompétence,CriterePerformance")] Elementcompetence elementcompetence)
         {
-            if (id != elementcompetence.Idelementcomp)
+            if (id != elementcompetence.ElementCompétence)
             {
                 return NotFound();
             }
@@ -101,7 +102,7 @@ namespace projetfinalFJO.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ElementcompetenceExists(elementcompetence.Idelementcomp))
+                    if (!ElementcompetenceExists(elementcompetence.ElementCompétence))
                     {
                         return NotFound();
                     }
@@ -116,7 +117,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Elementcompetences/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -124,7 +125,7 @@ namespace projetfinalFJO.Controllers
             }
 
             var elementcompetence = await _context.Elementcompetence
-                .FirstOrDefaultAsync(m => m.Idelementcomp == id);
+                .FirstOrDefaultAsync(m => m.ElementCompétence == id);
             if (elementcompetence == null)
             {
                 return NotFound();
@@ -136,7 +137,7 @@ namespace projetfinalFJO.Controllers
         // POST: Elementcompetences/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var elementcompetence = await _context.Elementcompetence.FindAsync(id);
             _context.Elementcompetence.Remove(elementcompetence);
@@ -144,9 +145,9 @@ namespace projetfinalFJO.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ElementcompetenceExists(int id)
+        private bool ElementcompetenceExists(string id)
         {
-            return _context.Elementcompetence.Any(e => e.Idelementcomp == id);
+            return _context.Elementcompetence.Any(e => e.ElementCompétence == id);
         }
     }
 }

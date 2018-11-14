@@ -11,7 +11,6 @@ namespace projetfinalFJO.Appdata
         }
 
         public string NomFamille { get; set; }
-        public int Idfamille { get; set; }
 
         public ICollection<Competences> Competences { get; set; }
     }

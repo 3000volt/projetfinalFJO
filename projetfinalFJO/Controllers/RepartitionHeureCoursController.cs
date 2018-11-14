@@ -21,7 +21,7 @@ namespace projetfinalFJO.Controllers
         // GET: RepartitionHeureCours
         public async Task<IActionResult> Index()
         {
-            var actualisationContext = _context.RepartitionHeureCours.Include(r => r.AdresseCourrielNavigation).Include(r => r.CodeCompetenceNavigation).Include(r => r.IdsessionNavigation).Include(r => r.NoCoursNavigation);
+            var actualisationContext = _context.RepartitionHeureCours.Include(r => r.AdresseCourrielNavigation).Include(r => r.CodeCompetenceNavigation).Include(r => r.NoCoursNavigation).Include(r => r.NomSessionNavigation);
             return View(await actualisationContext.ToListAsync());
         }
 
@@ -36,8 +36,8 @@ namespace projetfinalFJO.Controllers
             var repartitionHeureCours = await _context.RepartitionHeureCours
                 .Include(r => r.AdresseCourrielNavigation)
                 .Include(r => r.CodeCompetenceNavigation)
-                .Include(r => r.IdsessionNavigation)
                 .Include(r => r.NoCoursNavigation)
+                .Include(r => r.NomSessionNavigation)
                 .FirstOrDefaultAsync(m => m.IdAnalyseRhc == id);
             if (repartitionHeureCours == null)
             {
@@ -52,8 +52,8 @@ namespace projetfinalFJO.Controllers
         {
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel");
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession");
             ViewData["NoCours"] = new SelectList(_context.Cours, "NoCours", "NoCours");
+            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession");
             return View();
         }
 
@@ -62,7 +62,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nbreheurcours,IdAnalyseRhc,AdresseCourriel,NoCours,CodeCompetence,Idsession,ValidationApprouve")] RepartitionHeureCours repartitionHeureCours)
+        public async Task<IActionResult> Create([Bind("Nbreheurcours,IdAnalyseRhc,AdresseCourriel,NoCours,CodeCompetence,NomSession,ValidationApprouve")] RepartitionHeureCours repartitionHeureCours)
         {
             if (ModelState.IsValid)
             {
@@ -72,8 +72,8 @@ namespace projetfinalFJO.Controllers
             }
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeureCours.AdresseCourriel);
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeureCours.CodeCompetence);
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeureCours.Idsession);
             ViewData["NoCours"] = new SelectList(_context.Cours, "NoCours", "NoCours", repartitionHeureCours.NoCours);
+            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession", repartitionHeureCours.NomSession);
             return View(repartitionHeureCours);
         }
 
@@ -92,8 +92,8 @@ namespace projetfinalFJO.Controllers
             }
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeureCours.AdresseCourriel);
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeureCours.CodeCompetence);
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeureCours.Idsession);
             ViewData["NoCours"] = new SelectList(_context.Cours, "NoCours", "NoCours", repartitionHeureCours.NoCours);
+            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession", repartitionHeureCours.NomSession);
             return View(repartitionHeureCours);
         }
 
@@ -102,7 +102,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Nbreheurcours,IdAnalyseRhc,AdresseCourriel,NoCours,CodeCompetence,Idsession,ValidationApprouve")] RepartitionHeureCours repartitionHeureCours)
+        public async Task<IActionResult> Edit(int id, [Bind("Nbreheurcours,IdAnalyseRhc,AdresseCourriel,NoCours,CodeCompetence,NomSession,ValidationApprouve")] RepartitionHeureCours repartitionHeureCours)
         {
             if (id != repartitionHeureCours.IdAnalyseRhc)
             {
@@ -131,8 +131,8 @@ namespace projetfinalFJO.Controllers
             }
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeureCours.AdresseCourriel);
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeureCours.CodeCompetence);
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeureCours.Idsession);
             ViewData["NoCours"] = new SelectList(_context.Cours, "NoCours", "NoCours", repartitionHeureCours.NoCours);
+            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession", repartitionHeureCours.NomSession);
             return View(repartitionHeureCours);
         }
 
@@ -147,8 +147,8 @@ namespace projetfinalFJO.Controllers
             var repartitionHeureCours = await _context.RepartitionHeureCours
                 .Include(r => r.AdresseCourrielNavigation)
                 .Include(r => r.CodeCompetenceNavigation)
-                .Include(r => r.IdsessionNavigation)
                 .Include(r => r.NoCoursNavigation)
+                .Include(r => r.NomSessionNavigation)
                 .FirstOrDefaultAsync(m => m.IdAnalyseRhc == id);
             if (repartitionHeureCours == null)
             {

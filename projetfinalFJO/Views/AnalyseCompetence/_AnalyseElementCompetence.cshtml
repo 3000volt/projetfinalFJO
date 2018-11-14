@@ -14,11 +14,7 @@
             <div class="col-md-4">
                 <form asp-action="_CreerElementCompetence">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Idelementcomp" class="control-label"></label>
-                        <input asp-for="Idelementcomp" value="@element" readonly class="form-control" />
-                        <span asp-validation-for="Idelementcomp" class="text-danger"></span>
-                    </div>
+                  
                     <div class="form-group">
                         <label asp-for="NiveauTaxonomique" class="control-label"></label>
                         <input asp-for="NiveauTaxonomique" class="form-control" />

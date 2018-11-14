@@ -23,7 +23,7 @@ namespace projetfinalFJO.Controllers
         // GET: Competences
         public async Task<IActionResult> Index()
         {
-            var actualisationContext = _context.Competences.Include(c => c.IdfamilleNavigation).Include(c => c.NoProgrammeNavigation);
+            var actualisationContext = _context.Competences.Include(c => c.NomFamilleNavigation).Include(c => c.NoProgrammeNavigation);
             return View(await actualisationContext.ToListAsync());
         }
 
@@ -36,7 +36,7 @@ namespace projetfinalFJO.Controllers
             }
 
             var competences = await _context.Competences
-                .Include(c => c.IdfamilleNavigation)
+                .Include(c => c.NomFamilleNavigation)
                 .Include(c => c.NoProgrammeNavigation)
                 .FirstOrDefaultAsync(m => m.CodeCompetence == id);
             if (competences == null)
@@ -73,7 +73,7 @@ namespace projetfinalFJO.Controllers
                 await _context.SaveChangesAsync();
                 return Ok("élément ajouté avec succès");
             }
-            ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.Idfamille);
+            ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.NomFamille);
             ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
             return BadRequest("élément non ajouté");
         }
@@ -91,7 +91,7 @@ namespace projetfinalFJO.Controllers
             {
                 return NotFound();
             }
-            ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.Idfamille);
+            ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.NomFamille);
             ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
             return View(competences);
         }
@@ -128,7 +128,7 @@ namespace projetfinalFJO.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.Idfamille);
+            ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.NomFamille);
             ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
             return View(competences);
         }
@@ -142,7 +142,7 @@ namespace projetfinalFJO.Controllers
             }
 
             var competences = await _context.Competences
-                .Include(c => c.IdfamilleNavigation)
+                .Include(c => c.NomFamilleNavigation)
                 .Include(c => c.NoProgrammeNavigation)
                 .FirstOrDefaultAsync(m => m.CodeCompetence == id);
             if (competences == null)

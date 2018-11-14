@@ -18,10 +18,12 @@ namespace projetfinalFJO.Appdata
         public string DepartementCours { get; set; }
         public string TypedeCours { get; set; }
         public string NoProgramme { get; set; }
-        public int? Idsession { get; set; }
+        public string NomSession { get; set; }
+        public string NomGroupe { get; set; }
 
-        public Session IdsessionNavigation { get; set; }
         public Programmes NoProgrammeNavigation { get; set; }
+        public Groupe NomGroupeNavigation { get; set; }
+        public Session NomSessionNavigation { get; set; }
         public ICollection<CoursCompetences> CoursCompetences { get; set; }
         public ICollection<Prealables> Prealables { get; set; }
         public ICollection<RepartitionHeureCours> RepartitionHeureCours { get; set; }

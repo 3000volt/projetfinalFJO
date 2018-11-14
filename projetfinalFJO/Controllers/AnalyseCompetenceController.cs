@@ -32,18 +32,11 @@ namespace projetfinalFJO.Controllers
             List<Elementcompetence> listeElements = new List<Elementcompetence>();
             foreach (CompetencesElementCompetence com in compE)
             {
-                listeElements.Add(this._context.Elementcompetence.ToList().Find(x => x.Idelementcomp == com.Idelementcomp));
+                listeElements.Add(this._context.Elementcompetence.ToList().Find(x => x.ElementCompétence == com.ElementCompétence));
             }
             ViewBag.Competence = num;
-            ViewBag.ListeElements = listeElements.Count;
-
-            //N'envoyer que les num:
-            List<int> listeNumero = new List<int>();
-            foreach (Elementcompetence elem in listeElements)
-            {
-                listeNumero.Add(elem.Idelementcomp);
-            }
-            ViewBag.NumeroElem = listeNumero;
+            ViewBag.ListeElements = listeElements.Count;    
+            ViewBag.NumeroElem = listeElements;
             ViewBag.Numero = num;
             ViewBag.CreerAnalyse = new AnalyseCompétence();
             return View();

@@ -14,7 +14,6 @@ namespace projetfinalFJO.Appdata
         }
 
         public string NomSession { get; set; }
-        public int Idsession { get; set; }
 
         public ICollection<Cours> Cours { get; set; }
         public ICollection<RepartirHeureCompetence> RepartirHeureCompetence { get; set; }

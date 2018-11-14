@@ -13,7 +13,6 @@ namespace projetfinalFJO.Appdata
 
         public string ElementCompétence { get; set; }
         public string CriterePerformance { get; set; }
-        public int Idelementcomp { get; set; }
 
         public ICollection<AnalyseElementsCompetence> AnalyseElementsCompetence { get; set; }
         public ICollection<CompetencesElementCompetence> CompetencesElementCompetence { get; set; }

@@ -68,7 +68,7 @@ function fnAssocierelecommpetenceAjax() {
     var url = "/CompetencesElementCompetences/Create";
     var data = {
         CodeCompetence: $("#CodeCompetence").val(),
-        Idelementcomp: $("#Idelementcomp").val(),
+        ElementCompétence: $("#ElementComp_tence").val(),
     };
     $.ajax({
         data: JSON.stringify(data),

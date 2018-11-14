@@ -13,9 +13,9 @@ namespace projetfinalFJO.Appdata
         public bool? ValidationApprouve { get; set; }
         public int IdAnalyseAc { get; set; }
         public string AdresseCourriel { get; set; }
-        public int Idelementcomp { get; set; }
+        public string ElementCompétence { get; set; }
 
         public Utilisateur AdresseCourrielNavigation { get; set; }
-        public Elementcompetence IdelementcompNavigation { get; set; }
+        public Elementcompetence ElementCompétenceNavigation { get; set; }
     }
 }

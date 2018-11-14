@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace projetfinalFJO.Appdata
 {
-    public partial class CompetencesElementCompetence
+    public partial class GroupeCompetence
     {
+        public string NomGroupe { get; set; }
         public string CodeCompetence { get; set; }
-        public string ElementCompétence { get; set; }
 
         public Competences CodeCompetenceNavigation { get; set; }
-        public Elementcompetence ElementCompétenceNavigation { get; set; }
+        public Groupe NomGroupeNavigation { get; set; }
     }
 }

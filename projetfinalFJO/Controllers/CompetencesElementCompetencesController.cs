@@ -21,7 +21,7 @@ namespace projetfinalFJO.Controllers
         // GET: CompetencesElementCompetences
         public async Task<IActionResult> Index()
         {
-            var actualisationContext = _context.CompetencesElementCompetence.Include(c => c.CodeCompetenceNavigation).Include(c => c.IdelementcompNavigation);
+            var actualisationContext = _context.CompetencesElementCompetence.Include(c => c.CodeCompetenceNavigation).Include(c => c.ElementCompétenceNavigation);
             return View(await actualisationContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace projetfinalFJO.Controllers
 
             var competencesElementCompetence = await _context.CompetencesElementCompetence
                 .Include(c => c.CodeCompetenceNavigation)
-                .Include(c => c.IdelementcompNavigation)
+                .Include(c => c.ElementCompétenceNavigation)
                 .FirstOrDefaultAsync(m => m.CodeCompetence == id);
             if (competencesElementCompetence == null)
             {
@@ -67,7 +67,7 @@ namespace projetfinalFJO.Controllers
                 return Ok("élément ajouté avec succès");
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
-            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance", competencesElementCompetence.Idelementcomp);
+            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance", competencesElementCompetence.ElementCompétence);
             return BadRequest("élément non ajouté");
         }
 
@@ -85,7 +85,7 @@ namespace projetfinalFJO.Controllers
                 return NotFound();
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
-            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance", competencesElementCompetence.Idelementcomp);
+            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance", competencesElementCompetence.ElementCompétence);
             return View(competencesElementCompetence);
         }
 
@@ -94,7 +94,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,Idelementcomp")] CompetencesElementCompetence competencesElementCompetence)
+        public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,ElementCompétence")] CompetencesElementCompetence competencesElementCompetence)
         {
             if (id != competencesElementCompetence.CodeCompetence)
             {
@@ -122,7 +122,7 @@ namespace projetfinalFJO.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
-            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance", competencesElementCompetence.Idelementcomp);
+            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance", competencesElementCompetence.ElementCompétence);
             return View(competencesElementCompetence);
         }
 
@@ -136,7 +136,7 @@ namespace projetfinalFJO.Controllers
 
             var competencesElementCompetence = await _context.CompetencesElementCompetence
                 .Include(c => c.CodeCompetenceNavigation)
-                .Include(c => c.IdelementcompNavigation)
+                .Include(c => c.ElementCompétenceNavigation)
                 .FirstOrDefaultAsync(m => m.CodeCompetence == id);
             if (competencesElementCompetence == null)
             {

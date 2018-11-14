@@ -7,10 +7,10 @@ namespace projetfinalFJO.Appdata
     {
         public int NbHsessionCompetence { get; set; }
         public string CodeCompetence { get; set; }
-        public int Idsession { get; set; }
+        public string NomSession { get; set; }
         public bool? ValidationApprouve { get; set; }
 
         public Competences CodeCompetenceNavigation { get; set; }
-        public Session IdsessionNavigation { get; set; }
+        public Session NomSessionNavigation { get; set; }
     }
 }

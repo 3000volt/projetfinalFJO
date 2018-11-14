@@ -21,7 +21,7 @@ namespace projetfinalFJO.Controllers
         // GET: RepartitionHeuresessions
         public async Task<IActionResult> Index()
         {
-            var actualisationContext = _context.RepartitionHeuresession.Include(r => r.AdresseCourrielNavigation).Include(r => r.CodeCompetenceNavigation).Include(r => r.IdsessionNavigation);
+            var actualisationContext = _context.RepartitionHeuresession.Include(r => r.AdresseCourrielNavigation).Include(r => r.CodeCompetenceNavigation).Include(r => r.NomSessionNavigation);
             return View(await actualisationContext.ToListAsync());
         }
 
@@ -36,7 +36,7 @@ namespace projetfinalFJO.Controllers
             var repartitionHeuresession = await _context.RepartitionHeuresession
                 .Include(r => r.AdresseCourrielNavigation)
                 .Include(r => r.CodeCompetenceNavigation)
-                .Include(r => r.IdsessionNavigation)
+                .Include(r => r.NomSessionNavigation)
                 .FirstOrDefaultAsync(m => m.IdAnalyseRhs == id);
             if (repartitionHeuresession == null)
             {
@@ -70,7 +70,7 @@ namespace projetfinalFJO.Controllers
             }
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeuresession.AdresseCourriel);
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeuresession.CodeCompetence);
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.Idsession);
+            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.NomSession);
             return View(repartitionHeuresession);
         }
 
@@ -89,7 +89,7 @@ namespace projetfinalFJO.Controllers
             }
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeuresession.AdresseCourriel);
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeuresession.CodeCompetence);
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.Idsession);
+            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.NomSession);
             return View(repartitionHeuresession);
         }
 
@@ -127,7 +127,7 @@ namespace projetfinalFJO.Controllers
             }
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeuresession.AdresseCourriel);
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeuresession.CodeCompetence);
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.Idsession);
+            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.NomSession);
             return View(repartitionHeuresession);
         }
 
@@ -142,7 +142,7 @@ namespace projetfinalFJO.Controllers
             var repartitionHeuresession = await _context.RepartitionHeuresession
                 .Include(r => r.AdresseCourrielNavigation)
                 .Include(r => r.CodeCompetenceNavigation)
-                .Include(r => r.IdsessionNavigation)
+                .Include(r => r.NomSessionNavigation)
                 .FirstOrDefaultAsync(m => m.IdAnalyseRhs == id);
             if (repartitionHeuresession == null)
             {
