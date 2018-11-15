@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using projetfinalFJO.Models.Authentification;
 using projetfinalFJO.Appdata;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Newtonsoft.Json.Serialization;
 
 namespace projetfinalFJO
 {
@@ -75,7 +76,6 @@ namespace projetfinalFJO
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();

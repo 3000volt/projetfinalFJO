@@ -48,9 +48,11 @@ namespace projetfinalFJO.Controllers
         // GET: RepartirHeureCompetences/Create
         public IActionResult Create()
         {
+
+            ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel");
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
             ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession");
-            ViewBag.groupe = new GroupeCompetence();
+           
             ViewBag.CompHeureRe = new RepartirHeureCompetence();
             ViewBag.SessionRep = new RepartitionHeuresession();
             return View();
@@ -163,6 +165,23 @@ namespace projetfinalFJO.Controllers
         private bool RepartirHeureCompetenceExists(string id)
         {
             return _context.RepartirHeureCompetence.Any(e => e.CodeCompetence == id);
+        }
+
+
+        //https://stackoverflow.com/questions/25077472/load-asp-net-mvc-partial-view-on-jqueryui-tab-selection
+        //partial view qui se refresh lorsque le tab correspondant a la view est appellée
+        public PartialViewResult partialGroupe()
+        {
+          
+            ViewBag.groupe2 = new Groupe();
+            return PartialView("_PartialGroupe");
+        }
+        public PartialViewResult partialGroupeComp()
+        {
+            ViewBag.groupe = new GroupeCompetence();
+            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
+            ViewData["NomGroupe"] = new SelectList(_context.Groupe, "NomGroupe", "NomGroupe");
+            return PartialView("_PartialGroupeComp");
         }
     }
 }

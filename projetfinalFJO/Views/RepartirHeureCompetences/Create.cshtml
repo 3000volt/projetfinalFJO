@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Repartition_Heure";
 }
 
@@ -8,31 +9,36 @@
     <div id="heuremax">
         <partial name="_PartialRep_Heure" model="ViewBag.CompHeureRep" />
     </div>
+    <div id="tabs">
+        <ul>
 
+            <li class="loic"><a href="@Url.Action("partialGroupeComp", "RepartirHeureCompetences")">Assigner un groupe à une compétence</a></li>
+            <li><a href="@Url.Action("partialGroupe", "RepartirHeureCompetences")">Créer un groupe </a></li>
+        </ul>
+    </div>
     <div id="session">
         <partial name="_PartialRep_Heure_session" model="ViewBag.SessionRep" />
     </div>
 
-    <div id="groupe">
-        <partial name="_PartialGroupeComp" model="ViewBag.groupe" />
-    </div>
 
-    <div id="tabstrip">
-    </div>
 </div>
 
 @section Scripts
     {
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2018.3.1017/js/kendo.all.min.js"></script>
-    <script>
-        $("#tabstrip").kendoTabStrip({
-            dataTextField: "Name",
-            dataContentUrlField: "ContentUrl",
-            dataSource: [
-                { Name: "Tab1", ContentUrl: "/Actualisation/Actualisation" },
-            ]
+
+<script>
+    /*https://jqueryui.com/tabs/#ajax  */
+    $(function () {
+        $("#tabs").tabs({
+            beforeLoad: function (event, ui) {
+                ui.jqXHR.fail(function () {
+                    ui.panel.html(
+                        "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                        "If this wouldn't be a demo.");
+                });
+            }
         });
+    });
 
     </script>
 

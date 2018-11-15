@@ -53,15 +53,15 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NomGroupe")] Groupe groupe)
+        public async Task<IActionResult> Create([FromBody][Bind("NomGroupe")] Groupe groupe)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(groupe);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Ok(await _context.Groupe.ToListAsync());
             }
-            return View(groupe);
+            return BadRequest("élément non ajouté");
         }
 
         // GET: Groupes/Edit/5

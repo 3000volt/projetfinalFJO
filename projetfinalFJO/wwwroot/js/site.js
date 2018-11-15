@@ -91,3 +91,26 @@ function fnAssocierelecommpetenceAjax() {
 }
 /*==================================================================
   [ Show pass ]*/
+//ajouter un groupe
+function fnGroupeAjax() {
+    alert($("#NomGroupe2").val());
+    var url = "/Groupes/Create";
+    var data = {
+        NomGroupe: $("#NomGroupe2").val(),
+    };
+    $.ajax({
+        data: JSON.stringify(data),
+        type: "POST",
+        url: url,
+        datatype: "text/plain",
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (request) {
+            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+        },
+        success: function (result) {
+            alert(result);
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
+    });
+    return false;
+}
