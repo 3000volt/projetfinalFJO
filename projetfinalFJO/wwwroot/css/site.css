@@ -39,7 +39,7 @@ body {
 /*Scroolbar Div */
 .h-scroll {
     height: 80%; /* %-height of the viewport */
-    width:98.5%;
+    width:100%;
     position: fixed;
     overflow: auto;
 }
@@ -48,7 +48,40 @@ footer
 {
     height:10%;
 }
-header {
+.page-header {
     height: 10%;
+}
+
+/* design des cards de la compétences*/
+.card.cardspace {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 25px;
+    width:95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card.cardspace.cardstyle,.card-header.cardstyle {
+    border-radius: 10px 10px 0px 0px;
+}
+/*.card-header.cardstyle {
+    background-color: #17a2b8; 
+}*/
+.btnanalyse {
+    margin-bottom: 40px;
+    margin-top:10px
+}
+.card.cardcollapse {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 95%;
+    /*background: #17a2b8;*/
+    margin-left: auto;
+    margin-right: auto;
+}
+.card-header {
+    background-color: #17a2b8;
+}
+collapselien {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 

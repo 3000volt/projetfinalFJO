@@ -50,13 +50,13 @@ function fnAddelecommpetenceAjax() {
             alert(status);
             var name = $("#ElementComp_tence").val();
             fnAssocierelecommpetenceAjax();
-            $("#accordion").append("<div class=\"card\"><div class=\"card-header\" id=\"headingOne\">" +
+            $("#accordion").append("<div class=\"card cardcollapse\"><div class=\"card-header\" id=\"headingOne\">" +
                 "<h5 class=\"mb-0\">"+
-                            "<button class=\"btn btn-link\" data-toggle=\"collapse\" data-target=\"#"+name+"\" aria-expanded=\"true\" aria-controls=\"collapseOne\">"+
+                "<a class=\"collapselien\" data-toggle=\"collapse\" data-target=\"#" + name + "\" aria-expanded=\"true\" aria-controls=\"collapseOne\""+"style="+"color:white;"+" >"+
                                 ""+name+""+
-                        "</button></h5></div>"+
+                        "</a></h5></div>"+
                     "<div id="+name+" class=\"collapse\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">"+
-                        "<div class=\"card-body\">loic ngando</div>"+
+                "<div class=\"card-body\"><p>" + $("#CriterePerformance").val()+"</p></div>"+
                     "</div></div> ")
         },
         error: function (xhr, status) { alert("erreur:" + status); }

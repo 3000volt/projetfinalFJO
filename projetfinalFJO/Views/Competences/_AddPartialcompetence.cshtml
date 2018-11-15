@@ -1,49 +1,57 @@
 ﻿@model projetfinalFJO.Appdata.Competences
 
-<h4><u>Competences</u></h4>
+<div class="card cardspace cardstyle">
+    <div class="card-header cardstyle" >
+        <h4>Competences</h4>
+    </div>
+    <div class="card-body ">
+        <form>
+            <div class="row">
+                <div class="col-md-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="NoProgramme" class="control-label">Numéro de programme</label>
+                        <select asp-for="NoProgramme" class="form-control" asp-items="ViewBag.NoProgramme"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CodeCompetence" class="control-label">Code de compétence</label>
+                        <input asp-for="CodeCompetence" class="form-control" />
+                        <span asp-validation-for="CodeCompetence" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ObligatoireCégep" class="control-label">Compétence obligatoire: </label>
+                        <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="true" checked>
+                        <label>Oui</label>
+                        <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="false">
+                        <label>Non</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ContextRealisation" class="control-label">Contexte de réalisation</label>
+                        <textarea asp-for="ContextRealisation" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;" ­­></textarea>
+                        <span asp-validation-for="ContextRealisation" class="text-danger"></span>
+                    </div>
+                </div>
 
-<form>
-    <div class="row">
-        <div class="col-md-4">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NoProgramme" class="control-label">Numéro de programme</label>
-                <select asp-for="NoProgramme" class="form-control" asp-items="ViewBag.NoProgramme"></select>
             </div>
             <div class="form-group">
-                <label asp-for="CodeCompetence" class="control-label">Code de compétence</label>
-                <input asp-for="CodeCompetence" class="form-control" />
-                <span asp-validation-for="CodeCompetence" class="text-danger"></span>
+                <input type="button" value="Ajouter compétence" class="btn btn-info" onclick="fnAddcommpetenceAjax()" />
             </div>
-            <div class="form-group">
-                <label asp-for="ObligatoireCégep" class="control-label">Compétence obligatoire: </label>
-                <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="true" checked>
-                <label>Oui</label>
-                <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="false">
-                <label>Non</label>
-            </div>
+        </form>
+        <div>
+            <a asp-action="Index">Retour à la liste de compétence</a>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="ContextRealisation" class="control-label">Contexte de réalisation</label>
-                <textarea asp-for="ContextRealisation" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;" ­­></textarea>
-                <span asp-validation-for="ContextRealisation" class="text-danger"></span>
-            </div>
-        </div>
+
 
     </div>
-    <div class="form-group">
-        <input type="button" value="Ajouter compétence" class="btn btn-default"  onclick="fnAddcommpetenceAjax()" />
-    </div>
-</form>
-<div>
-    <a asp-action="Index">Retour à la liste de compétence</a>
 </div>
+
 
