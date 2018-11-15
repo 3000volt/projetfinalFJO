@@ -58,7 +58,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,Idelementcomp")] CompetencesElementCompetence competencesElementCompetence)
+        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ElementCompétence")] CompetencesElementCompetence competencesElementCompetence)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace projetfinalFJO.Controllers
                 return Ok("élément ajouté avec succès");
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
-            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance", competencesElementCompetence.ElementCompétence);
+            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "Idelementcomp", competencesElementCompetence.ElementCompétence);
             return BadRequest("élément non ajouté");
         }
 

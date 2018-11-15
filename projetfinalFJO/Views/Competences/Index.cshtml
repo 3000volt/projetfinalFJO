@@ -3,62 +3,60 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h2>Liste de compétences</h2>
-<div class="row">
-    <div class="col-sm-0">
-        <a asp-action="Create">
-            <i class="fas fa-plus-circle fa-2x"></i>
+<div class="list">
+    <h2>Liste de compétences</h2>
+        <a class="btn btn-info" asp-action="Create">
+            <i class="fas fa-plus-circle"> Ajouter une compétence</i>
         </a>
-    </div>
-    <div class="col-sm-3 mt-2 ml-0">Ajouter une compétence</div>
+    <table class="table table-hover">
+        <thead class="card-header">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ObligatoireCégep)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContextRealisation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomFamilleNavigation)
+                </th>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ObligatoireCégep)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContextRealisation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NoProgrammeNavigation.NoProgramme)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomFamilleNavigation.NomFamille)
+                    </td>
+                    <td>
+                        <a class="btn btn-info btnlist" asp-action="Edit" asp-route-id="@item.CodeCompetence"><i class="fas fa-pen"></i></a> |
+                        <a class="btn btn-info btnlist" asp-action="Details" asp-route-id="@item.CodeCompetence"><i class="fas fa-info-circle"></i></a> |
+                        <a class="btn btn-info btnlist" asp-action="Delete" asp-route-id="@item.CodeCompetence"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ObligatoireCégep)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContextRealisation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomFamilleNavigation)
-            </th>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ObligatoireCégep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContextRealisation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NoProgrammeNavigation.NoProgramme)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomFamilleNavigation.NomFamille)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CodeCompetence">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CodeCompetence">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CodeCompetence">Delete</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+

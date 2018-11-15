@@ -5,19 +5,35 @@
 <div id="principale">
     <h2>Repartition Des Heures</h2>
 
-    <div id="competence">
+    <div id="heuremax">
         <partial name="_PartialRep_Heure" model="ViewBag.CompHeureRep" />
     </div>
 
-    <div id="elementcomp">
+    <div id="session">
         <partial name="_PartialRep_Heure_session" model="ViewBag.SessionRep" />
-        <div id="accordion">
+    </div>
 
-        </div>
+    <div id="groupe">
+        <partial name="_PartialGroupeComp" model="ViewBag.groupe" />
+    </div>
+
+    <div id="tabstrip">
     </div>
 </div>
 
 @section Scripts
     {
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.3.1017/js/kendo.all.min.js"></script>
+    <script>
+        $("#tabstrip").kendoTabStrip({
+            dataTextField: "Name",
+            dataContentUrlField: "ContentUrl",
+            dataSource: [
+                { Name: "Tab1", ContentUrl: "/Actualisation/Actualisation" },
+            ]
+        });
+
+    </script>
+
 }

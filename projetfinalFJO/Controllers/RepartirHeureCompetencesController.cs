@@ -50,6 +50,9 @@ namespace projetfinalFJO.Controllers
         {
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
             ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession");
+            ViewBag.groupe = new GroupeCompetence();
+            ViewBag.CompHeureRe = new RepartirHeureCompetence();
+            ViewBag.SessionRep = new RepartitionHeuresession();
             return View();
         }
 

@@ -3,58 +3,73 @@
 @{
     ViewData["Title"] = "Actualisation";
 }
+<div class="list">
 
-<h2>Les actualisations existantes</h2>
+    <h2>Les actualisations existantes</h2>
 
-<p>
-    <a asp-action="CreerActualisation">Créer une actualisation</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NumActualisation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomActualisation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NoProgramme)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomProgramme)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Approuve)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumActualisation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomActualisation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NoProgramme)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomProgramme)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Approuve)
-            </td>
-            <td>
-                @Html.ActionLink("Voir actualisation", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Consulter la liste des utilisateurs", "MembresActualisation", new { numActu=item.NumActualisation  }) |
-                @Html.ActionLink("Actualiser", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Supprimer", "SupprimerActualisation", new { numActu = item.NumActualisation  })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <a class="btn btn-info" asp-action="CreerActualisation">
+        <i class="fas fa-plus-circle"> Créer une actualisation</i>
+    </a>
+    <table class="table table-hover">
+        <thead class="card-header">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumActualisation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomActualisation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NoProgramme)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomProgramme)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Approuve)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumActualisation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomActualisation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NoProgramme)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomProgramme)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Approuve)
+                    </td>
+                    <td>
+                        <a class="btn btn-info btnlist" asp-action="Edit" asp-route-numActu="@item.NumActualisation">
+                            <i class="fas fa-pen"></i>
+                        </a>|
+                        <a class="btn btn-info btnlist" asp-action="MembresActualisation" asp-route-numActu="@item.NumActualisation">
+                            <i class="fas fa-users"></i>
+                        </a>|
+                        <a class="btn btn-info btnlist" asp-action="Details" asp-route-numActu="@item.NumActualisation">
+                            <i class="fas fa-info-circle"></i>
+                        </a> |
+                        <a class="btn btn-info btnlist" asp-action="SupprimerActualisation" asp-route-numActu="@item.NumActualisation">
+                            <i class="fas fa-trash"></i>
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+    

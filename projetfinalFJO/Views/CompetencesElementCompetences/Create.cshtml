@@ -1,5 +1,11 @@
 ﻿@model projetfinalFJO.Appdata.CompetencesElementCompetence
 
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
 <h4>CompetencesElementCompetence</h4>
 <hr />
 <div class="row">
@@ -9,7 +15,11 @@
             <div class="form-group">
                 <label asp-for="CodeCompetence" class="control-label"></label>
                 <select asp-for="CodeCompetence" class ="form-control" asp-items="ViewBag.CodeCompetence"></select>
-            </div>          
+            </div>
+            <div class="form-group">
+                <label asp-for="ElementCompétence" class="control-label"></label>
+                <select asp-for="ElementCompétence" class ="form-control" asp-items="ViewBag.ElementCompétence"></select>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

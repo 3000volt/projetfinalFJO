@@ -64,9 +64,7 @@ footer
 .card.cardspace.cardstyle,.card-header.cardstyle {
     border-radius: 10px 10px 0px 0px;
 }
-/*.card-header.cardstyle {
-    background-color: #17a2b8; 
-}*/
+
 .btnanalyse {
     margin-bottom: 40px;
     margin-top:10px
@@ -74,14 +72,21 @@ footer
 .card.cardcollapse {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     width: 95%;
-    /*background: #17a2b8;*/
     margin-left: auto;
     margin-right: auto;
 }
 .card-header {
     background-color: #17a2b8;
 }
-collapselien {
+.collapselien {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+.list {
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
 
+.btnlist {
+    border-radius: 45px 45px 45px 45px;
+}

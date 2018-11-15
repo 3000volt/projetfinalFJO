@@ -7,8 +7,8 @@
 <h2>Gérer les utilisateurs</h2>
 
 
-<table class="table">
-    <thead>
+<table class="table table-hover">
+    <thead class="card-header">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.AdresseCourriel)
@@ -45,9 +45,6 @@
             </td>
             <td>
                 @Html.DropDownListFor(modelItem => item.Role, (SelectList)ViewBag.Role, item.Role)
-                @*@Html.DropDownList("Name", (IEnumerable<SelectListItem>)ViewBag.Role, item.Role, new { @class = "form-control" })*@
-                @*<select asp-for="NoProgramme" asp-items="ViewBag.Prog"></select>
-                @Html.DisplayFor(modelItem => item.Role)*@
             </td>
             <td>
                 @Html.ActionLink("Changer le rôle de l'utilisateur", "ChangerRole", new {  nomRole = item.Role, courriel = item.AdresseCourriel }) |

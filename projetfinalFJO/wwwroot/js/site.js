@@ -4,6 +4,7 @@
 // Write your JavaScript code.
 // Write your JavaScript code.
 
+//ajouter une compétence
 function fnAddcommpetenceAjax() {
     var url = "/Competences/Create";
     var data = {
@@ -31,6 +32,7 @@ function fnAddcommpetenceAjax() {
     return false;
 }
 
+//ajouter un élément de la compétence
 function fnAddelecommpetenceAjax() {
     var url = "/Elementcompetences/Create";
     var data = {
@@ -64,6 +66,7 @@ function fnAddelecommpetenceAjax() {
     return false;
 }
 
+//associer un élément de la compétences à une compétence
 function fnAssocierelecommpetenceAjax() {
     var url = "/CompetencesElementCompetences/Create";
     var data = {
