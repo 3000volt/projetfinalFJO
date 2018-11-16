@@ -168,5 +168,32 @@ namespace projetfinalFJO.Controllers
         {
             return _context.Competences.Any(e => e.CodeCompetence == id);
         }
+
+        [HttpPost]
+        public IActionResult AjouterFamille([FromBody]Famillecompetence famille)
+        {
+            if (famille != null)
+            {
+                this._context.Famillecompetence.Add(famille);
+                this._context.SaveChanges();
+                return Ok("élément ajouté avec succès");
+
+            }
+            return BadRequest("élément non ajouté");
+        }
+
+        [HttpPost]
+        public IActionResult AjouterSequence([FromBody]Sequences sequence)
+        {
+            if (sequence != null)
+            {
+                this._context.Sequences.Add(sequence);
+                this._context.SaveChanges();
+                return Ok("élément ajouté avec succès");
+
+
+            }
+            return BadRequest("élément non ajouté");
+        }
     }
 }
