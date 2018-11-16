@@ -1,32 +1,39 @@
 ﻿@model projetfinalFJO.Appdata.RepartitionHeuresession
 
-<h4>RepartitionHeuresession</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="_PartialRep_Heure_session">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NbhCompetenceCours" class="control-label"></label>
-                <input asp-for="NbhCompetenceCours" class="form-control" />
-                <span asp-validation-for="NbhCompetenceCours" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ValidationApprouve" class="control-label"></label>
-                <input asp-for="ValidationApprouve" class="form-control" />
-                <span asp-validation-for="ValidationApprouve" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AdresseCourriel" class="control-label"></label>
-                <select asp-for="AdresseCourriel" class ="form-control" asp-items="ViewBag.AdresseCourriel"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CodeCompetence" class="control-label"></label>
-                <select asp-for="CodeCompetence" class ="form-control" asp-items="ViewBag.CodeCompetence"></select>
-            </div>
-           
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+
+<div class="card">
+    <div class="card-header">
+        <h4>Repartition des heures sur la session</h4>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="NomSession" class="control-label"></label>
+                        <select asp-for="NomSession" class="form-control" asp-items="ViewBag.NomSession"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NbhCompetenceCours" class="control-label"></label>
+                        <input asp-for="NbhCompetenceCours" class="form-control" />
+                        <span asp-validation-for="NbhCompetenceCours" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AdresseCourriel" class="control-label"></label>
+                        <select asp-for="AdresseCourriel" class="form-control" asp-items="ViewBag.AdresseCourriel"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CodeCompetence" class="control-label"></label>
+                        <select asp-for="CodeCompetence" class="form-control" asp-items="ViewBag.CodeCompetence"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+
+                </div>
             </div>
         </form>
     </div>

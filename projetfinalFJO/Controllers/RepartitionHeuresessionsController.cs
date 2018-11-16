@@ -51,7 +51,7 @@ namespace projetfinalFJO.Controllers
         {
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel");
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession");
+            ViewData["Idsession"] = new SelectList(_context.Session, "NomSession", "NomSession");
             return View();
         }
 

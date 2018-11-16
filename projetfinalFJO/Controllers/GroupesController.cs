@@ -59,7 +59,7 @@ namespace projetfinalFJO.Controllers
             {
                 _context.Add(groupe);
                 await _context.SaveChangesAsync();
-                return Ok(await _context.Groupe.ToListAsync());
+                return Ok("ajout reussi");
             }
             return BadRequest("élément non ajouté");
         }

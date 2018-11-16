@@ -106,10 +106,7 @@
             <header class="page-header">
                 <nav class="navbar navbar-expand-md navbar-dark fixed-top text-white" style="background-color:#03224C;" id="navbarCollapse">
                     <a class="navbar-brand" href="#">Navigation</a>
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                        <span>chat</span>
-                    </button>
+                    
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -154,6 +151,12 @@
                                         <a class="nav-link" href="#">Génération des rapports</a>
                                     </li>
                                 }
+                                    <li class="nav-item">
+                                        <button type="button" id="sidebarCollapse" class="btn btn-info">
+                                            <i class="fas fa-align-left"></i>
+                                            <span>chat</span>
+                                        </button>
+                                    </li>
                             }
                         </ul>
                         @await Html.PartialAsync("_LoginPartial")
