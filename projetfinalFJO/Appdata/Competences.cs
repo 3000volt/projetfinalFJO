@@ -22,9 +22,11 @@ namespace projetfinalFJO.Appdata
         public string ContextRealisation { get; set; }
         public string NomFamille { get; set; }
         public string NoProgramme { get; set; }
+        public string NomSequence { get; set; }
 
         public Programmes NoProgrammeNavigation { get; set; }
         public Famillecompetence NomFamilleNavigation { get; set; }
+        public Sequences NomSequenceNavigation { get; set; }
         public ICollection<AnalyseCompétence> AnalyseCompétence { get; set; }
         public ICollection<CompetencesElementCompetence> CompetencesElementCompetence { get; set; }
         public ICollection<CoursCompetences> CoursCompetences { get; set; }

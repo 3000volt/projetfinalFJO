@@ -1,0 +1,28 @@
+﻿@model projetfinalFJO.Appdata.Sequences
+
+<h4>Ajouter séquence</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="_AjouterSequence">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomSequence" class="control-label"></label>
+                <input asp-for="NomSequence" class="form-control" />
+                <span asp-validation-for="NomSequence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button id="btCancel" type="reset" class="btn btn-primary">Annuler</button>
+                <button id="btSubmit" type="button" onclick="AjouterSequenceAjax()" class="btn btn-primary">Ajouter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

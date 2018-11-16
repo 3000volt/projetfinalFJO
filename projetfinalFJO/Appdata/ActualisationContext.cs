@@ -116,8 +116,6 @@ namespace projetfinalFJO.Appdata
             }
         }
 
-
-
         public virtual DbSet<ActualisationInformation> ActualisationInformation { get; set; }
         public virtual DbSet<AnalyseCompétence> AnalyseCompétence { get; set; }
         public virtual DbSet<AnalyseElementsCompetence> AnalyseElementsCompetence { get; set; }
@@ -136,6 +134,7 @@ namespace projetfinalFJO.Appdata
         public virtual DbSet<RepartirHeureCompetence> RepartirHeureCompetence { get; set; }
         public virtual DbSet<RepartitionHeureCours> RepartitionHeureCours { get; set; }
         public virtual DbSet<RepartitionHeuresession> RepartitionHeuresession { get; set; }
+        public virtual DbSet<Sequences> Sequences { get; set; }
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<Utilisateur> Utilisateur { get; set; }
 
@@ -143,8 +142,8 @@ namespace projetfinalFJO.Appdata
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(" Server=localhost;Database=Actualisation;User Id=sa;Password=sql");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer(" Server=localhost;Database=Actualisation ;User Id=sa;Password=sql");
             }
         }
 
@@ -295,6 +294,8 @@ namespace projetfinalFJO.Appdata
 
                 entity.Property(e => e.NomFamille).HasMaxLength(30);
 
+                entity.Property(e => e.NomSequence).HasMaxLength(25);
+
                 entity.HasOne(d => d.NoProgrammeNavigation)
                     .WithMany(p => p.Competences)
                     .HasForeignKey(d => d.NoProgramme)
@@ -304,6 +305,11 @@ namespace projetfinalFJO.Appdata
                     .WithMany(p => p.Competences)
                     .HasForeignKey(d => d.NomFamille)
                     .HasConstraintName("FK__Competenc__NomFa__5812160E");
+
+                entity.HasOne(d => d.NomSequenceNavigation)
+                    .WithMany(p => p.Competences)
+                    .HasForeignKey(d => d.NomSequence)
+                    .HasConstraintName("FK__Competenc__NomSe__76969D2E");
             });
 
             modelBuilder.Entity<CompetencesElementCompetence>(entity =>
@@ -442,13 +448,13 @@ namespace projetfinalFJO.Appdata
                     .WithMany(p => p.GroupeCompetence)
                     .HasForeignKey(d => d.CodeCompetence)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupeCom__CodeC__778AC167");
+                    .HasConstraintName("FK__GroupeCom__CodeC__7A672E12");
 
                 entity.HasOne(d => d.NomGroupeNavigation)
                     .WithMany(p => p.GroupeCompetence)
                     .HasForeignKey(d => d.NomGroupe)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupeCom__NomGr__76969D2E");
+                    .HasConstraintName("FK__GroupeCom__NomGr__797309D9");
             });
 
             modelBuilder.Entity<Membresdesactualisations>(entity =>
@@ -605,6 +611,15 @@ namespace projetfinalFJO.Appdata
                     .HasForeignKey(d => d.NomSession)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Repartiti__NomSe__6754599E");
+            });
+
+            modelBuilder.Entity<Sequences>(entity =>
+            {
+                entity.HasKey(e => e.NomSequence);
+
+                entity.Property(e => e.NomSequence)
+                    .HasMaxLength(25)
+                    .ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Session>(entity =>
