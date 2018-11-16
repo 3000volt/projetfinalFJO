@@ -1,0 +1,25 @@
+﻿@model projetfinalFJO.Appdata.Cours
+
+@{
+    ViewData["Title"] = "AjouterCours";
+}
+
+<div id="principale">
+
+    <div id="ListeGroupe">
+        <partial name="_AddPartialListeGroupe" model="ViewBag.competence" />
+    </div>
+
+    <div id="AjoutCours" style="display:none;">
+        <partial name="_AddPartialAjouterCours" model="ViewBag.element" />
+
+        <div id="accordion">
+        </div>
+    </div>
+    <a class="btn btn-info btnanalyse" asp-controller="AnalyseCompetence" asp-action="CreerAnalyse">Créer Analyse</a>
+</div>
+
+@section Scripts
+    {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+}

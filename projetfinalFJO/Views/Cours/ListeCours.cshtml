@@ -1,0 +1,53 @@
+﻿@model IEnumerable<projetfinalFJO.Appdata.Cours>
+
+@{
+    ViewData["Title"] = "ListeCours";
+}
+
+<h2>Liste des cours éxistants</h2>
+
+<p>
+    <a asp-action="AjouterCours" asp-controller="Cours">Nouveau cours</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomCours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PonderationCours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartementCours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypedeCours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomCours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PonderationCours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartementCours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypedeCours)
+            </td>
+            <td>
+                <a asp-action="ModifierCours" asp-controller="Cours" asp-route-id="@item.NoCours">Modifier</a> |
+                <a asp-action="Details" asp-controller="Cours" asp-route-id="@item.NoCours">Details</a> |
+                <a asp-action="SupprimerCours" asp-controller="Cours" asp-route-id="@item.NoCours">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

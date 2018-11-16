@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace projetfinalFJO.Appdata
 {
@@ -10,8 +11,9 @@ namespace projetfinalFJO.Appdata
             AnalyseElementsCompetence = new HashSet<AnalyseElementsCompetence>();
             CompetencesElementCompetence = new HashSet<CompetencesElementCompetence>();
         }
-
+        [Display(Name = "Élément de compétence")]
         public string ElementCompétence { get; set; }
+        [Display(Name = "Critère de performance")]
         public string CriterePerformance { get; set; }
 
         public ICollection<AnalyseElementsCompetence> AnalyseElementsCompetence { get; set; }
