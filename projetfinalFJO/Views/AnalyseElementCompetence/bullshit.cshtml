@@ -1,0 +1,66 @@
+﻿@model projetfinalFJO.Appdata.AnalyseElementsCompetence
+
+@{
+    ViewData["Title"] = "bullshit";
+}
+
+<h2>bullshit</h2>
+
+<h4>AnalyseElementsCompetence</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="bullshit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NiveauTaxonomique" class="control-label"></label>
+                <input asp-for="NiveauTaxonomique" class="form-control" />
+                <span asp-validation-for="NiveauTaxonomique" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reformulation" class="control-label"></label>
+                <input asp-for="Reformulation" class="form-control" />
+                <span asp-validation-for="Reformulation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Context" class="control-label"></label>
+                <input asp-for="Context" class="form-control" />
+                <span asp-validation-for="Context" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SavoirFaireProgramme" class="control-label"></label>
+                <input asp-for="SavoirFaireProgramme" class="form-control" />
+                <span asp-validation-for="SavoirFaireProgramme" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SavoirEtreProgramme" class="control-label"></label>
+                <input asp-for="SavoirEtreProgramme" class="form-control" />
+                <span asp-validation-for="SavoirEtreProgramme" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValidationApprouve" class="control-label"></label>
+                <input asp-for="ValidationApprouve" class="form-control" />
+                <span asp-validation-for="ValidationApprouve" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdresseCourriel" class="control-label"></label>
+                <select asp-for="AdresseCourriel" class ="form-control" asp-items="ViewBag.AdresseCourriel"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ElementCompétence" class="control-label"></label>
+                <select asp-for="ElementCompétence" class ="form-control" asp-items="ViewBag.ElementCompétence"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
