@@ -15,6 +15,7 @@ namespace projetfinalFJO.Appdata
         [Display(Name ="Numéro de cours")]
         public string NoCours { get; set; }
         [Display(Name = "Nom du cours")]
+
         public string NomCours { get; set; }
         [Display(Name = "Pondération")]
         public string PonderationCours { get; set; }

@@ -130,13 +130,16 @@
                                         <a class="nav-link" asp-action="Index" asp-controller="Programmes">Accueil</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="ListeCours" asp-controller="Cours">Gestion des cours</a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a class="nav-link" asp-action="Index" asp-controller="Competences">Gestion des compétences</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-action="CreerAnalyse" asp-controller="AnalyseCompetence">Gestion des analyses</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="Index" asp-controller="Groupes">Gestion des groupes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="ListeCours" asp-controller="Cours">Gestion des cours</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-action="Index" asp-controller="Programmes">Génération des rapports</a>
@@ -151,12 +154,12 @@
                                         <a class="nav-link" href="#">Génération des rapports</a>
                                     </li>
                                 }
-                                    <li class="nav-item">
-                                        <button type="button" id="sidebarCollapse" class="btn btn-info">
-                                            <i class="fas fa-align-left"></i>
-                                            <span>chat</span>
-                                        </button>
-                                    </li>
+                                <li class="nav-item">
+                                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                                        <i class="fas fa-align-left"></i>
+                                        <span>chat</span>
+                                    </button>
+                                </li>
                             }
                         </ul>
                         @await Html.PartialAsync("_LoginPartial")

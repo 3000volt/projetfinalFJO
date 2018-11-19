@@ -1,0 +1,60 @@
+﻿@model projetfinalFJO.Appdata.Cours
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details du cours</h2>
+
+<div>
+    @*<h4>Cours</h4>
+    <hr />*@
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PonderationCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PonderationCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartementCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartementCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypedeCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypedeCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NoProgrammeNavigation.NoProgramme)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NomGroupeNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomGroupeNavigation.NomGroupe)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NomSessionNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomSessionNavigation.NomSession)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="ModifierCours" asp-controller="Cours" asp-route-id="@Model.NoCours">Modifier</a> |
+    <a asp-action="ListeCours" asp-controller="Cours">Retour à la liste</a>
+</div>

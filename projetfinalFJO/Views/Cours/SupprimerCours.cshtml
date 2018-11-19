@@ -1,0 +1,45 @@
+﻿@model projetfinalFJO.Appdata.Cours
+
+@{
+    ViewData["Title"] = "SupprimerCours";
+}
+
+<h2>Supprimer un cours</h2>
+
+<h3>Voulez-vous vraiment supprimer çe cours?</h3>
+<div>
+    @*<h4>Cours</h4>
+    <hr />*@
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PonderationCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PonderationCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartementCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartementCours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypedeCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypedeCours)
+        </dd>
+    </dl>
+    
+    <form asp-action="SupprimerCoursPost" asp-controller="Cours">
+        <input type="hidden" asp-for="NoCours" />
+        <input type="submit" value="Supprimer" class="btn btn-default" /> |
+        <a asp-action="ListeCours">Retour à la liste</a>
+    </form>
+</div>

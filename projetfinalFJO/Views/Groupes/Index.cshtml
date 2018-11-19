@@ -1,8 +1,14 @@
 ﻿@model IEnumerable<projetfinalFJO.Appdata.Groupe>
 
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Ajouter un groupe</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -13,9 +19,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a asp-action="Edit"  asp-route-id="@item.NomGroupe">Éditer</a> |
+                <a asp-action="Edit" asp-route-id="@item.NomGroupe">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.NomGroupe">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.NomGroupe">Supprimer</a>
+                <a asp-action="Delete" asp-route-id="@item.NomGroupe">Delete</a>
             </td>
         </tr>
 }
