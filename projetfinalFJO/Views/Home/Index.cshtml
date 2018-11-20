@@ -1,56 +1,118 @@
 ﻿@model IEnumerable<projetfinalFJO.Models.ActualisationViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    Layout = null;
 }
 
-<h2>Veillez sélectionner une actualisation pour continuer</h2>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NumActualisation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomActualisation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NoProgramme)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomProgramme)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Approuve)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumActualisation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NomActualisation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NoProgramme)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NomProgramme)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Approuve)
-                </td>
-                <td>
-                    @Html.ActionLink("Sélectionner cette actualsiation", "ChoixActualisation", new { num = item.NumActualisation }) |
-                </td>
-            </tr>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Font Awesome JS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <title>Choix de l'actualisation</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        html, body, container {
+            height: 100%;
         }
-    </tbody>
-</table>
+
+        .display-1 {
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <header class="page-header">
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top text-white" style="background-color:#03224C;" id="navbarCollapse">
+                <a class="navbar-brand" href="#">Navigation</a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse ">
+                    <ul class="navbar-nav mr-auto"></ul>
+                        @await Html.PartialAsync("_LoginPartial")
+                </div>  
+            </nav>
+        </header>
+    </div>
+    <div class="container h-100 d-flex">
+        <div class="jumbotron my-auto">
+            <h1 class="display-1">Veillez sélectionner une actualisation pour continuer</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NumActualisation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NomActualisation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NoProgramme)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NomProgramme)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Approuve)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumActualisation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NomActualisation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NoProgramme)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NomProgramme)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Approuve)
+                            </td>
+                            <td>
+                                <a class="btn btn-info btnlist" asp-action="ChoixActualisation" asp-route-num="@item.NumActualisation">
+                                    <i class="fas fa-door-open"></i>
+                                </a>                               
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <footer class="fixed-bottom" style="background-color:#03224C; color:#fff;">
+            <p>&copy; 2018 - projetfinalFJO</p>
+        </footer>
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
