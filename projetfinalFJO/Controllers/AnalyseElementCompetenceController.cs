@@ -18,7 +18,7 @@ namespace projetfinalFJO.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,ElementCompétence")] AnalyseElementsCompetence analyse)
+        public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,ElementCompétence,NoProgramme")] AnalyseElementsCompetence analyse)
         {
             if (ModelState.IsValid)
             {

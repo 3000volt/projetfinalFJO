@@ -58,7 +58,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ElementCompétence")] CompetencesElementCompetence competencesElementCompetence)
+        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ElementCompétence,NoProgramme")] CompetencesElementCompetence competencesElementCompetence)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,ElementCompétence")] CompetencesElementCompetence competencesElementCompetence)
+        public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,ElementCompétence,NoProgramme")] CompetencesElementCompetence competencesElementCompetence)
         {
             if (id != competencesElementCompetence.CodeCompetence)
             {

@@ -12,7 +12,9 @@ namespace projetfinalFJO.Appdata
         }
 
         public string NomGroupe { get; set; }
+        public string NoProgramme { get; set; }
 
+        public Programmes NoProgrammeNavigation { get; set; }
         public ICollection<Cours> Cours { get; set; }
         public ICollection<GroupeCompetence> GroupeCompetence { get; set; }
     }

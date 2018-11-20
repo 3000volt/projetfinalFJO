@@ -7,7 +7,9 @@ namespace projetfinalFJO.Appdata
     {
         public string NoCoursPrealable { get; set; }
         public string NoCours { get; set; }
+        public string NoProgramme { get; set; }
 
         public Cours NoCoursNavigation { get; set; }
+        public Programmes NoProgrammeNavigation { get; set; }
     }
 }

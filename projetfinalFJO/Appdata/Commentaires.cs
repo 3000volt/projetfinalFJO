@@ -9,7 +9,9 @@ namespace projetfinalFJO.Appdata
         public string TexteCom { get; set; }
         public string Categorie { get; set; }
         public string AdresseCourriel { get; set; }
+        public string NoProgramme { get; set; }
 
         public Utilisateur AdresseCourrielNavigation { get; set; }
+        public Programmes NoProgrammeNavigation { get; set; }
     }
 }

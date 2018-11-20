@@ -53,7 +53,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NomSession")] Session session)
+        public async Task<IActionResult> Create([Bind("NomSession,NoProgramme")] Session session)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("NomSession")] Session session)
+        public async Task<IActionResult> Edit(string id, [Bind("NomSession,NoProgramme")] Session session)
         {
             if (id != session.NomSession)
             {

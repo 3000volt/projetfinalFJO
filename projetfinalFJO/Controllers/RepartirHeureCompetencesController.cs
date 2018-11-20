@@ -21,7 +21,7 @@ namespace projetfinalFJO.Controllers
         // GET: RepartirHeureCompetences
         public async Task<IActionResult> Index()
         {
-            var actualisationContext = _context.RepartirHeureCompetence.Include(r => r.CodeCompetenceNavigation).Include(r => r.NomSessionNavigation);
+            var actualisationContext = _context.RepartirHeureCompetence.Include(r => r.CodeCompetenceNavigation);
             return View(await actualisationContext.ToListAsync());
         }
 
@@ -35,7 +35,6 @@ namespace projetfinalFJO.Controllers
 
             var repartirHeureCompetence = await _context.RepartirHeureCompetence
                 .Include(r => r.CodeCompetenceNavigation)
-                .Include(r => r.NomSessionNavigation)
                 .FirstOrDefaultAsync(m => m.CodeCompetence == id);
             if (repartirHeureCompetence == null)
             {
@@ -51,7 +50,6 @@ namespace projetfinalFJO.Controllers
 
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel");
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
-            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession");
            
             ViewBag.CompHeureRe = new RepartirHeureCompetence();
             ViewBag.SessionRep = new RepartitionHeuresession();
@@ -63,7 +61,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NbHsessionCompetence,CodeCompetence,NomSession,ValidationApprouve")] RepartirHeureCompetence repartirHeureCompetence)
+        public async Task<IActionResult> Create([Bind("NbHsessionCompetence,CodeCompetence,NomSession,ValidationApprouve,NoProgramme")] RepartirHeureCompetence repartirHeureCompetence)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +70,6 @@ namespace projetfinalFJO.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
-            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession", repartirHeureCompetence.NomSession);
             return View(repartirHeureCompetence);
         }
 
@@ -90,7 +87,6 @@ namespace projetfinalFJO.Controllers
                 return NotFound();
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
-            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession", repartirHeureCompetence.NomSession);
             return View(repartirHeureCompetence);
         }
 
@@ -99,7 +95,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("NbHsessionCompetence,CodeCompetence,NomSession,ValidationApprouve")] RepartirHeureCompetence repartirHeureCompetence)
+        public async Task<IActionResult> Edit(string id, [Bind("NbHsessionCompetence,CodeCompetence,NomSession,ValidationApprouve,NoProgramme")] RepartirHeureCompetence repartirHeureCompetence)
         {
             if (id != repartirHeureCompetence.CodeCompetence)
             {
@@ -127,7 +123,6 @@ namespace projetfinalFJO.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
-            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession", repartirHeureCompetence.NomSession);
             return View(repartirHeureCompetence);
         }
 
@@ -141,7 +136,6 @@ namespace projetfinalFJO.Controllers
 
             var repartirHeureCompetence = await _context.RepartirHeureCompetence
                 .Include(r => r.CodeCompetenceNavigation)
-                .Include(r => r.NomSessionNavigation)
                 .FirstOrDefaultAsync(m => m.CodeCompetence == id);
             if (repartirHeureCompetence == null)
             {

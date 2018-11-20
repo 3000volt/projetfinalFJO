@@ -14,8 +14,10 @@ namespace projetfinalFJO.Appdata
         public int IdAnalyseAc { get; set; }
         public string AdresseCourriel { get; set; }
         public string ElementCompétence { get; set; }
+        public string NoProgramme { get; set; }
 
         public Utilisateur AdresseCourrielNavigation { get; set; }
         public Elementcompetence ElementCompétenceNavigation { get; set; }
+        public Programmes NoProgrammeNavigation { get; set; }
     }
 }

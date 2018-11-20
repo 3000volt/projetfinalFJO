@@ -53,7 +53,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("NomGroupe")] Groupe groupe)
+        public async Task<IActionResult> Create([FromBody][Bind("NomGroupe,NoProgramme")] Groupe groupe)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("NomGroupe")] Groupe groupe)
+        public async Task<IActionResult> Edit(string id, [Bind("NomGroupe,NoProgramme")] Groupe groupe)
         {
             if (id != groupe.NomGroupe)
             {

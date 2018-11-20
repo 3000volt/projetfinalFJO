@@ -60,7 +60,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NbhCompetenceCours,ValidationApprouve,IdAnalyseRhs,AdresseCourriel,CodeCompetence,Idsession")] RepartitionHeuresession repartitionHeuresession)
+        public async Task<IActionResult> Create([Bind("NbhCompetenceCours,ValidationApprouve,IdAnalyseRhs,AdresseCourriel,CodeCompetence,Idsession,NoProgramme")] RepartitionHeuresession repartitionHeuresession)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NbhCompetenceCours,ValidationApprouve,IdAnalyseRhs,AdresseCourriel,CodeCompetence,Idsession")] RepartitionHeuresession repartitionHeuresession)
+        public async Task<IActionResult> Edit(int id, [Bind("NbhCompetenceCours,ValidationApprouve,IdAnalyseRhs,AdresseCourriel,CodeCompetence,Idsession,NoProgramme")] RepartitionHeuresession repartitionHeuresession)
         {
             if (id != repartitionHeuresession.IdAnalyseRhs)
             {

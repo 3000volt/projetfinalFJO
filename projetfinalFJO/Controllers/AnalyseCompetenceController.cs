@@ -54,7 +54,7 @@ namespace projetfinalFJO.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,Famille,Sequence,CodeCompetence")] AnalyseViewModel analyseVM)
+        public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,Famille,Sequence,CodeCompetence,NoProgramme")] AnalyseViewModel analyseVM)
         {
             if (ModelState.IsValid)
             {

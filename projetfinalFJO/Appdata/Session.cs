@@ -8,16 +8,16 @@ namespace projetfinalFJO.Appdata
         public Session()
         {
             Cours = new HashSet<Cours>();
-            RepartirHeureCompetence = new HashSet<RepartirHeureCompetence>();
-            RepartitionHeureCours = new HashSet<RepartitionHeureCours>();
+            GroupeCompetence = new HashSet<GroupeCompetence>();
             RepartitionHeuresession = new HashSet<RepartitionHeuresession>();
         }
 
         public string NomSession { get; set; }
+        public string NoProgramme { get; set; }
 
+        public Programmes NoProgrammeNavigation { get; set; }
         public ICollection<Cours> Cours { get; set; }
-        public ICollection<RepartirHeureCompetence> RepartirHeureCompetence { get; set; }
-        public ICollection<RepartitionHeureCours> RepartitionHeureCours { get; set; }
+        public ICollection<GroupeCompetence> GroupeCompetence { get; set; }
         public ICollection<RepartitionHeuresession> RepartitionHeuresession { get; set; }
     }
 }

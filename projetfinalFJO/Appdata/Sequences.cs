@@ -11,7 +11,9 @@ namespace projetfinalFJO.Appdata
         }
 
         public string NomSequence { get; set; }
+        public string NoProgramme { get; set; }
 
+        public Programmes NoProgrammeNavigation { get; set; }
         public ICollection<Competences> Competences { get; set; }
     }
 }

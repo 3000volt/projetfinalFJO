@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace projetfinalFJO.Appdata
 {
@@ -16,18 +15,13 @@ namespace projetfinalFJO.Appdata
             RepartitionHeureCours = new HashSet<RepartitionHeureCours>();
             RepartitionHeuresession = new HashSet<RepartitionHeuresession>();
         }
-        [Display(Name ="Code de compétence")]
+
         public string CodeCompetence { get; set; }
-        [Display(Name = "Obligatoire")]
         public bool? ObligatoireCégep { get; set; }
         public string Description { get; set; }
-        [Display(Name = "Contexte de réalisation")]
         public string ContextRealisation { get; set; }
-        [Display(Name = "Famille de compétence")]
         public string NomFamille { get; set; }
-        [Display(Name = "Numéro de programme")]
         public string NoProgramme { get; set; }
-        [Display(Name = "Séquence")]
         public string NomSequence { get; set; }
 
         public Programmes NoProgrammeNavigation { get; set; }

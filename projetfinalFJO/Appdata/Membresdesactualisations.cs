@@ -7,8 +7,10 @@ namespace projetfinalFJO.Appdata
     {
         public int NumActualisation { get; set; }
         public string AdresseCourriel { get; set; }
+        public string NoProgramme { get; set; }
 
         public Utilisateur AdresseCourrielNavigation { get; set; }
+        public Programmes NoProgrammeNavigation { get; set; }
         public ActualisationInformation NumActualisationNavigation { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -59,8 +60,20 @@ namespace projetfinalFJO.Controllers
         }
 
 
-        public ActionResult MembresActualisation(int numActu)
+        public ActionResult MembresActualisation(int numActu, string programme)
         {
+
+            //Mettre la session a cette compétence
+
+            if (!this.HttpContext.Session.Keys.Contains("programme"))
+            {
+                this.HttpContext.Session.SetString("programme", programme);
+            }
+            else if (programme != this.HttpContext.Session.GetString("programme"))
+            {
+                this.HttpContext.Session.SetString("programme", programme);
+            }
+
             //Prendre les éléments du contexte ayant le numéro de l'actualisation en paramètre
             this.listeMemrbesActualisation = this.contexteActu.Membresdesactualisations.ToList().FindAll(x => x.NumActualisation == numActu);
             //Trouver les utilisateurs pour transférer leur viewModel
@@ -134,40 +147,26 @@ namespace projetfinalFJO.Controllers
 
         public ActionResult AjouterMembre2(string courriel, int numAct, int num)
         {
+            string numprogr = null;
+            //Trouver le numero en cours grace a la session
+            if (this.HttpContext.Session.Keys.Contains("programme"))
+            {
+                numprogr = this.HttpContext.Session.GetString("programme");
+            }
             //Créer l'objet du membre nouvellement ajouté
             Membresdesactualisations nouveauM = new Membresdesactualisations
             {
                 NumActualisation = numAct,
-                AdresseCourriel = courriel
+                AdresseCourriel = courriel,
+                NoProgramme = numprogr,
             };
             //Ajouter le nouveau membre a la bd de l'actualisation
-            this.contexteActu.InsererMembresdesactualisations(nouveauM);
-            //Créer la liste des membres de l'actualisation en cours
-            //List<Membresdesactualisations> listeMembres = this.contexteActu.Membresdesactualisations.ToList().FindAll(x => x.NumActualisation == numAct);
-            //List<MembresActualisationViewModel> listeUtilisateurs = new List<MembresActualisationViewModel>();
-            //Utilisateur util;
-            //foreach (Membresdesactualisations me in listeMembres)
-            //{
-            //    courriel = me.AdresseCourriel;
-            //    //Trouver l'utilisatuer dans la liste des utilisateurs
-            //    util = this.contexteActu.Utilisateur.ToList().Find(x => x.AdresseCourriel == courriel);
-            //    //Id Utilisateur
-            //    string utilisateurID = this.contextLogin.Users.ToList().Find(x => x.UserName == me.AdresseCourriel).Id;
-            //    //Trouver son role
-            //    //Id
-            //    string roleId = this.contextLogin.UserRoles.ToList().Find(x => x.UserId == utilisateurID).RoleId;
-            //    //nom
-            //    string nomRole = this.contextLogin.Roles.ToList().Find(x => x.Id == roleId).Name;
-            //    //Ajouter a la liste
-            //    listeUtilisateurs.Add(new MembresActualisationViewModel
-            //    {
-            //        Nom = util.Nom,
-            //        Prenom = util.Prenom,
-            //        Role = nomRole
-            //    });
-            //}
+
+            this.contexteActu.Membresdesactualisations.Add(nouveauM);
+            this.contexteActu.SaveChanges();
+
             //Retour a la vue des membres de l'actualisation en cours
-            return RedirectToAction("MembresActualisation", new { numActu = num });
+            return RedirectToAction("MembresActualisation", new { numActu = num, programme = numprogr });
         }
 
         [HttpGet]
