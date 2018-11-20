@@ -45,6 +45,7 @@ namespace projetfinalFJO.Controllers
         // GET: Groupes/Create
         public IActionResult Create()
         {
+            ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme");
             return View();
         }
 
@@ -61,7 +62,7 @@ namespace projetfinalFJO.Controllers
                 await _context.SaveChangesAsync();
                 return Ok("ajout reussi");
             }
-            return BadRequest("élément non ajouté");
+            return BadRequest("groupe non ajouté");
         }
 
         // GET: Groupes/Edit/5

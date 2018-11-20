@@ -16,6 +16,7 @@ namespace projetfinalFJO.Controllers
         //propriétés
         private readonly ActualisationContext _contexte;
 
+        //Constructeur
         public CoursController(ActualisationContext contexte)
         {
             _contexte = contexte;
@@ -36,9 +37,9 @@ namespace projetfinalFJO.Controllers
         [HttpGet]
         public IActionResult AjouterCours()
         {  //peupler les listes
-            ViewData["NomGroupe"] = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
-            ViewData["NoProgramme"] = new SelectList(_contexte.Programmes, "NoProgramme", "NoProgramme");
-            ViewData["NomSession"] = new SelectList(_contexte.Session,"NomSession","NomSession");
+            ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
+            ViewBag.NoProgramme = new SelectList(_contexte.Programmes, "NoProgramme", "NoProgramme");
+            ViewBag.NomSession = new SelectList(_contexte.Session,"NomSession","NomSession");
             ViewBag.Cours = new Cours();
             return View();
         }
@@ -48,19 +49,19 @@ namespace projetfinalFJO.Controllers
         /// <param name="cours"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AjouterCours([FromBody][Bind("NoCours,NomCours,PonderationCours,DepartementCours,TypedeCours,NoProgramme,NomSession,NomGroupe")]Cours cours)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> AjouterCours([Bind("NoCours,NomCours,PonderationCours,DepartementCours,TypedeCours,NoProgramme,NomSession,NomGroupe")]Cours cours)//Ajouter [FromBody] quand Ajax va être implémenté
         {
            if(ModelState.IsValid)
             {
-                HttpContext.Session.SetString("Cours",JsonConvert.SerializeObject(cours));
+                //HttpContext.Session.SetString("Cours",JsonConvert.SerializeObject(cours));
                 _contexte.Add(cours);
                 await _contexte.SaveChangesAsync();
 
-              
-              return RedirectToAction("ListeCours");
+              return RedirectToAction(nameof(ListeCours));
             }
 
-            return BadRequest("Cours non ajouté");
+            return BadRequest("Erreur,Le cours n'a pas pu être ajouté");
         }
         /// <summary>
         /// Affiche les détails du cours
@@ -86,16 +87,18 @@ namespace projetfinalFJO.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Modifier un cours éxistant
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult ModifierCours(string id)
+        public async Task<IActionResult> ModifierCours(string id)
         {
             if(id == null)
             {
-
+                return NotFound();
             }
+
+            //Cours cours = await _contexte.Cours.FirstAsync(id);
 
             return View();
         }
@@ -128,9 +131,13 @@ namespace projetfinalFJO.Controllers
         /// </summary>
         /// <param name="cours"></param>
         /// <returns></returns>
-        [HttpPost]
-        public IActionResult SupprimerCoursPost(string id)
+        [HttpPost, ActionName("Supprimer")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> SupprimerCoursPost(string id)
         {
+            //var cours = await _contexte.Cours.FirstAsync(id);
+            //_contexte.Cours.Remove(cours);
+            //await _contexte.SaveChangesAsync();
             return View();
         }
     }

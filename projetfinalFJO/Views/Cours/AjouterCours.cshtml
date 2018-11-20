@@ -2,23 +2,34 @@
 
 @{
     ViewData["Title"] = "AjouterCours";
+
+    //tester la vue des groupes
+    //    ViewBag.groupes = new List<projetfinalFJO.Appdata.Groupe>
+    //{
+    //new projetfinalFJO.Appdata.Groupe(){
+    //    NomGroupe = "Prog",
+    //    NoProgramme = "420"
+    //}
+    //};
 }
 
 <div id="principale">
 
-    @*<div id="ListeGroupe">
+    <div id="ListeGroupe">
         <partial name="_AddPartialListeGroupe" model="ViewBag.groupes" />
-    </div>*@
+    </div>
 
-    <div id="AjoutCours" style="display:none;">
-        <partial name="_AddPartialAjouterCours" model="ViewBag.Cours" />
+    <div id="AjoutCours">
+        <partial name="_AddPartialAjouterCours" />
 
         <div id="accordion">
         </div>
     </div>
-    <a class="btn btn-info " asp-controller="Cours" asp-action="AjouterCours">Ajouter cours</a>
+    @*<a class="btn btn-info " asp-controller="Cours" asp-action="AjouterCours">Ajouter cours</a>*@
 </div>
-
+<div>
+        <a asp-action="ListeCours" asp-controller="Cours">Retour à la liste</a>
+    </div>
 @section Scripts
     {
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
