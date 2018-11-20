@@ -5,6 +5,8 @@
 // Write your JavaScript code.
 
 //ajouter une compétence
+
+
 function fnAddcommpetenceAjax() {
     var url = "/Competences/Create";
     var data = {
