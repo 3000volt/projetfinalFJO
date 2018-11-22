@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Views\AnalyseElementCompetence\" />
+    <Folder Include="Views\RepartitionHeuresessions\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>

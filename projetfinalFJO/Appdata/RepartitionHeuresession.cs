@@ -5,7 +5,7 @@ namespace projetfinalFJO.Appdata
 {
     public partial class RepartitionHeuresession
     {
-        public int NbhCompetenceCours { get; set; }
+        public int NbhCompetenceSession { get; set; }
         public bool? ValidationApprouve { get; set; }
         public int IdAnalyseRhs { get; set; }
         public string AdresseCourriel { get; set; }

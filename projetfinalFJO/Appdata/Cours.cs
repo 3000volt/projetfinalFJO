@@ -12,6 +12,7 @@ namespace projetfinalFJO.Appdata
             Prealables = new HashSet<Prealables>();
             RepartitionHeureCours = new HashSet<RepartitionHeureCours>();
         }
+
         [Display(Name ="Numéro du cours")]
         public string NoCours { get; set; }
         [Display(Name = "Nom du cours")]
@@ -28,6 +29,7 @@ namespace projetfinalFJO.Appdata
         public string NomSession { get; set; }
         [Display(Name = "Groupe")]
         public string NomGroupe { get; set; }
+
         public Programmes NoProgrammeNavigation { get; set; }
         public Groupe NomGroupeNavigation { get; set; }
         public Session NomSessionNavigation { get; set; }
