@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projetfinalFJO.Appdata;
 
@@ -20,6 +21,7 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,ElementCompétence,NoProgramme")] AnalyseElementsCompetence analyse)
         {
+            analyse.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
                 _context.Add(analyse);

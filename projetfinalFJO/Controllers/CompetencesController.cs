@@ -64,6 +64,7 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
         {
+            competences.NoProgramme= this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
                 //Mettre la session a cette compétence
@@ -172,6 +173,7 @@ namespace projetfinalFJO.Controllers
         [HttpPost]
         public IActionResult AjouterFamille([FromBody]Famillecompetence famille)
         {
+            famille.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (famille != null)
             {
                 this._context.Famillecompetence.Add(famille);
@@ -185,6 +187,7 @@ namespace projetfinalFJO.Controllers
         [HttpPost]
         public IActionResult AjouterSequence([FromBody]Sequences sequence)
         {
+            sequence.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (sequence != null)
             {
                 this._context.Sequences.Add(sequence);

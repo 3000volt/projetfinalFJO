@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,7 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody][Bind("ElementCompétence,CriterePerformance,NoProgramme")] Elementcompetence elementcompetence)
         {
+            elementcompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
                 _context.Add(elementcompetence);

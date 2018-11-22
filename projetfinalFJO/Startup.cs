@@ -19,9 +19,11 @@ namespace projetfinalFJO
 {
     public class Startup
     {
+        private ActualisationContext contexteActu;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            this.contexteActu = new ActualisationContext(configuration.GetConnectionString("DefaultConnection"));
         }
 
         public IConfiguration Configuration { get; }
@@ -58,13 +60,15 @@ namespace projetfinalFJO
             services.AddDbContext<ActualisationContext>(options =>
                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
+         
+
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseSession();
             app.UseMvc();
@@ -79,13 +83,98 @@ namespace projetfinalFJO
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
-            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Privacy}/{id?}");
             });
+
+            CreateRoles(serviceProvider).Wait();
+        }
+
+        //https://www.c-sharpcorner.com/article/role-base-authorization-in-asp-net-core-2-1/
+        //creation des roles et des utilisateurs au demarrage
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            //initializing custom roles   
+
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<LoginRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<LoginUser>>();
+            string[] roleNames = { "Admin", "Sous_Commite", "Commite_Programme" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    //create the roles and seed them to the database: Question 1  
+                    roleResult = await RoleManager.CreateAsync(new LoginRole() { Name=roleName,});
+                }
+            }
+
+            LoginUser user = await UserManager.FindByEmailAsync("Bullshit@gmail.com");
+
+            if (user == null)
+            {
+                user = new LoginUser()
+                {
+                    UserName = "Bullshit@gmail.com",
+                    Email = "Bullshit@gmail.com",
+                };
+                var CreateUser = await UserManager.CreateAsync(user, "bullshit1234");
+                if (CreateUser.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(user, "Admin");
+                    Utilisateur util = new Utilisateur() { Nom = "Bullshit@gmail.com", Prenom = "Bullshit@gmail.com", RegisterDate = DateTime.Now, AdresseCourriel = "Bullshit@gmail.com" };
+                    contexteActu.Utilisateur.Add(util);
+                    await contexteActu.SaveChangesAsync();
+                }              
+            }
+
+            LoginUser user1 = await UserManager.FindByEmailAsync("Sous_Commite@gmail.com");
+
+            if (user1 == null)
+            {
+                user1 = new LoginUser()
+                {
+                    UserName = "Sous_Commite@gmail.com",
+                    Email = "Sous_Commite@gmail.com",
+                };
+                var CreateUser=await UserManager.CreateAsync(user1, "bullshit1234");
+                if(CreateUser.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(user1, "Sous_Commite");
+                    Utilisateur util = new Utilisateur() { Nom = "Sous_Commite@gmail.com", Prenom = "Sous_Commite@gmail.com", RegisterDate = DateTime.Now, AdresseCourriel = "Sous_Commite@gmail.com" };
+                    contexteActu.Utilisateur.Add(util);
+                    await contexteActu.SaveChangesAsync();
+                }
+                
+            }
+
+
+            LoginUser user2 = await UserManager.FindByEmailAsync("Commite_Programme@gmail.com");
+
+            if (user2 == null)
+            {
+                user2 = new LoginUser()
+                {
+                    UserName = "Commite_Programme@gmail.com",
+                    Email = "Commite_Programme@gmail.com",
+                };
+                var CreateUser = await UserManager.CreateAsync(user2, "bullshit1234");
+                if(CreateUser.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(user2, "Commite_Programme");
+                    Utilisateur util = new Utilisateur() { Nom = "Commite_Programme@gmail.com", Prenom = "Commite_Programme@gmail.com", RegisterDate = DateTime.Now, AdresseCourriel = "Commite_Programme@gmail.com" };
+                    contexteActu.Utilisateur.Add(util);
+                    await contexteActu.SaveChangesAsync();
+                }
+                
+            }
+            
+
         }
     }
 }

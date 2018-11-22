@@ -54,8 +54,9 @@ namespace projetfinalFJO.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,Famille,Sequence,CodeCompetence,NoProgramme")] AnalyseViewModel analyseVM)
+        public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,Famille,Sequence,CodeCompetence")] AnalyseViewModel analyseVM)
         {
+            
             if (ModelState.IsValid)
             {
                 //Mettre à jour la famille et sequence de la competence
@@ -75,8 +76,9 @@ namespace projetfinalFJO.Controllers
                     SavoirFaireProgramme = analyseVM.SavoirFaireProgramme,
                     SavoirEtreProgramme = analyseVM.SavoirEtreProgramme,
                     AdresseCourriel = analyseVM.AdresseCourriel,
-                    CodeCompetence = analyseVM.CodeCompetence
-                };
+                    CodeCompetence = analyseVM.CodeCompetence,
+                    NoProgramme = this.HttpContext.Session.GetString("programme"),
+            };
                 _context.Add(analyse);
                 await _context.SaveChangesAsync();
                 return Ok("élément ajouté avec succès");
