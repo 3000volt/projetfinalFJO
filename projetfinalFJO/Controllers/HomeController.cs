@@ -66,9 +66,10 @@ namespace projetfinalFJO.Controllers
             return numero;
         }
 
-        public ActionResult ChoixActualisation(int num)
+        public ActionResult ChoixActualisation(int num, string prog)
         {
             int numSession = num;
+            this.HttpContext.Session.SetString("programme", prog);
             //Créer une session pour garder en mémoire l'actualisation en cours
             this.HttpContext.Session.SetString("NumActualisation", numSession.ToString());
             return RedirectToAction("Accueil");

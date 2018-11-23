@@ -75,7 +75,7 @@ footer
     margin-left: auto;
     margin-right: auto;
 }
-.card-header {
+div.card-header.cardstyle {
     background-color: #17a2b8;
 }
 .collapselien {
