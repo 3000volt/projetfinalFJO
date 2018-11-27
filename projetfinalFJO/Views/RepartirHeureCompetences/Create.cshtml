@@ -13,11 +13,14 @@
         <ul>
             <li class="loic"><a href="@Url.Action("partialGroupeComp", "RepartirHeureCompetences")">Assigner un groupe à une compétence</a></li>
             <li><a href="@Url.Action("partialGroupe", "RepartirHeureCompetences")">Créer un groupe </a></li>
+            <li><a href="@Url.Action("partialSessionComp", "RepartirHeureCompetences")">Répartir les heures par session</a></li>
+            <li><a href="@Url.Action("partialSession", "RepartirHeureCompetences")">Créer une session</a></li>
+            <li><a href="@Url.Action("partialtableRepSession", "RepartirHeureCompetences")">Tableau de répartition</a></li>
         </ul>
     </div>
-    <div id="session">
+    @*<div id="session">
         <partial name="_PartialRep_Heure_session" model="ViewBag.SessionRep" />
-    </div>
+    </div>*@
 </div>
 
 @section Scripts
@@ -36,6 +39,7 @@
             }
         });
     });
+
 
     </script>
 

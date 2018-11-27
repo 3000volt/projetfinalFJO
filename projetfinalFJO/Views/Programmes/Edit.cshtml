@@ -4,55 +4,62 @@
     ViewData["Title"] = "Edit";
 }
 
-
-<h4>Modifier un programmes</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card cardspace cardstyle">
+    <div class="card-header cardstyle">
+        <h4>Modification du programme @Model.NoProgramme </h4>
+    </div>
+    <div class="card-body ">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="NoProgramme" />
-            <div class="form-group">
-                <label asp-for="NomProgramme" class="control-label"></label>
-                <input asp-for="NomProgramme" class="form-control" />
-                <span asp-validation-for="NomProgramme" class="text-danger"></span>
+            <div class="row">
+                <div class="form-group col-4">
+                    <label asp-for="NoProgramme" class="control-label"></label>
+                    <input asp-for="NoProgramme" class="form-control" readonly />
+                    <span asp-validation-for="NoProgramme" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="NomProgramme" class="control-label"></label>
+                    <input asp-for="NomProgramme" class="form-control" />
+                    <span asp-validation-for="NomProgramme" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="NbHeure" class="control-label"></label>
+                    <input asp-for="NbHeure" type="number" class="form-control" />
+                    <span asp-validation-for="NbHeure" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4">
+                    <label asp-for="NbUnite" class="control-label"></label>
+                    <input asp-for="NbUnite" type="text" class="form-control" />
+                    <span asp-validation-for="NbUnite" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="NbCompetencesObligatoires" class="control-label"></label>
+                    <input asp-for="NbCompetencesObligatoires" type="number" class="form-control" />
+                    <span asp-validation-for="NbCompetencesObligatoires" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="NbCompetencesOptionnelles" class="control-label"></label>
+                    <input asp-for="NbCompetencesOptionnelles" type="number" class="form-control" />
+                    <span asp-validation-for="NbCompetencesOptionnelles" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label asp-for="CondtionsAdmission" class="control-label"></label>
+                    <textarea asp-for="CondtionsAdmission" class="form-control" style="height:180px"></textarea>
+                    <span asp-validation-for="CondtionsAdmission" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="NbHeure" class="control-label"></label>
-                <input asp-for="NbHeure" class="form-control" />
-                <span asp-validation-for="NbHeure" class="text-danger"></span>
+                <input type="submit" value="Enregistrer les modifications" class="btn btn-info" />
             </div>
-            <div class="form-group">
-                <label asp-for="NbUnite" class="control-label"></label>
-                <input asp-for="NbUnite" class="form-control" />
-                <span asp-validation-for="NbUnite" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NbCompetencesObligatoires" class="control-label"></label>
-                <input asp-for="NbCompetencesObligatoires" class="form-control" />
-                <span asp-validation-for="NbCompetencesObligatoires" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NbCompetencesOptionnelles" class="control-label"></label>
-                <input asp-for="NbCompetencesOptionnelles" class="form-control" />
-                <span asp-validation-for="NbCompetencesOptionnelles" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CondtionsAdmission" class="control-label"></label>
-                <input asp-for="CondtionsAdmission" class="form-control" />
-                <span asp-validation-for="CondtionsAdmission" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Sauvegarder" class="btn btn-info" />
-            </div>
+
         </form>
+        
     </div>
 </div>
-
-<div>
-       <a asp-action="ListeProgrammes" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Retour à la liste</a>
+<div style="margin-bottom:15px">
+    <a class="btn btn-info" asp-action="Index" ><i class="fas fa-arrow-left"> Retournez à la liste des programmes</i></a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -122,19 +124,46 @@
                     </button>
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav mr-auto">
-                            @{if (this.User.IsInRole("Admin")) //SRDP
+                            @{if (this.User.IsInRole("Admin"))
+                                //https://stackoverflow.com/questions/43698878/how-to-get-session-value-asp-net-core-inside-a-view
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="#" asp-action="Actualisation" asp-controller="Actualisation">Actualisation </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Utilisateurs</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Programmes</a>
-                                    </li>
+                                    if (@HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") != "Actif")
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="#" asp-action="Actualisation" asp-controller="Actualisation">Actualisation </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Gestion d'utilisateur</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gestion de programmes</a>
+                                        </li>
+                                    }
+                                    else if (@HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") == "Actif")
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Accueil</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="ListeCours" asp-controller="Cours">Gestion des cours</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="Index" asp-controller="Competences">Gestion des compétences</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="CreerAnalyse" asp-controller="AnalyseCompetence">Gestion des analyses</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Génération des rapports</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Retour à l'accueil d'admin</a>
+                                        </li>
+                                    }
+
                                 }
                                 else if (this.User.IsInRole("Sous_Commite"))
+
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Programmes</a>

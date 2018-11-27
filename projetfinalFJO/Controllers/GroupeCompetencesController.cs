@@ -59,18 +59,17 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NomGroupe,CodeCompetence,NoProgramme")] GroupeCompetence groupeCompetence)
+        public async Task<IActionResult> Create([FromBody][Bind("NomGroupe,CodeCompetence,NomSession,NoProgramme")] GroupeCompetence groupeCompetence)
         {
             groupeCompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
                 _context.Add(groupeCompetence);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Ok("ajout reussi");
             }
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", groupeCompetence.CodeCompetence);
-            ViewData["NomGroupe"] = new SelectList(_context.Groupe, "NomGroupe", "NomGroupe", groupeCompetence.NomGroupe);
-            return View(groupeCompetence);
+           
+            return BadRequest("groupe non ajouté");
         }
 
         // GET: GroupeCompetences/Edit/5

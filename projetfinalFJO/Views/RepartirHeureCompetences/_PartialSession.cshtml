@@ -1,0 +1,45 @@
+﻿@model projetfinalFJO.Appdata.Session
+
+<h4>Session</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="_PartialSession">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomSession" class="control-label"></label>
+                <input asp-for="NomSession" class="form-control" />
+                <span asp-validation-for="NomSession" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="button" value="Create" class="btn btn-default" onclick="fnSessionAjax()" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@*@model projetfinalFJO.Appdata.Session
+
+<h4>Session</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomSession" class="control-label"></label>
+                <input id="NomSession2" class="form-control" />
+
+            </div>
+
+            <div class="form-group">
+                <input type="button" value="Create" class="btn btn-default" onclick="fnSessionAjax()" />
+            </div>
+        </form>
+    </div>
+</div>*@

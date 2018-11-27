@@ -53,7 +53,7 @@ namespace projetfinalFJO.Controllers
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
            
             ViewBag.CompHeureRe = new RepartirHeureCompetence();
-            ViewBag.SessionRep = new RepartitionHeuresession();
+ 
             return View();
         }
 
@@ -62,17 +62,17 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NbHsessionCompetence,CodeCompetence,NomSession,ValidationApprouve,NoProgramme")] RepartirHeureCompetence repartirHeureCompetence)
+        public async Task<IActionResult> Create([FromBody][Bind("NbHsessionCompetence,CodeCompetence,ValidationApprouve,NoProgramme")] RepartirHeureCompetence repartirHeureCompetence)
         {
             repartirHeureCompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
                 _context.Add(repartirHeureCompetence);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Ok("ajout reussi");
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
-            return View(repartirHeureCompetence);
+            return BadRequest("groupe non ajouté");
         }
 
         // GET: RepartirHeureCompetences/Edit/5
@@ -175,9 +175,32 @@ namespace projetfinalFJO.Controllers
         public PartialViewResult partialGroupeComp()
         {
             ViewBag.groupe = new GroupeCompetence();
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
             ViewData["NomGroupe"] = new SelectList(_context.Groupe, "NomGroupe", "NomGroupe");
+            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession");
             return PartialView("_PartialGroupeComp");
+        }
+
+        public PartialViewResult partialSession()
+        {
+            ViewBag.session = new Session();
+            return PartialView("_PartialSession");
+        }
+        public PartialViewResult partialSessionComp()
+        {
+            
+            ViewBag.SessionRep = new RepartitionHeuresession();
+            ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel");
+            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
+            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession");
+            return PartialView("_PartialRep_Heure_session");
+        }
+
+
+        public PartialViewResult partialtableRepSession()
+        {
+            ViewData["NomSession"] = _context.Session.ToList();
+            ViewData["repartitionheureSession"] =_context.RepartitionHeuresession.ToList();
+            return PartialView("_partialtableRepSession");
         }
     }
 }

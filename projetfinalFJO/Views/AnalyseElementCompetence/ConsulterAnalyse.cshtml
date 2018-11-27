@@ -1,0 +1,72 @@
+﻿@model projetfinalFJO.Appdata.AnalyseElementsCompetence
+
+@{
+    ViewData["Title"] = "ConsulterAnalyse";
+}
+
+<h2>ConsulterAnalyse</h2>
+
+<div>
+    <h4>AnalyseElementsCompetence</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NiveauTaxonomique)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NiveauTaxonomique)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Reformulation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Reformulation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Context)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Context)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SavoirFaireProgramme)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SavoirFaireProgramme)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SavoirEtreProgramme)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SavoirEtreProgramme)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidationApprouve)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValidationApprouve)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAnalyseAc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdAnalyseAc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdresseCourriel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdresseCourriel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ElementCompétence)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ElementCompétence)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -8,14 +8,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="NomGroupe" class="control-label"></label>
-                <select asp-for="NomGroupe" class ="form-control" asp-items="ViewBag.NomGroupe"></select>
+                <select asp-for="NomGroupe" class="form-control" asp-items="ViewBag.NomGroupe"></select>
             </div>
             <div class="form-group">
-                <label asp-for="CodeCompetence" class="control-label"></label>
-                <select asp-for="CodeCompetence" class ="form-control" asp-items="ViewBag.CodeCompetence"></select>
+                <label asp-for="NomSession" class="control-label"></label>
+                <select asp-for="NomSession" class="form-control" asp-items="ViewBag.NomSession"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="button" value="Create" class="btn btn-default" onclick="fnGroupeCompAjax()" />
             </div>
         </form>
     </div>

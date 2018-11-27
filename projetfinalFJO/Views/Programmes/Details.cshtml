@@ -1,53 +1,130 @@
-﻿@model projetfinalFJO.Appdata.Programmes
+﻿
+@model projetfinalFJO.Models.ProgrammesDetail
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>informations du programmes</h1>
+<div class="card cardspace cardstyle">
+    <div class="card-header cardstyle">
+        <h5>Details du programme No @Model.program.NoProgramme, @Model.program.NomProgramme</h5>
+    </div>
+    <div class="card-body ">
+        <div class="row">
+            <div class="form-group col-4">
+                <label asp-for="program.NomProgramme" class="control-label"></label> :
+                @Html.DisplayFor(model => model.program.NomProgramme)            
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="program.NoProgramme" class="control-label"></label> :
+                @Html.DisplayFor(model => model.program.NoProgramme)
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="program.NbHeure" class="control-label"></label> :
+                @Html.DisplayFor(model => model.program.NbHeure)
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-4">
+                <label asp-for="program.NbUnite" class="control-label"></label> :
+                @Html.DisplayFor(model => model.program.NbUnite)
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="program.NbCompetencesObligatoires" class="control-label"></label> :
+                @Html.DisplayFor(model => model.program.NbCompetencesObligatoires)
+            </div>
+            <div class="form-group col-4">
+                <label asp-for="program.NbCompetencesOptionnelles" class="control-label"></label> :
+                @Html.DisplayFor(model => model.program.NbCompetencesOptionnelles)
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label asp-for="program.CondtionsAdmission" class="control-label"></label> 
+                <textarea asp-for="program.CondtionsAdmission" class="form-control" style="height:180px" readonly></textarea>
+            </div>
+        </div>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NomProgramme)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NomProgramme)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NbHeure)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NbHeure)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NbUnite)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NbUnite)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NbCompetencesObligatoires)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NbCompetencesObligatoires)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NbCompetencesOptionnelles)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NbCompetencesOptionnelles)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CondtionsAdmission)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CondtionsAdmission)
-        </dd>
-    </dl>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.NoProgramme" class="btn btn-info">Modifier</a> |
-    <a asp-action="ListeProgrammes" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Retour à la liste</a>
+
+<div id="accordion" style="margin-left:auto;margin-right:auto; width:95%;">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h4 class="mb-0">
+                <button class="btn btn-link" style="color:white" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Liste des compétences associées à ceux programmes
+                </button>
+            </h4>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <div class="list">
+                    <table class="table table-hover">
+                        <thead class="card-header">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.comp.CodeCompetence)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.comp.ObligatoireCégep)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.comp.Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.comp.ContextRealisation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.comp.NoProgramme)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.comp.NomFamille)
+                                </th>
+                                <th>
+                                    Option disponible
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ListComp)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CodeCompetence)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ObligatoireCégep)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ContextRealisation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoProgrammeNavigation.NoProgramme)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NomFamilleNavigation.NomFamille)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-info btnlist" asp-action="Edit" asp-route-id="@item.CodeCompetence"><i class="fas fa-pen"></i></a> |
+                                        <a class="btn btn-info btnlist" asp-action="Details" asp-route-id="@item.CodeCompetence"><i class="fas fa-info-circle"></i></a> |
+                                        <a class="btn btn-info btnlist" asp-action="Delete" asp-route-id="@item.CodeCompetence"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div style="margin-bottom:25px; margin-top:5px;">
+        <a class="btn btn-info" asp-action="Index" style="margin-bottom:15px"><i class="fas fa-arrow-left"> Retournez à la liste des programmes</i></a>
+</div>
+

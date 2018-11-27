@@ -116,6 +116,36 @@ function fnGroupeAjax() {
     });
     return false;
 }
+
+function fnGroupeCompAjax() {
+    alert($("select[id='CodeCompetence'] ").val());
+    var url = "/GroupeCompetences/Create";
+    var data = {
+        CodeCompetence: $("select[id='CodeCompetence'] ").val(),
+        NomGroupe: $("select[id='NomGroupe'] ").val(),
+        NomSession: $("select[id='NomSession'] ").val(),
+    };
+    $.ajax({
+        data: JSON.stringify(data),
+        type: "POST",
+        url: url,
+        datatype: "text/plain",
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (request) {
+            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+        },
+        success: function (result) {
+            alert(result);
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
+    });
+    return false;
+}
+
+
+
+
+
 //ajouter un répartition des heures max de la compétence
 function fnAddRepartitonHeureMaxCompAjax() {
     alert($("#CodeCompetence").val());
@@ -143,12 +173,39 @@ function fnAddRepartitonHeureMaxCompAjax() {
 
 //ajouter un répartition des heures max de la compétence
 function fnRepartitionHeureSessionAjax() {
-    alert($("#CodeCompetence").val());
-    var url = "/RepartirHeuresessions/Create";
+    alert($(" div[id='ui-id-6'] select[id='NomSession'] ").val());
+    alert($("div[id='ui-id-6'] input[id='NbhCompetenceSession']").val());
+    var url = "/RepartitionHeuresessions/Create";
     var data = {
-        NbhCompetenceCours: $("#NbhCompetenceCours").val(),
-        AdresseCourriel: $("#AdresseCourriel").val(), 
-        CodeCompetence: $("#CodeCompetence").val(),
+        NbhCompetenceSession: $("div[id='ui-id-6'] input[id='NbhCompetenceSession']").val(),
+        AdresseCourriel: $("div[id='ui-id-6'] select[id='AdresseCourriel']").val(), 
+        CodeCompetence: $("div[id='ui-id-6'] select[id='CodeCompetence']").val(),
+        NomSession: $(" div[id='ui-id-6'] select[id='NomSession'] ").val(),
+    };
+    $.ajax({
+        data: JSON.stringify(data),
+        type: "POST",
+        url: url,
+        datatype: "text/plain",
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (request) {
+            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+        },
+        success: function (result) {
+            alert(result);
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
+    });
+    return false;
+}
+
+
+//ajouter un session
+function fnSessionAjax() {
+    alert($("input[id=NomSession]").val());
+    var url = "/Sessions/Create";
+    var data = {
+        NomSession: $("input[id=NomSession]").val(),
     };
     $.ajax({
         data: JSON.stringify(data),

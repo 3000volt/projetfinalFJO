@@ -34,6 +34,8 @@ namespace projetfinalFJO.Appdata
         public string NomProgramme { get; set; }
         [Display(Name = "Nombre d'heure")]
         public int? NbHeure { get; set; }
+        //[Required]
+        //[RegularExpression(@"^(?:\d+\s+\d[/]\d|\d)")]
         [Display(Name = "Nombre d'unité")]
         public int? NbUnite { get; set; }
         [Display(Name = "Nombre de compétences obligatoires")]
