@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace projetfinalFJO.Appdata
 {
@@ -27,13 +28,19 @@ namespace projetfinalFJO.Appdata
             Sequences = new HashSet<Sequences>();
             Session = new HashSet<Session>();
         }
-
+        [Display(Name = "Numéro de programme")]
         public string NoProgramme { get; set; }
+        [Display(Name = "Programme")]
         public string NomProgramme { get; set; }
+        [Display(Name = "Nombre d'heure")]
         public int? NbHeure { get; set; }
+        [Display(Name = "Nombre d'unité")]
         public int? NbUnite { get; set; }
+        [Display(Name = "Nombre de compétences obligatoires")]
         public int? NbCompetencesObligatoires { get; set; }
+        [Display(Name = "Nombre de compétences optionnelles")]
         public int? NbCompetencesOptionnelles { get; set; }
+        [Display(Name = "Conditions d'admissions")]
         public string CondtionsAdmission { get; set; }
 
         public ICollection<ActualisationInformation> ActualisationInformation { get; set; }

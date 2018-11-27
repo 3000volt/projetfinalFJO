@@ -4,11 +4,8 @@
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h1>Voulez vous vraiment supprimer ce programme?</h1>
 <div>
-    <h4>Programmes</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -51,7 +48,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="NoProgramme" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Supprimer" class="btn btn-info" /> |
+        <a asp-action="ListeProgrammes" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Retour à la liste</a>
     </form>
 </div>

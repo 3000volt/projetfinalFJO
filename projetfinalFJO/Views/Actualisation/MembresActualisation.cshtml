@@ -7,7 +7,7 @@
 <h2>Memrbes de l'actualisation @ViewBag.NumActualisation</h2>
 
 <p>
-    <a asp-action="AjouterMembre" asp-route-numAct="@ViewBag.NumActualisation">Ajouter un membre à l'actualisation</a>
+    <a asp-action="AjouterMembre" asp-route-numAct="@ViewBag.NumActualisation" class="btn btn-info">Ajouter un membre à l'actualisation</a>
 </p>
 <h2>Membres du King (SRDP)</h2>
 
@@ -129,3 +129,7 @@
         }
     </tbody>
 </table>
+<div>
+
+    <a asp-action="Actualisation" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Retour à la liste d'actualisations</a>
+</div>

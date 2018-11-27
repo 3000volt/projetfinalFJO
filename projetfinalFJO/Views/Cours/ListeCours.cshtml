@@ -7,10 +7,12 @@
 <h2>Liste des cours éxistants</h2>
 
 <p>
-    <a asp-action="AjouterCours" asp-controller="Cours">Nouveau cours</a>
+   <a class="btn btn-info" asp-action="AjouterCours" asp-controller="Cours">
+        <i class="fas fa-plus-circle"> Nouveau cours</i>
+    </a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-hover">
+    <thead class="card-header">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.NomCours)

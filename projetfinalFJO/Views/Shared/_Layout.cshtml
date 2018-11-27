@@ -128,29 +128,29 @@
                                         <a class="nav-link" id="#" asp-action="Actualisation" asp-controller="Actualisation">Actualisation </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Gestion d'utilisateur</a>
+                                        <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Utilisateurs</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gestion de programmes</a>
+                                        <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Programmes</a>
                                     </li>
                                 }
                                 else if (this.User.IsInRole("Sous_Commite"))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="Index" asp-controller="Programmes">Accueil</a>
+                                        <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Programmes</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="ListeCours" asp-controller="Cours">Gestion des cours</a>
+                                        <a class="nav-link" asp-action="ListeCours" asp-controller="Cours">Cours</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="Index" asp-controller="Competences">Gestion des compétences</a>
+                                        <a class="nav-link" asp-action="Index" asp-controller="Competences">Compétences</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="CreerAnalyse" asp-controller="AnalyseCompetence">Gestion des analyses</a>
+                                        <a class="nav-link" asp-action="CreerAnalyse" asp-controller="AnalyseCompetence">Analyses</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-action="Index" asp-controller="Programmes">Génération des rapports</a>
-                                    </li>
+                                    @*<li class="nav-item">
+                                        <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Rapports</a>
+                                    </li>*@
                                 }
                                 else if (this.User.IsInRole("Commite_Programme"))
                                 {
@@ -158,7 +158,7 @@
                                         <a class="nav-link" target=_blank href="#">Accueil</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" target=_blank href="#">Génération des rapports</a>
+                                        <a class="nav-link" target=_blank href="#">Rapports</a>
                                     </li>
                                 }
                                 <li class="nav-item">

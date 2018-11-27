@@ -19,7 +19,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Programmes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListeProgrammes()
         {
             return View(await _context.Programmes.ToListAsync());
         }
@@ -59,7 +59,7 @@ namespace projetfinalFJO.Controllers
             {
                 _context.Add(programmes);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListeProgrammes));
             }
             return View(programmes);
         }
@@ -110,7 +110,7 @@ namespace projetfinalFJO.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListeProgrammes));
             }
             return View(programmes);
         }
@@ -141,7 +141,7 @@ namespace projetfinalFJO.Controllers
             var programmes = await _context.Programmes.FindAsync(id);
             _context.Programmes.Remove(programmes);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListeProgrammes));
         }
 
         private bool ProgrammesExists(string id)

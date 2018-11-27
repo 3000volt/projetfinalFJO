@@ -1,6 +1,6 @@
 ﻿@model projetfinalFJO.Models.AnalyseViewModel
 
-<h4><u>Analyse de la compétence</u></h4>
+<h1><u>Compétence</u></h1>
 <form asp-action="_CreerCompetence">
     <div class="row">
         <div class="col-md-4">
@@ -50,26 +50,26 @@
                 <span asp-validation-for="SavoirEtreProgramme" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <button id="AjouterFamilleModal" type="button">Ajouter une famille</button>
-                <label asp-for="Famille" class="control-label">Famille de compétence</label>
+                <label asp-for="Famille" class="control-label">Famille de compétence</label> 
+                <button id="AjouterFamilleModal" type="button" class="btn btn-info">Ajouter une famille</button>
                 <select asp-for="Famille" class="form-control" asp-items="ViewBag.Idfamille"></select>
                 <span asp-validation-for="Famille" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <button id="AjouterSequenceModal" type="button">Ajouter une séquence</button>
                 <label asp-for="Sequence" class="control-label">Séquence de la compétence</label>
+                <button id="AjouterSequenceModal" type="button" class="btn btn-info">Ajouter une séquence</button>
                 <select asp-for="Sequence" class="form-control" asp-items="ViewBag.Sequence"></select>
                 <span asp-validation-for="Sequence" class="text-danger"></span>
             </div>
         </div>
     </div>
     <div class="form-group">
-        <input type="button" value="Créer analyse" class="btn btn-default" onclick="AnalyseCompetence()" />
+        <input type="button" value="Créer analyse" class="btn btn-info" onclick="AnalyseCompetence()" />
     </div>
 </form>
 
 
 <div>
-    <a asp-action="Index">Retour à la liste d'analyse</a>
+    <a asp-action="Index" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Retour à la liste d'analyse</a>
 </div>
 
