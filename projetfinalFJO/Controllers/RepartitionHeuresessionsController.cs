@@ -61,19 +61,16 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NbhCompetenceSession,ValidationApprouve,IdAnalyseRhs,AdresseCourriel,CodeCompetence,Idsession,NoProgramme")] RepartitionHeuresession repartitionHeuresession)
+        public async Task<IActionResult> Create([FromBody][Bind("NbhCompetenceSession,ValidationApprouve,IdAnalyseRhs,AdresseCourriel,CodeCompetence,NomSession,NoProgramme")] RepartitionHeuresession repartitionHeuresession)
         {
             repartitionHeuresession.NoProgramme = this.HttpContext.Session.GetString("programme"); 
             if (ModelState.IsValid)
             {
                 _context.Add(repartitionHeuresession);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Ok("ajout reussi");
             }
-            ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeuresession.AdresseCourriel);
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeuresession.CodeCompetence);
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.NomSession);
-            return View(repartitionHeuresession);
+            return BadRequest("repartition non ajouté");
         }
 
         // GET: RepartitionHeuresessions/Edit/5

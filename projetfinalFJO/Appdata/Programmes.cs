@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace projetfinalFJO.Appdata
 {
@@ -31,6 +32,8 @@ namespace projetfinalFJO.Appdata
         public string NoProgramme { get; set; }
         public string NomProgramme { get; set; }
         public int? NbHeure { get; set; }
+        //[Required]
+        //[RegularExpression(@"^(?:\d+\s+\d[/]\d|\d)")]
         public int? NbUnite { get; set; }
         public int? NbCompetencesObligatoires { get; set; }
         public int? NbCompetencesOptionnelles { get; set; }

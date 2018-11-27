@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projetfinalFJO.Appdata;
+using projetfinalFJO.Models;
 
 namespace projetfinalFJO.Controllers
 {
@@ -38,8 +40,14 @@ namespace projetfinalFJO.Controllers
             {
                 return NotFound();
             }
+            ProgrammesDetail details = new ProgrammesDetail();
+            details.program =  programmes;
+            details.ListComp= _context.Competences.ToList().FindAll(x=>x.NoProgramme==id);
+            details.comp = new Competences();
+            var test = details;
 
-            return View(programmes);
+
+            return View(test);
         }
 
         // GET: Programmes/Create
@@ -55,12 +63,20 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NoProgramme,NomProgramme,NbHeure,NbUnite,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(programmes);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+            // Define a regular expression for repeated words.
+            //Regex rx = new Regex(@"(?:\d+\s+\d[/]\d|\d)", RegexOptions.Compiled);
+            //if (rx.IsMatch(programmes.NbUnite.ToString()))
+            //{    //}
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(programmes);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+
+            
             return View(programmes);
         }
 

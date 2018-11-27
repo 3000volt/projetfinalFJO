@@ -54,16 +54,16 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NomSession,NoProgramme")] Session session)
+        public async Task<IActionResult> Create([FromBody][Bind("NomSession,NoProgramme")] Session session)
         {
             session.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
-                _context.Add(session);
+                _context.Session.Add(session);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Ok("ajout reussi");
             }
-            return View(session);
+            return BadRequest("groupe non ajouté");
         }
 
         // GET: Sessions/Edit/5
