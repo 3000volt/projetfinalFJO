@@ -1,0 +1,74 @@
+﻿@model projetfinalFJO.Appdata.AnalyseCompétence
+
+@{
+    ViewData["Title"] = "SupprimerAnalyse";
+}
+
+<h2>SupprimerAnalyse</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AnalyseCompétence</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NiveauTaxonomique)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NiveauTaxonomique)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Reformulation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Reformulation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Context)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Context)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SavoirFaireProgramme)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SavoirFaireProgramme)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SavoirEtreProgramme)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SavoirEtreProgramme)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidationApprouve)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValidationApprouve)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAnalyseAc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdAnalyseAc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdresseCourriel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdresseCourriel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CodeCompetence)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CodeCompetence)
+        </dd>
+    </dl>
+
+    <form asp-action="SupprimerAnalyse" asp-route-id="@Model.IdAnalyseAc">
+        <input type="submit" value="Supprimer définitivement" class="btn btn-default" /> |
+        <a asp-action="ListeAnalyse">Annuler</a>
+    </form>
+</div>

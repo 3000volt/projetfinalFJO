@@ -49,8 +49,8 @@ namespace projetfinalFJO.Controllers
         /// <param name="cours"></param>
         /// <returns></returns>
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> AjouterCours([Bind("NoCours,NomCours,PonderationCours,DepartementCours,TypedeCours,NoProgramme,NomSession,NomGroupe")]Cours cours)//Ajouter [FromBody] quand Ajax va être implémenté
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AjouterCours([FromBody][Bind("NoCours,NomCours,PonderationCours,DepartementCours,TypedeCours,NoProgramme,NomSession,NomGroupe")]Cours cours)//Ajouter [FromBody] quand Ajax va être implémenté
         {
            if(ModelState.IsValid)
             {
@@ -58,7 +58,8 @@ namespace projetfinalFJO.Controllers
                 _contexte.Add(cours);
                 await _contexte.SaveChangesAsync();
 
-              return RedirectToAction(nameof(ListeCours));
+                return RedirectToAction(nameof(ListeCours));
+                //return Json(Url.Action("ListeCours","Cours"));
             }
 
             return BadRequest("Erreur,Le cours n'a pas pu être ajouté");
@@ -132,7 +133,7 @@ namespace projetfinalFJO.Controllers
         /// <param name="cours"></param>
         /// <returns></returns>
         [HttpPost, ActionName("Supprimer")]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SupprimerCoursPost(string id)
         {
             //var cours = await _contexte.Cours.FirstAsync(id);

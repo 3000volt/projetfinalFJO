@@ -60,8 +60,7 @@ namespace projetfinalFJO
             services.AddDbContext<ActualisationContext>(options =>
                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
-         
-
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

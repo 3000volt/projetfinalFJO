@@ -1,0 +1,70 @@
+﻿@model projetfinalFJO.Appdata.AnalyseCompétence
+
+@{
+    ViewData["Title"] = "ConsulterAnalsye";
+}
+
+<h2>Analyse</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NiveauTaxonomique)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NiveauTaxonomique)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Reformulation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Reformulation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Context)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Context)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SavoirFaireProgramme)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SavoirFaireProgramme)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SavoirEtreProgramme)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SavoirEtreProgramme)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidationApprouve)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValidationApprouve)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAnalyseAc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdAnalyseAc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdresseCourriel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdresseCourriel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CodeCompetence)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CodeCompetence)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="ListeAnalyse">Retour à la liste des analyses</a>
+</div>

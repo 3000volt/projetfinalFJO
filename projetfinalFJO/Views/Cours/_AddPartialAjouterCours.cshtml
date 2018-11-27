@@ -2,11 +2,9 @@
 
 <h4>Ajouter un cours</h4>
 <hr />
-<form asp-controller="Cours" asp-action="AjouterCours" method="post">
+<form method="post">
     <div class="row">
-
         <div class="col-md-6">
-
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="NoCours" class="control-label"></label>
@@ -49,7 +47,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-info ">Ajouter cours</button>
+        <button type="button" onclick="AjouterCoursAjax()" class="btn btn-info ">Ajouter cours</button>
     </div>
 </form>
     @*<div>

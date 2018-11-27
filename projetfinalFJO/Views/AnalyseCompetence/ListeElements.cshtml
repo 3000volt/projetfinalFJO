@@ -1,0 +1,85 @@
+﻿@model IEnumerable<projetfinalFJO.Appdata.AnalyseElementsCompetence>
+
+@{
+    ViewData["Title"] = "ListeElements";
+}
+
+<h2>Liste des éléments de compétence</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NiveauTaxonomique)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reformulation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Context)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SavoirFaireProgramme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SavoirEtreProgramme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValidationApprouve)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAnalyseAc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdresseCourriel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementCompétence)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NiveauTaxonomique)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reformulation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Context)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SavoirFaireProgramme)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SavoirEtreProgramme)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValidationApprouve)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdAnalyseAc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdresseCourriel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ElementCompétence)
+                </td>
+                <td>
+                    @Html.ActionLink("Consulter", "ConsulterAnalyse", "AnalyseElementCompetence", new { element = item.ElementCompétence, email = item.AdresseCourriel }) |
+                    @Html.ActionLink("Modifier", "ModifierAnalyse", "AnalyseElementCompetence", new { element = item.ElementCompétence, email = item.AdresseCourriel }) |
+                    @Html.ActionLink("Supprimer", "SupprimerAnalyse", "AnalyseElementCompetence", new { element = item.ElementCompétence, email = item.AdresseCourriel })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<p>
+    <a asp-action="QuitterElements">Retour aux analyses de compétence</a>
+</p>

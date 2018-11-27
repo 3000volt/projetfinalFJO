@@ -1,0 +1,40 @@
+﻿@model projetfinalFJO.Appdata.ActualisationInformation
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Détails</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NumActualisation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumActualisation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NomActualisation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomActualisation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NoProgramme)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NoProgramme)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Approuve)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Approuve)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Actualisation">Retour à la liste</a>
+</div>

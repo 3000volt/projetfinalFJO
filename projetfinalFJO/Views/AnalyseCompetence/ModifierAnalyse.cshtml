@@ -1,24 +1,17 @@
-﻿@model projetfinalFJO.Appdata.AnalyseElementsCompetence
-
-<h4><u>Éléments de compétences</u></h4>
-<input type="hidden" value="@ViewBag.ListeElements" id="listeElements" />
+﻿@model projetfinalFJO.Appdata.AnalyseCompétence
 
 @{
-    var compteur = 0;
-    foreach (var element in ViewBag.NumeroElem)
-    {
+    ViewData["Title"] = "ModifierAnalyse";
+}
 
-        compteur += 1;
-        @compteur
-<div id="Formulaire_@compteur" class="row">
+<h2>ModifierAnalyse</h2>
+
+<h4>AnalyseCompétence</h4>
+<hr />
+<div class="row">
     <div class="col-md-4">
-        <form>
+        <form asp-action="ModifierAnalyse">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ElementCompétence" class="control-label"></label>
-                <input asp-for="ElementCompétence" class="form-control" value="@element" readonly />
-                <span asp-validation-for="ElementCompétence" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="NiveauTaxonomique" class="control-label"></label>
                 <input asp-for="NiveauTaxonomique" class="form-control" />
@@ -45,19 +38,33 @@
                 <span asp-validation-for="SavoirEtreProgramme" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="ValidationApprouve" class="control-label"></label>
+                <input asp-for="ValidationApprouve" class="form-control" />
+                <span asp-validation-for="ValidationApprouve" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdAnalyseAc" class="control-label"></label>
+                <input asp-for="IdAnalyseAc" class="form-control" />
+                <span asp-validation-for="IdAnalyseAc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="AdresseCourriel" class="control-label"></label>
-                <input id="AdresseCourriel" asp-for="AdresseCourriel" class="form-control" />
+                <input asp-for="AdresseCourriel" class="form-control" />
                 <span asp-validation-for="AdresseCourriel" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="button" value="Create" id="Ajout_@compteur" onclick="Ajustation('Ajout_@compteur')" class="btn btn-default" />
+                <label asp-for="CodeCompetence" class="control-label"></label>
+                <input asp-for="CodeCompetence" class="form-control" />
+                <span asp-validation-for="CodeCompetence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
-    }
-}
 
 <div>
-    <a asp-action="Index">Retour à la liste d'analyse</a>
+    <a asp-action="Index">Back to List</a>
 </div>
+

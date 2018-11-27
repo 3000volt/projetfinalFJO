@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\AnalyseElementCompetence\" />
     <Folder Include="Views\RepartitionHeuresessions\" />
   </ItemGroup>
 

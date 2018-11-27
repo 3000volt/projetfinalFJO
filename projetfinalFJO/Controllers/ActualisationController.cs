@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using projetfinalFJO.Appdata;
 using projetfinalFJO.Models;
 using projetfinalFJO.Models.Authentification;
@@ -47,6 +48,8 @@ namespace projetfinalFJO.Controllers
                 NomProgramme = Selection(x.NoProgramme),
                 Approuve = x.Approuve
             }).ToList();
+            //Mettre la session a null pour recuperer le bon layout
+            HttpContext.Session.SetString("ActualisationActif", "Innactif");
             return View(actuListe);
         }
 
@@ -228,6 +231,53 @@ namespace projetfinalFJO.Controllers
             return RedirectToAction("MembresActualisation", new { numAct = numActualisation });
         }
 
+        public ActionResult Actualiser(int numActu)
+        {
+            var actu = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == numActu);
+            //Transformer en View Model
+            ActualisationViewModel actuVM = new ActualisationViewModel
+            {
+                NumActualisation = actu.NumActualisation,
+                NomActualisation = actu.NomActualisation,
+                NoProgramme = actu.NoProgramme,
+                NomProgramme = Selection(actu.NoProgramme),
+                Approuve = actu.Approuve
+            };
+            //Transformer la session pour avoir accès au layout d'actualisation
+            HttpContext.Session.SetString("ActualisationActif", "Actif");
+            //Retourner a la page d'actualisation
+            return View("../Home/Accueil", actuVM);
+        }
+
+        [HttpGet]
+        public ActionResult Modifier(int numActu)
+        {
+            ActualisationInformation actu = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == numActu);
+            return View(actu);
+        }
+
+        [HttpPost]
+        public ActionResult Modifier(IFormCollection iAction)
+        {
+            ActualisationInformation actu = new ActualisationInformation()
+            {
+                NumActualisation = Convert.ToInt32(iAction["NumActualisation"][0]),
+                NomActualisation = iAction["NomActualisation"].ElementAt(0),
+                NoProgramme = iAction["NoProgramme"].ElementAt(0),
+                Approuve = Convert.ToBoolean(iAction["Approuve"][0])
+            };
+
+            //Modifier dans la BD
+            this.contexteActu.Update(actu);
+            this.contexteActu.SaveChanges();
+            return RedirectToAction("Actualisation");
+        }
+
+        public ActionResult Details(int numActu)
+        {
+            ActualisationInformation actu = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == numActu);
+            return View(actu); 
+        }
 
     }
 }
