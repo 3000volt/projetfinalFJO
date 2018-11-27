@@ -33,7 +33,6 @@ namespace projetfinalFJO.Controllers
             this.contexteActu = new ActualisationContext(config.GetConnectionString("DefaultConnection"));
             this._userManager = userManager;
             this.contextLogin = log;
-            //HttpContext.Session.SetString("ActualisationActif", "Innactif");
         }
 
         public IActionResult Actualisation()

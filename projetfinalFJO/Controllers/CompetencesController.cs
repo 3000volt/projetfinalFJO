@@ -198,5 +198,31 @@ namespace projetfinalFJO.Controllers
             }
             return BadRequest("élément non ajouté");
         }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult AssocierFamille([FromBody]Competences competence)
+        {
+            //Prendre l'objet de la compétence concerné
+            Competences comp = this._context.Competences.ToList().Find(x => x.CodeCompetence == competence.CodeCompetence);
+            //Associer la bonne famille
+            comp.NomFamille = competence.NomFamille;
+            //Sauvegarder dans la BD
+            this._context.SaveChanges();
+            return Ok("Famille associer avec succes a la compétence");
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult AssocierSequence([FromBody]Competences competence)
+        {
+            //Prendre l'objet de la compétence concerné
+            Competences comp = this._context.Competences.ToList().Find(x => x.CodeCompetence == competence.CodeCompetence);
+            //Associer la bonne famille
+            comp.NomSequence = competence.NomSequence;
+            //Sauvegarder dans la BD
+            this._context.SaveChanges();
+            return Ok("Séquence associer avec succes a la compétence");
+        }
     }
 }

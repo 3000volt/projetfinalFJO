@@ -54,31 +54,35 @@ namespace projetfinalFJO.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,Famille,Sequence,CodeCompetence")] AnalyseViewModel analyseVM)
+        public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,CodeCompetence")] AnalyseCompétence analyse)
         {
             
             if (ModelState.IsValid)
             {
-                //Mettre à jour la famille et sequence de la competence
-                //Trouver la competence
-                var competence = this._context.Competences.ToList().Find(x => x.CodeCompetence == analyseVM.CodeCompetence);
-                //Trouver la famille
-                competence.NomFamille = analyseVM.Famille;
-                //Trouver la séquence
-                competence.NomSequence = analyseVM.Sequence;
-                this._context.Competences.Update(competence);
-                //Convertir en simple analyse
-                AnalyseCompétence analyse = new AnalyseCompétence
-                {
-                    NiveauTaxonomique = analyseVM.NiveauTaxonomique,
-                    Reformulation = analyseVM.Reformulation,
-                    Context = analyseVM.Context,
-                    SavoirFaireProgramme = analyseVM.SavoirFaireProgramme,
-                    SavoirEtreProgramme = analyseVM.SavoirEtreProgramme,
-                    AdresseCourriel = analyseVM.AdresseCourriel,
-                    CodeCompetence = analyseVM.CodeCompetence,
-                    NoProgramme = this.HttpContext.Session.GetString("programme"),
-            };
+                //    //Mettre à jour la famille et sequence de la competence
+                //    //Trouver la competence
+                //    var competence = this._context.Competences.ToList().Find(x => x.CodeCompetence == analyseVM.CodeCompetence);
+                //    //Trouver la famille
+                //    competence.NomFamille = analyseVM.Famille;
+                //    //Trouver la séquence
+                //    competence.NomSequence = analyseVM.Sequence;
+                //    this._context.Competences.Update(competence);
+                //    //Convertir en simple analyse
+                //    AnalyseCompétence analyse = new AnalyseCompétence
+                //    {
+                //        NiveauTaxonomique = analyseVM.NiveauTaxonomique,
+                //        Reformulation = analyseVM.Reformulation,
+                //        Context = analyseVM.Context,
+                //        SavoirFaireProgramme = analyseVM.SavoirFaireProgramme,
+                //        SavoirEtreProgramme = analyseVM.SavoirEtreProgramme,
+                //        AdresseCourriel = analyseVM.AdresseCourriel,
+                //        CodeCompetence = analyseVM.CodeCompetence,
+                //        NoProgramme = this.HttpContext.Session.GetString("programme"),
+                //};
+                //    _context.Add(analyse);
+                //    await _context.SaveChangesAsync();
+                //    return Ok("élément ajouté avec succès");
+                analyse.NoProgramme = this.HttpContext.Session.GetString("programme");
                 _context.Add(analyse);
                 await _context.SaveChangesAsync();
                 return Ok("élément ajouté avec succès");
@@ -87,6 +91,117 @@ namespace projetfinalFJO.Controllers
             //ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
             return BadRequest("élément non ajouté");
         }
+        public PartialViewResult PartialAjouterFamille()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
+            return PartialView("_partialAjouterFamille");
+        }
 
+        public PartialViewResult PartialListeFamille()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
+            return PartialView("_partialListeFamille");
+        }
+
+        public PartialViewResult PartialAjouterSequence()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
+            return PartialView("_partialAjouterSequence");
+        }
+
+        public PartialViewResult PartialListeSequence()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
+            return PartialView("_partialListeSequence");
+        }
+
+        public ActionResult ListeAnalyse()
+        {
+            //Récupérer toute la liste des analyses
+            List<AnalyseCompetenceVM> liste = new List<AnalyseCompetenceVM>();
+            var listeAnalyseComplete = this._context.AnalyseCompétence.ToList();
+            foreach (AnalyseCompétence analyse in listeAnalyseComplete)
+            {
+                liste.Add(new AnalyseCompetenceVM
+                {
+                    CodeCompetence = analyse.CodeCompetence,
+                    NiveauTaxonomique = analyse.NiveauTaxonomique,
+                    ValidationApprouve = analyse.ValidationApprouve,
+                    AdresseCourriel = analyse.AdresseCourriel
+                });
+            }
+            return View(liste);
+        }
+
+        public ActionResult ListeElements(string code, string email)
+        {
+            //Liste de tout les analyses dans la bd des elements
+            List<AnalyseElementsCompetence> analyses = this._context.AnalyseElementsCompetence.ToList();
+            List<string> numeroAnalyse = new List<string>();
+            foreach (AnalyseElementsCompetence a in analyses)
+            {
+                numeroAnalyse.Add(a.ElementCompétence);
+            }
+            List<CompetencesElementCompetence> elements = new List<CompetencesElementCompetence>();
+            elements = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == code);
+            List<AnalyseElementsCompetence> listeElemCompComplete = new List<AnalyseElementsCompetence>();
+            foreach (CompetencesElementCompetence comp in elements)
+            {
+                if (analyses.Any(x => x.ElementCompétence == comp.ElementCompétence))
+                {
+                    listeElemCompComplete.Add(analyses.Find(x => x.ElementCompétence == comp.ElementCompétence));
+                }
+            }
+            //List<CompetencesElementCompetence> elements = new List<CompetencesElementCompetence>();
+            //elements = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == code);
+            //List<AnalyseElementsCompetence> listeElemComp = new List<AnalyseElementsCompetence>();
+            //foreach (CompetencesElementCompetence element in elements)
+            //{
+            //    //Récupréer le num de l'elements
+            //    string numElement = element.ElementCompétence;// this._context.CompetencesElementCompetence.ToList().Find(x => x.CodeCompetence == element.CodeCompetence).ElementCompétence;
+            //    //Ajouter a l aliste
+            //    listeElemComp.Add(this._context.AnalyseElementsCompetence.ToList().Find(x => x.ElementCompétence == numElement && x.AdresseCourriel == email));
+            //}
+            //foreach(AnalyseElementsCompetence anal in analyses.Where(x=>x.ElementCompétence == ))
+            //listeElemComp = this._context.AnalyseElementsCompetence.ToList().FindAll(x => x.ElementCompétence == numElement && x.AdresseCourriel == email);
+            return View(listeElemCompComplete);
+        }
+
+
+        public ActionResult ConsulterAnalyse(string code, string email)
+        {
+            //Sélectionner l'analyse en question
+            AnalyseCompétence analyse = this._context.AnalyseCompétence.ToList().Find(x => x.CodeCompetence == code && x.AdresseCourriel == email);
+            return View(analyse);
+        }
+
+        public ActionResult ModifierAnalyse(string code, string email)
+        {
+            //Sélectionner l'analyse en question
+            AnalyseCompétence analyse = this._context.AnalyseCompétence.ToList().Find(x => x.CodeCompetence == code && x.AdresseCourriel == email);
+            return View(analyse);
+        }
+
+        [HttpGet]
+        public ActionResult SupprimerAnalyse(string code, string email)
+        {
+            //Sélectionner l'analyse en question
+            AnalyseCompétence analyse = this._context.AnalyseCompétence.ToList().Find(x => x.CodeCompetence == code && x.AdresseCourriel == email);
+            return View(analyse);
+        }
+
+        [HttpPost]
+        public ActionResult SupprimerAnalyse(int id)
+        {
+            //Supprimer de la bd
+            AnalyseCompétence analyse = this._context.AnalyseCompétence.ToList().Find(x => x.IdAnalyseAc == id);
+            this._context.Remove(analyse);
+            this._context.SaveChanges();
+            return RedirectToAction("ListeAnalyse");
+        }
     }
 }
