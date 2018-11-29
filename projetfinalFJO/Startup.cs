@@ -14,6 +14,7 @@ using projetfinalFJO.Models.Authentification;
 using projetfinalFJO.Appdata;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace projetfinalFJO
 {
@@ -31,8 +32,11 @@ namespace projetfinalFJO
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession();
+
+            //session services
             services.AddDistributedMemoryCache();
+            services.AddSession();
+            
             //ajouter le service d'authentification Identity
             services.AddIdentity<LoginUser, LoginRole>(options =>
             {
@@ -62,6 +66,15 @@ namespace projetfinalFJO
 
             //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+            //https://forums.asp.net/t/2142697.aspx?asp+net+core+session+timeout
+            //gestion du temps du cookie de connection
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(options =>
+               {
+                   options.Cookie.Expiration = TimeSpan.FromSeconds(30);
+               });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

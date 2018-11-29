@@ -22,7 +22,7 @@ namespace projetfinalFJO.Controllers
         // GET: GroupeCompetences
         public async Task<IActionResult> Index()
         {
-            var actualisationContext = _context.GroupeCompetence.Include(g => g.CodeCompetenceNavigation).Include(g => g.NomGroupeNavigation);
+            var actualisationContext = _context.GroupeCompetence.Include(g => g.CodeCompetenceNavigation).Include(g => g.NomGroupeNavigation).Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme")));
             return View(await actualisationContext.ToListAsync());
         }
 

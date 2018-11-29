@@ -22,7 +22,7 @@ namespace projetfinalFJO.Controllers
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Session.ToListAsync());
+            return View(await _context.Session.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
         }
 
         // GET: Sessions/Details/5

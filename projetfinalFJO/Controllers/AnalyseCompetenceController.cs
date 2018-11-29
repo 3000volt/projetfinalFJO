@@ -59,36 +59,12 @@ namespace projetfinalFJO.Controllers
             
             if (ModelState.IsValid)
             {
-                //    //Mettre à jour la famille et sequence de la competence
-                //    //Trouver la competence
-                //    var competence = this._context.Competences.ToList().Find(x => x.CodeCompetence == analyseVM.CodeCompetence);
-                //    //Trouver la famille
-                //    competence.NomFamille = analyseVM.Famille;
-                //    //Trouver la séquence
-                //    competence.NomSequence = analyseVM.Sequence;
-                //    this._context.Competences.Update(competence);
-                //    //Convertir en simple analyse
-                //    AnalyseCompétence analyse = new AnalyseCompétence
-                //    {
-                //        NiveauTaxonomique = analyseVM.NiveauTaxonomique,
-                //        Reformulation = analyseVM.Reformulation,
-                //        Context = analyseVM.Context,
-                //        SavoirFaireProgramme = analyseVM.SavoirFaireProgramme,
-                //        SavoirEtreProgramme = analyseVM.SavoirEtreProgramme,
-                //        AdresseCourriel = analyseVM.AdresseCourriel,
-                //        CodeCompetence = analyseVM.CodeCompetence,
-                //        NoProgramme = this.HttpContext.Session.GetString("programme"),
-                //};
-                //    _context.Add(analyse);
-                //    await _context.SaveChangesAsync();
-                //    return Ok("élément ajouté avec succès");
                 analyse.NoProgramme = this.HttpContext.Session.GetString("programme");
                 _context.Add(analyse);
                 await _context.SaveChangesAsync();
                 return Ok("élément ajouté avec succès");
             }
-            //ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.Idfamille);
-            //ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
+          
             return BadRequest("élément non ajouté");
         }
         public PartialViewResult PartialAjouterFamille()
@@ -123,7 +99,7 @@ namespace projetfinalFJO.Controllers
         {
             //Récupérer toute la liste des analyses
             List<AnalyseCompetenceVM> liste = new List<AnalyseCompetenceVM>();
-            var listeAnalyseComplete = this._context.AnalyseCompétence.ToList();
+            var listeAnalyseComplete = this._context.AnalyseCompétence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
             foreach (AnalyseCompétence analyse in listeAnalyseComplete)
             {
                 liste.Add(new AnalyseCompetenceVM

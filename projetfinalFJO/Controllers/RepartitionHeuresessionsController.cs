@@ -23,7 +23,7 @@ namespace projetfinalFJO.Controllers
         public async Task<IActionResult> Index()
         {
             var actualisationContext = _context.RepartitionHeuresession.Include(r => r.AdresseCourrielNavigation).Include(r => r.CodeCompetenceNavigation).Include(r => r.NomSessionNavigation);
-            return View(await actualisationContext.ToListAsync());
+            return View(await actualisationContext.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
         }
 
         // GET: RepartitionHeuresessions/Details/5
