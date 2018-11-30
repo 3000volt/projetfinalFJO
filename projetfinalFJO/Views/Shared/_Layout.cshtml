@@ -116,7 +116,7 @@
         <!-- Page Content  -->
         <div id="content">
             <header class="page-header">
-                <nav class="navbar navbar-expand-md navbar-dark fixed-top text-white" style="background-color:#03224C;" id="navbarCollapse">
+                <nav class="navbar navbar-expand-md  fixed-top text-white" style="background-color:#03224C;" id="navbarCollapse">
                     <a class="navbar-brand" target=_blank href="#">Navigation</a>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,31 +136,28 @@
                                             <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Gestion d'utilisateur</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Gestion de programmes</a>
+                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gestion de programmes</a>
                                         </li>
                                     }
                                     else if (@HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") == "Actif")
                                     {
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Accueil</a>
+                                            <a class="nav-link" asp-action="Accueil" asp-controller="Programmes">Accueil</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="ListeCours" asp-controller="Cours">Gestion des cours</a>
+                                            <a class="nav-link" asp-action="ListeCours" asp-controller="Cours">Cours</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="Index" asp-controller="Competences">Gestion des compétences</a>
+                                            <a class="nav-link" asp-action="Index" asp-controller="Competences">Compétences</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="CreerAnalyse" asp-controller="AnalyseCompetence">Gestion des analyses</a>
+                                            <a class="nav-link" asp-action="ListeAnalyse" asp-controller="AnalyseCompetence">Analyses</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="Index" asp-controller="RepartitionHeureCoursSessionCompetences">Répartir heures compétences par cours et session</a>
+                                            <a class="nav-link" target=_blank href="#"> Rapports</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Génération des rapports</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Retour à l'accueil d'admin</a>
+                                            <a class="nav-link" asp-action="List_Programme" asp-controller="Programmes">Retour à l'accueil d'admin</a>
                                         </li>
                                     }
 
@@ -168,9 +165,11 @@
                                 else if (this.User.IsInRole("Sous_Commite"))
 
                                 {
+
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Programmes</a>
+                                        <a class="nav-link" asp-action="Accueil" asp-controller="Programmes">Accueil</a>
                                     </li>
+                                   
                                     <li class="nav-item">
                                         <a class="nav-link" asp-action="ListeCours" asp-controller="Cours">Cours</a>
                                     </li>
@@ -178,14 +177,43 @@
                                         <a class="nav-link" asp-action="Index" asp-controller="Competences">Compétences</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="CreerAnalyse" asp-controller="AnalyseCompetence">Analyses</a>
+                                        <a class="nav-link" asp-action="ListeAnalyse" asp-controller="AnalyseCompetence">Analyses</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="Index" asp-controller="RepartitionHeureCoursSessionCompetences">Répartir heures compétences par cours et session</a>
+                                        <a class="nav-link" target=_blank href="#"> Rapports</a>
                                     </li>
-                                    @*<li class="nav-item">
-                    <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Rapports</a>
-                </li>*@
+                                    <li class="nav-item">
+                                        <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu des répartitions</a>
+                                        @*https://www.youtube.com/watch?v=932hSm1yNII*@
+                                        @*Dropdown menu*@
+                                        <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdown" style="width: 100%;">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p><strong class="sub-menu-heading">Répartition des heures par compétences</strong></p>
+                                                    <p><a asp-action="Index" asp-controller="RepartirHeureCompetences">Consulté la liste des compétences</a></p>
+                                                    <p><a href="#">Item Number1</a></p>
+                                                    <p><a href="#">Item Number1</a></p>
+                                                    <p><a href="#">Item Number1</a></p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p><strong class="sub-menu-heading">Repartition des heures par cours</strong></p>
+                                                    <p><a  asp-action="Index" asp-controller="RepartitionHeureCours">Consulté la répartition des heures par cours</a></p>
+                                                    <p><a href="#">Item Number1</a></p>
+                                                    <p><a href="#">Item Number1</a></p>
+                                                    <p><a href="#">Item Number1</a></p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p><strong class="sub-menu-heading">Repartition des Heures sessions</strong></p>
+                                                    <p><a asp-action="Index" asp-controller="RepartitionHeuresessions">Consulté la répartition des heures session</a></p>
+                                                    <p><a href="#">Item Number1</a></p>
+                                                    <p><a href="#">Item Number1</a></p>
+                                                    <p><a href="#">Item Number1</a></p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </li>
+                                
                                 }
                                 else if (this.User.IsInRole("Commite_Programme"))
                                 {
@@ -193,7 +221,7 @@
                                         <a class="nav-link" target=_blank href="#">Accueil</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" target=_blank href="#">Rapports</a>
+                                        <a class="nav-link" target=_blank href="#">Génération des rapports</a>
                                     </li>
                                 }
                                 <li class="nav-item">

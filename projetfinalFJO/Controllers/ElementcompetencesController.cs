@@ -22,7 +22,7 @@ namespace projetfinalFJO.Controllers
         // GET: Elementcompetences
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Elementcompetence.ToListAsync());
+            return View(await _context.Elementcompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
         }
 
         // GET: Elementcompetences/Details/5

@@ -74,8 +74,7 @@ namespace projetfinalFJO.Controllers
 
                     if (roleNom == "Admin")
                     {
-                        ViewData["ReturnUrl"] = "../Actualisation/Actualisation";
-                        return RedirectToAction("Actualisation","Actualisation");
+                        return RedirectToAction("List_Programme","Programmes");
                     }
                     else
                     {

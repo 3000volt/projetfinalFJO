@@ -23,7 +23,7 @@ namespace projetfinalFJO.Controllers
         public async Task<IActionResult> Index()
         {
             var actualisationContext = _context.RepartirHeureCompetence.Include(r => r.CodeCompetenceNavigation);
-            return View(await actualisationContext.ToListAsync());
+            return View(await actualisationContext.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
         }
 
         // GET: RepartirHeureCompetences/Details/5

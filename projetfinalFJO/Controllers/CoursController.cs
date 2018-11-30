@@ -28,7 +28,7 @@ namespace projetfinalFJO.Controllers
         /// <returns></returns>
         public async Task<IActionResult> ListeCours()
         {
-            return View(await _contexte.Cours.ToListAsync());
+            return View(await _contexte.Cours.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
         }
         /// <summary>
         /// Affiche la vue pour ajouter un cours

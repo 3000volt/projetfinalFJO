@@ -114,3 +114,24 @@ div.card-header.cardstyle {
         margin: 1.75rem auto;
     }
 }
+
+.mega-menu {
+    width: 800px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+    .mega-menu a {
+        text-decoration: none;
+        color: cadetblue;
+    }
+
+    .mega-menu .sub-menu-heading {
+        color: darkcyan;
+    }
+
+@media(max-width:2000px) {
+    .mega-menu {
+        width: 100%;
+    }
+}

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using projetfinalFJO.Appdata;
 using projetfinalFJO.Models;
 
@@ -22,7 +21,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Programmes
-        public async Task<IActionResult> ListeProgrammes()
+        public async Task<IActionResult> List_Programme()
         {
             return View(await _context.Programmes.ToListAsync());
         }
@@ -73,7 +72,7 @@ namespace projetfinalFJO.Controllers
                 {
                     _context.Add(programmes);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("ListeProgrammes");
+                    return RedirectToAction(nameof(List_Programme));
                 }
 
 
@@ -127,7 +126,7 @@ namespace projetfinalFJO.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(ListeProgrammes));
+                return RedirectToAction(nameof(List_Programme));
             }
             return View(programmes);
         }
@@ -158,7 +157,7 @@ namespace projetfinalFJO.Controllers
             var programmes = await _context.Programmes.FindAsync(id);
             _context.Programmes.Remove(programmes);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(ListeProgrammes));
+            return RedirectToAction(nameof(List_Programme));
         }
 
         private bool ProgrammesExists(string id)

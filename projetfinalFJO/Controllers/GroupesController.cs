@@ -22,7 +22,7 @@ namespace projetfinalFJO.Controllers
         // GET: Groupes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Groupe.ToListAsync());
+            return View(await _context.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
         }
 
         // GET: Groupes/Details/5
