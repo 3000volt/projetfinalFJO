@@ -99,7 +99,7 @@ namespace projetfinalFJO.Controllers
                 return NotFound();
             }
 
-            //Cours cours = await _contexte.Cours.FirstAsync(id);
+            Cours cours = await _contexte.Cours.FindAsync(id);
 
             return View();
         }

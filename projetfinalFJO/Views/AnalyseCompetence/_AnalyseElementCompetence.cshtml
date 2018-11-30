@@ -57,7 +57,23 @@
 </div>
     }
 }
+        <div>
+            <a asp-action="Index" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Retour à la liste d'analyse</a>
+        </div>
 
-<div>
-    <a asp-action="Index">Retour à la liste d'analyse</a>
-</div>
+@*@section  Scripts
+
+    {
+    <script type="text/javascript">
+        alert("FUCK");
+        function Ajustation(item) {
+            $("#" + item).click(function () {
+                num = item.charAt(7);
+                alert(num);
+            })
+        }
+
+    </script>
+
+
+    }*@
