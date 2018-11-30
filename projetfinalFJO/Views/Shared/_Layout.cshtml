@@ -136,13 +136,13 @@
                                             <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Gestion d'utilisateur</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gestion de programmes</a>
+                                            <a class="nav-link" asp-action="List_Programme" asp-controller="Programmes">Gestion de programmes</a>
                                         </li>
                                     }
                                     else if (@HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") == "Actif")
                                     {
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="Accueil" asp-controller="Programmes">Accueil</a>
+                                            <a class="nav-link" asp-action="Index" asp-controller="Home">Accueil</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" asp-action="ListeCours" asp-controller="Cours">Cours</a>
@@ -167,7 +167,7 @@
                                 {
 
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-action="Accueil" asp-controller="Programmes">Accueil</a>
+                                        <a class="nav-link" asp-action="Index" asp-controller="Home">Accueil</a>
                                     </li>
                                    
                                     <li class="nav-item">
