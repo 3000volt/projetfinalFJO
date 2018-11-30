@@ -21,7 +21,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Competences
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListeCompetence()
         {
             var actualisationContext = _context.Competences.Include(c => c.NomFamilleNavigation).Include(c => c.NoProgrammeNavigation).Where(x=>x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme")));
             return View(await actualisationContext.ToListAsync());
@@ -64,7 +64,7 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
         {
-            competences.NoProgramme= this.HttpContext.Session.GetString("programme");
+            //competences.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
                 //Mettre la session a cette compétence
@@ -127,7 +127,7 @@ namespace projetfinalFJO.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListeCompetence));
             }
             ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.NomFamille);
             ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
@@ -162,7 +162,7 @@ namespace projetfinalFJO.Controllers
             var competences = await _context.Competences.FindAsync(id);
             _context.Competences.Remove(competences);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListeCompetence));
         }
 
         private bool CompetencesExists(string id)

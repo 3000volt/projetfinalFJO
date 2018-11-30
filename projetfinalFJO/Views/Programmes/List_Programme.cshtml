@@ -59,9 +59,9 @@
                     @Html.DisplayFor(modelItem => item.CondtionsAdmission)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.NoProgramme">Éditer</a> |
-                    <a asp-action="Details" asp-route-id="@item.NoProgramme">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.NoProgramme">Supprimer</a>
+                    <a class="btn btn-info btnlist" asp-action="Edit" asp-route-id="@item.NoProgramme"><i class="fas fa-pen"></i></a>|
+                    <a class="btn btn-info btnlist" asp-action="Details" asp-route-id="@item.NoProgramme"><i class="fas fa-info-circle"></i></a> |
+                    <a class="btn btn-info btnlist" asp-action="Delete" asp-route-id="@item.NoProgramme"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
         }

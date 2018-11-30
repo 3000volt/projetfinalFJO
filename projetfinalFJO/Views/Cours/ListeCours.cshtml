@@ -6,11 +6,9 @@
 
 <h2>Liste des cours éxistants</h2>
 
-<p>
    <a class="btn btn-info" asp-action="AjouterCours" asp-controller="Cours">
-        <i class="fas fa-plus-circle"> Nouveau cours</i>
+        <i class="fas fa-plus-circle"> Ajouter un cours</i>
     </a>
-</p>
 <table class="table table-hover">
     <thead class="card-header">
         <tr>
@@ -45,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.TypedeCours)
             </td>
             <td>
-                <a asp-action="ModifierCours" asp-controller="Cours" asp-route-id="@item.NoCours">Modifier</a> |
-                <a asp-action="Details" asp-controller="Cours" asp-route-id="@item.NoCours">Details</a> |
-                <a asp-action="SupprimerCours" asp-controller="Cours" asp-route-id="@item.NoCours">Supprimer</a>
+                <a class="btn btn-info btnlist" asp-action="ModifierCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-pen"></i></a> |
+                <a class="btn btn-info btnlist" asp-action="DetailsCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-info-circle"></i></a> ||
+                <a class="btn btn-info btnlist" asp-action="SupprimerCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-trash"></i></a>
             </td>
         </tr>
 }

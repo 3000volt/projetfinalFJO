@@ -68,7 +68,7 @@ namespace projetfinalFJO.Controllers
         /// Affiche les détails du cours
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> DetailsCours(string id)
         {
             //vérifier si l'id est null
             if (id == null)
