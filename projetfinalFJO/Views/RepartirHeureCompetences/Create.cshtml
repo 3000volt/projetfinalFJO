@@ -11,16 +11,21 @@
     </div>
     <div id="tabs">
         <ul>
-            <li class="loic"><a href="@Url.Action("partialGroupeComp", "RepartirHeureCompetences")">Assigner un groupe à une compétence</a></li>
+            <li><a href="@Url.Action("partialGroupeComp", "RepartirHeureCompetences")">Assigner un groupe à une compétence</a></li>
             <li><a href="@Url.Action("partialGroupe", "RepartirHeureCompetences")">Créer un groupe </a></li>
+            <li><a href="@Url.Action("partialtableRepGroupeComp", "RepartirHeureCompetences")">Tableau de répartition des compétences par groupe</a></li>
+        </ul>
+    </div>
+    <div id="tabs2">
+        <ul>
             <li><a href="@Url.Action("partialSessionComp", "RepartirHeureCompetences")">Répartir les heures par session</a></li>
             <li><a href="@Url.Action("partialSession", "RepartirHeureCompetences")">Créer une session</a></li>
-            <li><a href="@Url.Action("partialtableRepSession", "RepartirHeureCompetences")">Tableau de répartition</a></li>
+            <li><a href="@Url.Action("partialtableRepSession", "RepartirHeureCompetences")">Tableau de répartition des compétences par session</a></li>
         </ul>
     </div>
     @*<div id="session">
-        <partial name="_PartialRep_Heure_session" model="ViewBag.SessionRep" />
-    </div>*@
+            <partial name="_PartialRep_Heure_session" model="ViewBag.SessionRep" />
+        </div>*@
 </div>
 
 @section Scripts
@@ -30,6 +35,16 @@
     /*https://jqueryui.com/tabs/#ajax  */
     $(function () {
         $("#tabs").tabs({
+            beforeLoad: function (event, ui) {
+                ui.jqXHR.fail(function () {
+                    ui.panel.html(
+                        "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                        "If this wouldn't be a demo.");
+                });
+            }
+        });
+
+        $("#tabs2").tabs({
             beforeLoad: function (event, ui) {
                 ui.jqXHR.fail(function () {
                     ui.panel.html(
