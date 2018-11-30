@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using projetfinalFJO.Appdata;
 using projetfinalFJO.Models;
 
@@ -72,7 +73,7 @@ namespace projetfinalFJO.Controllers
                 {
                     _context.Add(programmes);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("ListeProgrammes");
                 }
 
 

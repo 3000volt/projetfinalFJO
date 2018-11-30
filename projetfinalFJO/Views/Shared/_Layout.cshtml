@@ -136,7 +136,7 @@
                                             <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Gestion d'utilisateur</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gestion de programmes</a>
+                                            <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Gestion de programmes</a>
                                         </li>
                                     }
                                     else if (@HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") == "Actif")
@@ -152,6 +152,9 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" asp-action="CreerAnalyse" asp-controller="AnalyseCompetence">Gestion des analyses</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-action="Index" asp-controller="RepartitionHeureCoursSessionCompetences">Répartir heures compétences par cours et session</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" asp-action="Index" asp-controller="Programmes">Génération des rapports</a>
@@ -177,9 +180,12 @@
                                     <li class="nav-item">
                                         <a class="nav-link" asp-action="CreerAnalyse" asp-controller="AnalyseCompetence">Analyses</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-action="Index" asp-controller="RepartitionHeureCoursSessionCompetences">Répartir heures compétences par cours et session</a>
+                                    </li>
                                     @*<li class="nav-item">
-                                        <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Rapports</a>
-                                    </li>*@
+                    <a class="nav-link" asp-action="ListeProgrammes" asp-controller="Programmes">Rapports</a>
+                </li>*@
                                 }
                                 else if (this.User.IsInRole("Commite_Programme"))
                                 {
