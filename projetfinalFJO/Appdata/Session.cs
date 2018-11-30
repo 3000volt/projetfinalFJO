@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace projetfinalFJO.Appdata
 {
@@ -12,9 +11,8 @@ namespace projetfinalFJO.Appdata
             GroupeCompetence = new HashSet<GroupeCompetence>();
             RepartitionHeuresession = new HashSet<RepartitionHeuresession>();
         }
-        [Display(Name = "Session")]
+
         public string NomSession { get; set; }
-        [Display(Name = "Numéro de programme")]
         public string NoProgramme { get; set; }
 
         public Programmes NoProgrammeNavigation { get; set; }
