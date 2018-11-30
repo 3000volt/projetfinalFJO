@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace projetfinalFJO.Appdata
 {
@@ -10,9 +9,8 @@ namespace projetfinalFJO.Appdata
         {
             Competences = new HashSet<Competences>();
         }
-        [Display(Name = "Nom de la séquence")]
+
         public string NomSequence { get; set; }
-        [Display(Name = "Numéro de programme")]
         public string NoProgramme { get; set; }
 
         public Programmes NoProgrammeNavigation { get; set; }

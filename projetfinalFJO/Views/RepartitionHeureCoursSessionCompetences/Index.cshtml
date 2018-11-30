@@ -1,0 +1,107 @@
+﻿@model projetfinalFJO.Models.RepartitionHeuresCoursCompetencesSessionsViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<hr />
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<div id="divTableau">
+    <!--https://www.w3schools.com/html/tryit.asp?filename=tryhtml_table_intro -->
+    @{
+        int compteur;
+        int y;
+        //Pour chaque session
+        foreach (var session in Model.ListeSession)//ViewBag.ListeSession)
+        {
+            compteur = 0;
+            y = 0;
+            @session.NomSession
+            <table id="@session.NomSession" tyle="width:100%">
+                <tr id="Tete">
+                    <th id="Competence">
+                        Compétence
+                    </th>
+
+                    @foreach (var cours in Model.ListeCours)
+                    {
+                        //Ne prendre que les cours correspondant à la session en question
+                        if (cours.NomSession == session.NomSession)
+                        {
+                            compteur++;
+                            <th id="@cours.NomCours">
+                                @cours.NomCours
+                                @cours.PonderationCours
+                            </th>
+                        }
+                    }
+
+                </tr>
+
+                @foreach (var comp in Model.ListeRepartirHeureCompetence)
+                {
+
+                    @if (comp.NomSession == session.NomSession)
+                    {
+                        y++;
+                        <tr id="@comp.CodeCompetence">
+
+                            <td>
+                                @comp.CodeCompetence
+                            </td>
+                            @for (int i = 1; (i < (compteur + 1)); i++)
+                            {
+                                <td id="@y@i">
+                                    <input asp-for="NbHCoursCompetence" value="" />
+                                </td>
+                            }
+                            <td>
+                                @comp.NbhCompetenceSession
+                            </td>
+                        </tr>
+                    }
+
+
+                }
+                <tr>
+                    <td></td>
+                    @for (int i = 1; (i < (compteur + 1)); i++)
+                    {
+                        <td id="@i">
+                            <input id="nbHCours" readonly disabled />
+                        </td>
+                    }
+                </tr>
+
+            </table>
+            <button id="Approuver" onclick="AjouterTableau('@session.NomSession')">Approuvé</button>
+            <br />
+            <br />
+        }
+
+
+    }
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/RepBs.js"></script>
+}
