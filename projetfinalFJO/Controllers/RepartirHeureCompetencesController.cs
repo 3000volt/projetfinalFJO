@@ -22,7 +22,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: RepartirHeureCompetences
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListeRepartirHeureCompetences()
         {
             var actualisationContext = _context.RepartirHeureCompetence.Include(r => r.CodeCompetenceNavigation);
             return View(await actualisationContext.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
@@ -124,7 +124,7 @@ namespace projetfinalFJO.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListeRepartirHeureCompetences));
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
             return View(repartirHeureCompetence);
@@ -157,7 +157,7 @@ namespace projetfinalFJO.Controllers
             var repartirHeureCompetence = await _context.RepartirHeureCompetence.FindAsync(id);
             _context.RepartirHeureCompetence.Remove(repartirHeureCompetence);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListeRepartirHeureCompetences));
         }
 
         private bool RepartirHeureCompetenceExists(string id)
