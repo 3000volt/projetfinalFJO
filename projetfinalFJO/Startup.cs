@@ -99,7 +99,7 @@ namespace projetfinalFJO
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Privacy}/{id?}");
+                    template: "{controller=Login}/{action=Login}/{id?}");
             });
 
             CreateRoles(serviceProvider).Wait();

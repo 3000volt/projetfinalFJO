@@ -9,7 +9,7 @@
 <h3>Voulez-vous vraiment supprimer çe cours?</h3>
 <div>
     @*<h4>Cours</h4>
-    <hr />*@
+        <hr />*@
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.NomCours)
@@ -36,10 +36,18 @@
             @Html.DisplayFor(model => model.TypedeCours)
         </dd>
     </dl>
-    
-    <form asp-action="Supprimer" asp-controller="Cours">
+
+    @*<form asp-action="Supprimer" asp-controller="Cours">*@
+    <form method="post">
         <input type="hidden" asp-for="NoCours" />
-        <input type="submit" value="Supprimer" class="btn btn-default" /> |
+        @*<input type="submit" value="Supprimer" class="btn btn-default" />|*@
+        <button type="button" onclick="SupprimerCoursAjax(NoCours)" class="btn btn-info ">Supprimer cours</button><br />|
         <a asp-action="ListeCours">Retour à la liste</a>
     </form>
 </div>
+
+@section Scripts
+    {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/Cours.js"></script>
+}

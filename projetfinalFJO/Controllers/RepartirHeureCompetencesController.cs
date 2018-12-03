@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using projetfinalFJO.Appdata;
 
 namespace projetfinalFJO.Controllers
 {
+    [Authorize(Roles = "Admin,Sous_Commite,Srdp,Commite_Programme")]
     public class RepartirHeureCompetencesController : Controller
     {
         private readonly ActualisationContext _context;
@@ -50,7 +52,7 @@ namespace projetfinalFJO.Controllers
         {
 
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel");
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
+            ViewData["CodeCompetence"] = new SelectList(_context.Competences.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "CodeCompetence", "CodeCompetence");
            
             ViewBag.CompHeureRe = new RepartirHeureCompetence();
  
@@ -71,7 +73,7 @@ namespace projetfinalFJO.Controllers
                 await _context.SaveChangesAsync();
                 return Ok("ajout reussi");
             }
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
+            ViewData["CodeCompetence"] = new SelectList(_context.Competences.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
             return BadRequest("groupe non ajouté");
         }
 
@@ -88,7 +90,7 @@ namespace projetfinalFJO.Controllers
             {
                 return NotFound();
             }
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
+            ViewData["CodeCompetence"] = new SelectList(_context.Competences.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
             return View(repartirHeureCompetence);
         }
 
@@ -124,7 +126,7 @@ namespace projetfinalFJO.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
+            ViewData["CodeCompetence"] = new SelectList(_context.Competences.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "CodeCompetence", "CodeCompetence", repartirHeureCompetence.CodeCompetence);
             return View(repartirHeureCompetence);
         }
 
@@ -175,8 +177,8 @@ namespace projetfinalFJO.Controllers
         public PartialViewResult partialGroupeComp()
         {
             ViewBag.groupe = new GroupeCompetence();
-            ViewData["NomGroupe"] = new SelectList(_context.Groupe, "NomGroupe", "NomGroupe");
-            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession");
+            ViewData["NomGroupe"] = new SelectList(_context.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "NomGroupe", "NomGroupe");
+            ViewData["NomSession"] = new SelectList(_context.Session.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "NomSession", "NomSession");
             return PartialView("_PartialGroupeComp");
         }
 
@@ -190,17 +192,24 @@ namespace projetfinalFJO.Controllers
             
             ViewBag.SessionRep = new RepartitionHeuresession();
             ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel");
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
-            ViewData["NomSession"] = new SelectList(_context.Session, "NomSession", "NomSession");
+            ViewData["CodeCompetence"] = new SelectList(_context.Competences.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "CodeCompetence", "CodeCompetence");
+            ViewData["NomSession"] = new SelectList(_context.Session.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "NomSession", "NomSession");
             return PartialView("_PartialRep_Heure_session");
         }
 
 
         public PartialViewResult partialtableRepSession()
         {
-            ViewData["NomSession"] = _context.Session.ToList();
-            ViewData["repartitionheureSession"] =_context.RepartitionHeuresession.ToList();
+            ViewData["NomSession"] = _context.Session.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
+            ViewData["repartitionheureSession"] =_context.RepartitionHeuresession.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
             return PartialView("_partialtableRepSession");
+        }
+
+        public PartialViewResult partialtableRepGroupeComp()
+        {
+            ViewData["Groupes"] = _context.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
+            ViewData["GroupeCompetence"] = _context.GroupeCompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
+            return PartialView("_partialtableRepGroupeComp");
         }
     }
 }

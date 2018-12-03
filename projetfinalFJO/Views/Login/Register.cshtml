@@ -17,12 +17,12 @@
                 </span>
                 <div class="wrap-input100 validate-input">
                     <input asp-for="Nom" class="input100" />
-                    <span asp-validation-for="Nom" class="focus-input100" data-placeholder="Nom"></span>
+                    <span asp-validation-for="Nom" class="focus-input100" data-placeholder="Nom" data-validate="Le champs ne doit pas être vide"></span>
                     <span asp-validation-for="Nom" class="text-danger"></span>
                 </div>
                 <div class="wrap-input100 validate-input">
                     <input asp-for="Prenom" class="input100" />
-                    <span asp-validation-for="Prenom" class="focus-input100" data-placeholder="Prenom"></span>
+                    <span asp-validation-for="Prenom" class="focus-input100" data-placeholder="Prenom" data-validate="Le champs ne doit pas être vide"></span>
                     <span asp-validation-for="Prenom" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -53,13 +53,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="wrap-input100 validate-input" data-validate="Selectionner un role">
-                        <label asp-for="Role" class="control-label"></label>
-                        <select asp-for="Role" asp-items="@Model.Roles" class="form-control"></select>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
@@ -75,3 +68,7 @@
 </div>
 
 
+@section Scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+}

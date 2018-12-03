@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace projetfinalFJO.Appdata
 {
@@ -9,12 +10,15 @@ namespace projetfinalFJO.Appdata
         {
             Membresdesactualisations = new HashSet<Membresdesactualisations>();
         }
-
+        [Display(Name ="Numéro d'actualisation")]
         public int NumActualisation { get; set; }
+        [Display(Name = "Nom de l'actualisation")]
         public string NomActualisation { get; set; }
+        [Display(Name = "Numéro de programme")]
         public string NoProgramme { get; set; }
+        [Display(Name = "Approbation")]
         public bool? Approuve { get; set; }
-
+        [Display(Name = "Numéro de programme")]
         public Programmes NoProgrammeNavigation { get; set; }
         public ICollection<Membresdesactualisations> Membresdesactualisations { get; set; }
     }

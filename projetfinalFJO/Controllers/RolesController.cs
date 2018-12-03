@@ -10,7 +10,7 @@ using projetfinalFJO.Models.Authentification;
 
 namespace projetfinalFJO.Controllers
 {
-    //[Authorize(Roles = "Super_Admin")]
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         private readonly RoleManager<LoginRole> _roleManager;

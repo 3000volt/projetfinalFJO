@@ -4,17 +4,15 @@
     ViewData["Title"] = "ModifierCours";
 }
 
-<h2>ModifierCours</h2>
-
-<h4>Cours</h4>
-<hr />
-<form asp-action="ModifierCours" asp-controller="Cours">
+<h2>Modifier un cours</h2>
+<hr /><form asp-action="ModifierCours">
     <div class="row">
         <div class="col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="NoCours" />
             <div class="form-group">
                 <label asp-for="NoCours" class="control-label"></label>
-                <input asp-for="NoCours" class="form-control" readonly/>
+                <input asp-for="NoCours" class="form-control" readonly />
                 <span asp-validation-for="NoCours" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -55,17 +53,16 @@
                 <span asp-validation-for="NomGroupe" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Sauvegarder" class="btn btn-info" />
+                <input type="submit" value="Sauvegarder les changements" class="btn btn-info" />
+            </div>
+            <div>
+               <a asp-action="ListeCours" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Retour à la liste</a>
             </div>
         </div>
+    </div>
 </form>
 
 
-
-    <div>
-        <a asp-action="Index" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Back to List</a>
-    </div>
-
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
