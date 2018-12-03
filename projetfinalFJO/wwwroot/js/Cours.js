@@ -32,61 +32,10 @@ function AjouterCoursAjax() {
         },
         success: function (result) {
             alert(status);
-            $('#cours').show();
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
     return false;
-}
-
-//Modifier un cours
-function ModifierCoursAjax()
-{
-    var data = {
-        NoCours: $("#NoCours").val(),
-        NomCours: $("#NomCours").val(),
-        PonderationCours: $("#PonderationCours").val(),
-        DepartementCours: $("#DepartementCours").val(),
-        TypedeCours: $("#TypedeCours").val(),
-        NoProgramme: $("#NoProgramme").val(),
-        NomSession: $("#NomSession").val(),
-        NomGroupe: $("#NomGroupe").val()
-    };
-        $.ajax({
-        data: JSON.stringify(data),
-        type: "POST",
-        url: "/Cours/ModifierCours",
-        datatype: "text/plain",
-        contentType: "application/json; charset=utf-8",
-        beforeSend: function (request) {
-            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
-        },
-        success: function (result) {
-            alert(status);
-            $('#cours').show();
-        },
-        error: function (xhr, status) { alert("erreur:" + status); }
-    });
-
-}
-
-//Supprimer un cours
-function SupprimerCoursAjax(NoCours) {
-    $.ajax({
-        data: jQuery.param({ id: NoCours }),
-        type: "POST",
-        url: "/Cours/SupprimerCours",
-        datatype: "text/plain",
-        contentType: "application/html; charset=utf-8",
-        beforeSend: function (request) {
-            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
-        },
-        success: function (result) {
-            alert(result);
-            $("#cours tr[id=\"" + NoCours + "\"]").remove();
-        },
-        error: function (xhr, status) { alert("erreur:" + status); }
-    });
 }
 
 function DimensionAjoutAjax(divId) {
