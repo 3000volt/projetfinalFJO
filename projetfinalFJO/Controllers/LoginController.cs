@@ -150,7 +150,7 @@ namespace projetfinalFJO.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Privacy), "Home");
+            return RedirectToAction(nameof(LoginController.Login), "Login");
         }
         public IActionResult AccessDenied(string returnUrl = null)
         {

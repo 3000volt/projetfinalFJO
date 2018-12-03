@@ -12,10 +12,8 @@ using projetfinalFJO.Models;
 
 namespace projetfinalFJO.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    [Authorize(Roles = "Sous_Commite")]
-    [Authorize(Roles = "Srdp")]
-    [Authorize(Roles = "Commite_Programme")]
+    [Authorize(Roles = "Admin,Sous_Commite,Srdp,Commite_Programme")]
+
     public class ProgrammesController : Controller
     {
         private readonly ActualisationContext _context;
