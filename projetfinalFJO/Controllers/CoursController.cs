@@ -60,8 +60,7 @@ namespace projetfinalFJO.Controllers
                 _contexte.Add(cours);
                 await _contexte.SaveChangesAsync();
 
-                return RedirectToAction(nameof(ListeCours));
-                //return Json(Url.Action("ListeCours","Cours"));
+               return Json(Url.Action("ListeCours","Cours"));
             }
 
             return BadRequest("Erreur,Le cours n'a pas pu être ajouté");
@@ -159,7 +158,7 @@ namespace projetfinalFJO.Controllers
         /// <returns></returns>
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SupprimerCoursPost([FromBody]string NoCours)
+        public async Task<IActionResult> SupprimerCoursPost(string NoCours)
         {
             var cours = await _contexte.Cours.FindAsync(NoCours);
             _contexte.Cours.Remove(cours);
