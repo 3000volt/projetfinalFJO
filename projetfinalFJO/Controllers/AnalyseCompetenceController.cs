@@ -43,6 +43,7 @@ namespace projetfinalFJO.Controllers
                 elements.Add((this._context.Elementcompetence.ToList().Find(x => x.ElementCompétence == com.ElementCompétence).ElementCompétence));
             }
             ViewBag.Competence = num;
+            ViewBag.Description = this._context.Competences.ToList().Find(x => x.CodeCompetence == num).Description;
             ViewBag.ListeElements = listeElements.Count;
             ViewBag.NumeroElem = elements;
             ViewBag.Numero = num;
@@ -54,9 +55,9 @@ namespace projetfinalFJO.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,CodeCompetence")] AnalyseCompétence analyse)
+        public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,CodeCompetence")] AnalyseCompétence analyse)
         {
-            
+            analyse.AdresseCourriel = this.HttpContext.User.Identity.Name;
             if (ModelState.IsValid)
             {
                 analyse.NoProgramme = this.HttpContext.Session.GetString("programme");

@@ -130,13 +130,13 @@
                                     if (@HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") != "Actif")
                                     {
                                         <li class="nav-item">
+                                            <a class="nav-link" asp-action="List_Programme" asp-controller="Programmes">Gestion de programmes</a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a class="nav-link" id="#" asp-action="Actualisation" asp-controller="Actualisation">Actualisation </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Gestion d'utilisateur</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-action="List_Programme" asp-controller="Programmes">Gestion de programmes</a>
                                         </li>
                                     }
                                     else if (@HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") == "Actif")

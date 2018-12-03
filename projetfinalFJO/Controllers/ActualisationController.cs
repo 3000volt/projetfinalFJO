@@ -192,7 +192,7 @@ namespace projetfinalFJO.Controllers
             };
             //Ajouter l'actualisation à la BD
             //this.contexteActu.ActualisationInformation.Add(actualisation);
-            
+
             this.contexteActu.ActualisationInformation.Add(actualisation);
             this.contexteActu.SaveChanges();
             //Retourner la liste
@@ -224,8 +224,11 @@ namespace projetfinalFJO.Controllers
         }
 
         [HttpPost]
-        public ActionResult SupprimerActualisation2(int NumActualisation) //,string username, string password
+        public ActionResult SupprimerActualisation2(string password, int NumActualisation) //,string username, string password
         {
+            //S'assurer que les mots de passe est valide
+            string courriel = this.HttpContext.User.Identity.Name;
+            //if(this.contexteActu.Utilisateur.ToList().Find(x=>x.AdresseCourriel == courriel). )
             //Retirer de la BD
             this.contexteActu.SupprimerActualisation(NumActualisation);
             //Retourner la listed es actualsiations
@@ -254,6 +257,8 @@ namespace projetfinalFJO.Controllers
             };
             //Transformer la session pour avoir accès au layout d'actualisation
             HttpContext.Session.SetString("ActualisationActif", "Actif");
+            //Associer la session d'actualisation en cours
+            this.HttpContext.Session.SetString("programme", actuVM.NoProgramme);
             //Retourner a la page d'actualisation
             return View("../Home/Accueil", actuVM);
         }
@@ -285,7 +290,7 @@ namespace projetfinalFJO.Controllers
         public ActionResult Details(int numActu)
         {
             ActualisationInformation actu = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == numActu);
-            return View(actu); 
+            return View(actu);
         }
 
     }

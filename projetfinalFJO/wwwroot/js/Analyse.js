@@ -60,7 +60,7 @@ function AnalyseElementCompetence(i) {
         Context: $("#Formulaire_" + i + " input[id=Context]").val(),
         SavoirFaireProgramme: $("#Formulaire_" + i + " input[id=SavoirFaireProgramme]").val(),
         SavoirEtreProgramme: $("#Formulaire_" + i + " input[id=SavoirEtreProgramme]").val(),
-        AdresseCourriel: $("#Formulaire_" + i + " input[id=AdresseCourriel]").val(),
+        //AdresseCourriel: $("#Formulaire_" + i + " input[id=AdresseCourriel]").val(),
         ElementCompétence: $("#Formulaire_" + i + " input[id=ElementComp_tence]").val(),
     };
     $.ajax({
@@ -70,7 +70,7 @@ function AnalyseElementCompetence(i) {
         datatype: "text/plain",
         contentType: "application/json; charset=utf-8",
         beforeSend: function (request) {
-            alert(AdresseCourriel);
+            //alert(AdresseCourriel);
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
@@ -205,7 +205,7 @@ function AnalyseCompetence() {
         Context: $("#Context").val(),
         SavoirFaireProgramme: $("#SavoirFaireProgramme").val(),
         SavoirEtreProgramme: $("#SavoirEtreProgramme").val(),
-        AdresseCourriel: $("#AdresseCourriel").val(),
+        //AdresseCourriel: $("#AdresseCourriel").val(),
         CodeCompetence: $("#CodeCompetence").val()
     };
     $.ajax({

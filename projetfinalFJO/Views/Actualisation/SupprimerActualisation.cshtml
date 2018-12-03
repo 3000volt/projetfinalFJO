@@ -41,19 +41,17 @@
             @Html.DisplayFor(model => model.Approuve)
         </dd>
     </dl>
-    <h4>Entrez votre nom d'utilisateur et mot de passe</h4>
-    <label>Courriel</label>
-    <input type="text" id="email" />
-    <br />
+    <h4>Entrez votre mot de passe pour confirmer</h4>
     <label>Mot de passe</label>
     <input type="text" id="mdp" />
+    <input type="button" value="Confirmer" onclick="SupprimerActualisation(@Model.NumActualisation)" />
     @*<form asp-action="SupprimerActualisation2">
             <input asp-for="NumActualisation" value="@Model.NumActualisation" type="hidden" />
             <input type="submit" value="Supprimer" class="btn btn-default" /> |
             <a asp-action="Actualisation">Annuler la suppression</a>
         </form>*@
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Supprimer l'actualisation'
+    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Supprimer l'actualisation
     </button>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -65,7 +63,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Veuillez entrer votre courriele t mot de passe
+                    Veuillez entrer votre courriel et mot de passe
                 </div>
                 <div>
                     <label>Courriel</label>
@@ -87,6 +85,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 </div>
 <!-- https://getbootstrap.com/docs/4.0/components/modal/-->

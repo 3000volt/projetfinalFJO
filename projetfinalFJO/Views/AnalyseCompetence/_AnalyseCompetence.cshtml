@@ -5,26 +5,31 @@
     <div class="row">
         <div class="col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="IdAnalyseAc" class="control-label">Numéro d'analyse</label>
-                <input asp-for="IdAnalyseAc" class="form-control" />
-                <span asp-validation-for="IdAnalyseAc" class="text-danger"></span>
-            </div>
+            @*<div class="form-group">
+            <label asp-for="IdAnalyseAc" class="control-label">Numéro d'analyse</label>
+            <input asp-for="IdAnalyseAc" class="form-control" />
+            <span asp-validation-for="IdAnalyseAc" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <label asp-for="CodeCompetence" class="control-label">Code de compétence</label>
                 <input asp-for="CodeCompetence" value="@ViewBag.Competence" readonly class="form-control" />
                 <span asp-validation-for="CodeCompetence" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Description" class="control-label">Description</label>
+                <input asp-for="Description" value="@ViewBag.Description" readonly class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="NiveauTaxonomique" class="control-label">Niveau taxonomique</label>
                 <input asp-for="NiveauTaxonomique" class="form-control" />
                 <span asp-validation-for="NiveauTaxonomique" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AdresseCourriel" class="control-label">Courriel</label>
-                <input asp-for="AdresseCourriel" class="form-control" />
-                <span asp-validation-for="AdresseCourriel" class="text-danger"></span>
-            </div>
+            @*<div class="form-group">
+            <label asp-for="AdresseCourriel" class="control-label">Courriel</label>
+            <input asp-for="AdresseCourriel" class="form-control" />
+            <span asp-validation-for="AdresseCourriel" class="text-danger"></span>
+        </div>*@
         </div>
         <div class="col-md-4">
             <div class="form-group">

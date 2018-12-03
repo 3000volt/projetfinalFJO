@@ -51,19 +51,19 @@
                         @Html.DisplayFor(modelItem => item.Approuve)
                     </td>
                     <td>
-                        <a class="btn btn-info btnlist" asp-action="Actualiser" asp-route-numActu="@item.NumActualisation">
+                        <a class="btn btn-info btnlist" title="Actualisaer" asp-action="Actualiser" asp-route-numActu="@item.NumActualisation">
                             Actualiser
                         </a>|
-                        <a class="btn btn-info btnlist" asp-action="Modifier" asp-route-numActu="@item.NumActualisation">
+                        <a class="btn btn-info btnlist" title="Modifier" asp-action="Modifier" asp-route-numActu="@item.NumActualisation">
                             <i class="fas fa-pen"></i>
                         </a>|
-                        <a class="btn btn-info btnlist" asp-action="MembresActualisation" asp-route-numActu="@item.NumActualisation" asp-route-programme="@item.NoProgramme">
+                        <a class="btn btn-info btnlist" title="Gérer la liste des membres de cette actualisation" asp-action="MembresActualisation" asp-route-numActu="@item.NumActualisation" asp-route-programme="@item.NoProgramme">
                             <i class="fas fa-users"></i>
                         </a>|
-                        <a class="btn btn-info btnlist" asp-action="Details" asp-route-numActu="@item.NumActualisation">
+                        <a class="btn btn-info btnlist" asp-action="Details" title="Information" asp-route-numActu="@item.NumActualisation">
                             <i class="fas fa-info-circle"></i>
                         </a> |
-                        <a class="btn btn-info btnlist" asp-action="SupprimerActualisation" asp-route-numActu="@item.NumActualisation">
+                        <a class="btn btn-info btnlist" title="Supprimer" asp-action="SupprimerActualisation" asp-route-numActu="@item.NumActualisation">
                             <i class="fas fa-trash"></i>
                         </a>
 
