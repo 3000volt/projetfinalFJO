@@ -15,6 +15,7 @@ namespace projetfinalFJO.Controllers
     [Authorize(Roles = "Admin")]
     [Authorize(Roles = "Sous_Commite")]
     [Authorize(Roles = "Srdp")]
+    [Authorize(Roles = "Commite_Programme")]
     public class RepartitionHeureCoursController : Controller
     {
         private readonly ActualisationContext _context;
