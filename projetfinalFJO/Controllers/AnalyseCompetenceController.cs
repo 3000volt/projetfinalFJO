@@ -44,11 +44,14 @@ namespace projetfinalFJO.Controllers
                 listeElements.Add(this._context.Elementcompetence.ToList().Find(x => x.ElementCompétence == com.ElementCompétence));
                 elements.Add((this._context.Elementcompetence.ToList().Find(x => x.ElementCompétence == com.ElementCompétence).ElementCompétence));
             }
+            List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
+
             ViewBag.Competence = num;
             ViewBag.Description = this._context.Competences.ToList().Find(x => x.CodeCompetence == num).Description;
             ViewBag.ListeElements = listeElements.Count;
             ViewBag.NumeroElem = elements;
             ViewBag.Numero = num;
+            ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
             ViewBag.Idfamille = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
             ViewBag.Sequence = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
             ViewBag.CreerAnalyse = new AnalyseCompétence();
@@ -147,6 +150,8 @@ namespace projetfinalFJO.Controllers
             //}
             //foreach(AnalyseElementsCompetence anal in analyses.Where(x=>x.ElementCompétence == ))
             //listeElemComp = this._context.AnalyseElementsCompetence.ToList().FindAll(x => x.ElementCompétence == numElement && x.AdresseCourriel == email);
+            List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
+            ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
             return View(listeElemCompComplete);
         }
 

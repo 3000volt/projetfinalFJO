@@ -21,6 +21,7 @@
 //});
 
 function Ajustation(item) {
+    alert(item);
     var a = document.getElementById(item).id;
     num = a.charAt(6);
     AnalyseElementCompetence(num);
@@ -55,7 +56,7 @@ function AnalyseElementCompetence(i) {
 
     var url = "/AnalyseElementCompetence/Create";
     var data = {
-        NiveauTaxonomique: $("#Formulaire_" + i + " input[id=NiveauTaxonomique]").val(),
+        NiveauTaxonomique: $("#Formulaire_" + i + " select[id=NiveauTaxonomique]").val(),
         Reformulation: $("#Formulaire_" + i + " input[id=Reformulation]").val(),
         Context: $("#Formulaire_" + i + " input[id=Context]").val(),
         SavoirFaireProgramme: $("#Formulaire_" + i + " input[id=SavoirFaireProgramme]").val(),
@@ -227,34 +228,34 @@ function AnalyseCompetence() {
 
 
 
-function AnalyseElementCompetence(i) {
-    var url = "/AnalyseElementCompetence/Create";
-    var data = {
-        NiveauTaxonomique: $("#Formulaire_" + i + " input[id=NiveauTaxonomique]").val(),
-        Reformulation: $("#Formulaire_" + i + " input[id=Reformulation]").val(),
-        Context: $("#Formulaire_" + i + " input[id=Context]").val(),
-        SavoirFaireProgramme: $("#Formulaire_" + i + " input[id=SavoirFaireProgramme]").val(),
-        SavoirEtreProgramme: $("#Formulaire_" + i + " input[id=SavoirEtreProgramme]").val(),
-        AdresseCourriel: $("#Formulaire_" + i + " input[id=AdresseCourriel]").val(),
-        //Obligatoire: true,
-        ElementCompétence: $("#Formulaire_" + i + " input[id=ElementComp_tence]").val(),
-    };
-    $.ajax({
-        data: JSON.stringify(data),
-        type: "POST",
-        url: url,
-        datatype: "text/plain",
-        contentType: "application/json; charset=utf-8",
-        beforeSend: function (request) {
-            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
-        },
-        success: function (result) {
-            alert(status);
-        },
-        error: function (xhr, status) { alert("erreur:" + status); }
-    });
-    return false;
-}
+//function AnalyseElementCompetence(i) {
+//    var url = "/AnalyseElementCompetence/Create";
+//    var data = {
+//        NiveauTaxonomique: $("#Formulaire_" + i + " input[id=NiveauTaxonomique]").val(),
+//        Reformulation: $("#Formulaire_" + i + " input[id=Reformulation]").val(),
+//        Context: $("#Formulaire_" + i + " input[id=Context]").val(),
+//        SavoirFaireProgramme: $("#Formulaire_" + i + " input[id=SavoirFaireProgramme]").val(),
+//        SavoirEtreProgramme: $("#Formulaire_" + i + " input[id=SavoirEtreProgramme]").val(),
+//        AdresseCourriel: $("#Formulaire_" + i + " input[id=AdresseCourriel]").val(),
+//        //Obligatoire: true,
+//        ElementCompétence: $("#Formulaire_" + i + " input[id=ElementComp_tence]").val(),
+//    };
+//    $.ajax({
+//        data: JSON.stringify(data),
+//        type: "POST",
+//        url: url,
+//        datatype: "text/plain",
+//        contentType: "application/json; charset=utf-8",
+//        beforeSend: function (request) {
+//            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+//        },
+//        success: function (result) {
+//            alert(status);
+//        },
+//        error: function (xhr, status) { alert("erreur:" + status); }
+//    });
+//    return false;
+//}
 
 
 

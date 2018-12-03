@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="NiveauTaxonomique" class="control-label">Niveau taxonomique</label>
-                <input asp-for="NiveauTaxonomique" class="form-control" />
+                <select asp-for="NiveauTaxonomique" asp-items="@ViewBag.Taxonomie" class="form-control"></select>
                 <span asp-validation-for="NiveauTaxonomique" class="text-danger"></span>
             </div>
             @*<div class="form-group">

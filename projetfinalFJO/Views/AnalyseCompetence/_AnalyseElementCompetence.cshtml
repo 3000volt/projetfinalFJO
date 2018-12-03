@@ -9,7 +9,6 @@
     {
 
         compteur += 1;
-        @compteur
 <div id="Formulaire_@compteur" class="row">
     <div class="col-md-4">
         <form>
@@ -21,7 +20,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="NiveauTaxonomique" class="control-label"></label>
-                <input asp-for="NiveauTaxonomique" class="form-control" />
+                @*<input asp-for="NiveauTaxonomique" class="form-control" />*@
+                <select asp-for="NiveauTaxonomique" asp-items="@ViewBag.Taxonomie" class="form-control"></select>
                 <span asp-validation-for="NiveauTaxonomique" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -44,11 +44,11 @@
                 <input asp-for="SavoirEtreProgramme" class="form-control" />
                 <span asp-validation-for="SavoirEtreProgramme" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="AdresseCourriel" class="control-label"></label>
                 <input id="AdresseCourriel" asp-for="AdresseCourriel" class="form-control" />
                 <span asp-validation-for="AdresseCourriel" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <input type="button" value="Create" id="Ajout_@compteur" onclick="Ajustation('Ajout_@compteur')" class="btn btn-default" />
             </div>

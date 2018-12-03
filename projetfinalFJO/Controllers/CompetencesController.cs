@@ -25,7 +25,7 @@ namespace projetfinalFJO.Controllers
         // GET: Competences
         public async Task<IActionResult> ListeCompetence()
         {
-            var actualisationContext = _context.Competences.Include(c => c.NomFamilleNavigation).Include(c => c.NoProgrammeNavigation).Where(x=>x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme")));
+            var actualisationContext = _context.Competences.Include(c => c.NomFamilleNavigation).Include(c => c.NoProgrammeNavigation).Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme")));
             return View(await actualisationContext.ToListAsync());
         }
 
@@ -64,8 +64,9 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
+        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation")] Competences competences)
         {
+            competences.NoProgramme = this.HttpContext.Session.GetString("programme");
             //competences.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
@@ -73,6 +74,30 @@ namespace projetfinalFJO.Controllers
                 this.HttpContext.Session.SetString("Competence", JsonConvert.SerializeObject(competences));
                 //Ajouter a la bd
                 _context.Add(competences);
+                await _context.SaveChangesAsync();
+                return Ok("élément ajouté avec succès");
+            }
+            ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.NomFamille);
+            ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
+            return BadRequest("élément non ajouté");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation")] Competences competences)
+        {
+            competences.NoProgramme = this.HttpContext.Session.GetString("programme");
+            //competences.NoProgramme = this.HttpContext.Session.GetString("programme");
+            if (ModelState.IsValid)
+            {
+                //Trouver la competence concerné
+               // Competences compConcerne = JsonConvert.DeserializeObject<Competences>(HttpContext.Session.GetString("Competence"));
+               // Competences comp = this._context.Competences.ToList().Find(x => x.CodeCompetence == compConcerne.CodeCompetence && x.NoProgramme == compConcerne.NoProgramme);
+                //Indiquer le changement
+                //comp = competences;
+                //Modifier a la BD
+                _context.Update(competences);
+                // https://stackoverflow.com/questions/25894587/how-to-update-record-using-entity-framework-6
                 await _context.SaveChangesAsync();
                 return Ok("élément ajouté avec succès");
             }
