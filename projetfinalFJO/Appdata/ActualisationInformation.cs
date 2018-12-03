@@ -12,11 +12,11 @@ namespace projetfinalFJO.Appdata
         }
         [Display(Name ="Numéro d'actualisation")]
         public int NumActualisation { get; set; }
-        [Display(Name = "Nom d'actualisation")]
+        [Display(Name = "Nom de l'actualisation")]
         public string NomActualisation { get; set; }
         [Display(Name = "Numéro de programme")]
         public string NoProgramme { get; set; }
-        [Display(Name = "Aprobation")]
+        [Display(Name = "Approbation")]
         public bool? Approuve { get; set; }
         [Display(Name = "Numéro de programme")]
         public Programmes NoProgrammeNavigation { get; set; }
