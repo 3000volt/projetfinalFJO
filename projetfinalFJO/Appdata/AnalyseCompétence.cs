@@ -15,9 +15,9 @@ namespace projetfinalFJO.Appdata
         public string SavoirFaireProgramme { get; set; }
         [Display(Name = "Savoir être")]
         public string SavoirEtreProgramme { get; set; }
-        [Display(Name = "Validation approuvée?")]
+        [Display(Name = "Validation")]
         public bool? ValidationApprouve { get; set; }
-        [Display(Name = "Numéro d'analyse d'actualisation")]
+        [Display(Name = "Numéro d'analyse")]
         public int IdAnalyseAc { get; set; }
         [Display(Name = "Courriel")]
         public string AdresseCourriel { get; set; }
@@ -26,8 +26,11 @@ namespace projetfinalFJO.Appdata
         [Display(Name = "Numéro de programme")]
         public string NoProgramme { get; set; }
 
+        [Display(Name = "Courriel")]
         public Utilisateur AdresseCourrielNavigation { get; set; }
+        [Display(Name = "Code de compétence")]
         public Competences CodeCompetenceNavigation { get; set; }
+        [Display(Name = "Numéro de programme")]
         public Programmes NoProgrammeNavigation { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace projetfinalFJO.Appdata
         [Display(Name = "Numéro de programme")]
         public string NoProgramme { get; set; }
 
+        [Display(Name = "Numéro de programme")]
         public Programmes NoProgrammeNavigation { get; set; }
         public ICollection<Cours> Cours { get; set; }
         public ICollection<GroupeCompetence> GroupeCompetence { get; set; }

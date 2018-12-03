@@ -6,19 +6,22 @@ namespace projetfinalFJO.Appdata
 {
     public partial class CoursCompetences
     {
-        [Display(Name = "Nombre d'heures de la compétence")]
+        [Display(Name = "")]
         public int? NbHcoursCompetence { get; set; }
         [Display(Name = "Numéro du cours")]
         public string NoCours { get; set; }
-        [Display(Name = "Code de la compétence")]
+        [Display(Name = "Code de compétence")]
         public string CodeCompetence { get; set; }
-        [Display(Name = "Compétence complétée?")]
+        [Display(Name = "Completion")]
         public bool Complete { get; set; }
-        [Display(Name = "Numéro du programme")]
+        [Display(Name = "Numéro de programme")]
         public string NoProgramme { get; set; }
 
+        [Display(Name = "Code de compétence")]
         public Competences CodeCompetenceNavigation { get; set; }
+        [Display(Name = "Numéro du cours")]
         public Cours NoCoursNavigation { get; set; }
+        [Display(Name = "Numéro de programme")]
         public Programmes NoProgrammeNavigation { get; set; }
     }
 }

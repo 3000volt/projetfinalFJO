@@ -24,26 +24,25 @@ namespace projetfinalFJO.Appdata
             this.ConnectionString = connexion;
         }
 
-        public void InsererActualisation(ActualisationInformation actu)
-        {
-            //utiliser le connectionString pour pouvoir affecter la BD
-            using (SqlConnection con = new SqlConnection(this.ConnectionString))
-            {
-                //Requete pour ajouter un livre
-                string sqlStr = "insert into ActualisationInformation(NumActualisation, NomActualisation, NoProgramme, Approuve) values(@NumActualisation, @NomActualisation, @NoProgramme, @Approuve)";
-                //Code pour affecter la BD
-                SqlCommand cmd = new SqlCommand(sqlStr, con);
-                cmd.CommandType = CommandType.Text;
-                con.Open();
-                cmd.Parameters.AddWithValue("NumActualisation", actu.NumActualisation);
-                cmd.Parameters.AddWithValue("NomActualisation", actu.NomActualisation);
-                cmd.Parameters.AddWithValue("NoProgramme", actu.NoProgramme);
-                //Par defaut, le programme ne sera pas approuvé
-                cmd.Parameters.AddWithValue("Approuve", false);
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-        }
+        //public void InsererActualisation(ActualisationInformation actu)
+        //{
+        //    //utiliser le connectionString pour pouvoir affecter la BD
+        //    using (SqlConnection con = new SqlConnection(this.ConnectionString))
+        //    {
+        //        //Requete pour ajouter un livre
+        //        string sqlStr = "insert into ActualisationInformation(NomActualisation, NoProgramme, Approuve) values(@NumActualisation, @NomActualisation, @NoProgramme, @Approuve)";
+        //        //Code pour affecter la BD
+        //        SqlCommand cmd = new SqlCommand(sqlStr, con);
+        //        cmd.CommandType = CommandType.Text;
+        //        con.Open();
+        //        cmd.Parameters.AddWithValue("NomActualisation", actu.NomActualisation);
+        //        cmd.Parameters.AddWithValue("NoProgramme", actu.NoProgramme);
+        //        //Par defaut, le programme ne sera pas approuvé
+        //        cmd.Parameters.AddWithValue("Approuve", false);
+        //        cmd.ExecuteNonQuery();
+        //        con.Close();
+        //    }
+        //}
 
         public void InsererMembresdesactualisations(Membresdesactualisations me)
         {
@@ -144,7 +143,7 @@ namespace projetfinalFJO.Appdata
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(" Server=localhost;Database=Actualisation ;User Id=sa;Password=sql");
             }
         }
@@ -154,8 +153,6 @@ namespace projetfinalFJO.Appdata
             modelBuilder.Entity<ActualisationInformation>(entity =>
             {
                 entity.HasKey(e => e.NumActualisation);
-
-                entity.Property(e => e.NumActualisation).ValueGeneratedNever();
 
                 entity.Property(e => e.NoProgramme)
                     .IsRequired()

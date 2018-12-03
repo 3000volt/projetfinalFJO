@@ -182,10 +182,19 @@ namespace projetfinalFJO.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreerActualisation(ActualisationInformation actu)
+        public ActionResult CreerActualisation(ActualisationVM actu)
         {
+            ActualisationInformation actualisation = new ActualisationInformation()
+            {
+                NomActualisation = actu.NomActualisation,
+                NoProgramme = actu.NoProgramme,
+                Approuve = false
+            };
             //Ajouter l'actualisation à la BD
-            this.contexteActu.InsererActualisation(actu);
+            //this.contexteActu.ActualisationInformation.Add(actualisation);
+            
+            this.contexteActu.ActualisationInformation.Add(actualisation);
+            this.contexteActu.SaveChanges();
             //Retourner la liste
             return RedirectToAction("Actualisation");
         }
