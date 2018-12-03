@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,9 @@ using projetfinalFJO.Models;
 
 namespace projetfinalFJO.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Sous_Commite")]
+    [Authorize(Roles = "Srdp")]
     public class ProgrammesController : Controller
     {
         private readonly ActualisationContext _context;

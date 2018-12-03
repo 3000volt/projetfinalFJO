@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,9 @@ using projetfinalFJO.Appdata;
 
 namespace projetfinalFJO.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Sous_Commite")]
+    [Authorize(Roles = "Srdp")]
     public class SessionsController : Controller
     {
         private readonly ActualisationContext _context;
