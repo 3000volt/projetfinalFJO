@@ -1,5 +1,19 @@
 ﻿$(function () {
-    "use strict";
+
+    //validation du formulaire mot de passe = confirme mot de passe
+    $('.validate-form').validate({
+        rules: {
+            ConfirmPassword: {
+                equalTo: "#Password"
+            }
+        },
+        messages: {
+            ConfirmPassword: {
+                equalTo: "Le mot de passe ne correspond pas"
+            }
+        }
+    });
+
     $('#btsubmit').on('click', function () {
 
         alert('button submit');
@@ -93,5 +107,7 @@
             }
         }
     }
+
+    
 
 })

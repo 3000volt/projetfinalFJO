@@ -97,14 +97,7 @@ namespace projetfinalFJO.Controllers
         public IActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel();
-            model.Roles = this._roleManager.Roles.Select<LoginRole, SelectListItem>(
-                r =>
-                new SelectListItem()
-                {
-                    Text = r.Name,
-                    Value = r.Name
-                }
-            ).ToList();
+            model.Roles = this._roleManager.Roles.Select<LoginRole, SelectListItem>(r => new SelectListItem() { Text = r.Name, Value = r.Name }).ToList();
 
             return View(model);
         }
@@ -125,7 +118,7 @@ namespace projetfinalFJO.Controllers
                     this.context.SaveChanges();
 
                     _logger.LogInformation("User created a new account with password.");
-                    var roleresult = await _userManager.AddToRoleAsync(user, model.Role);
+                    var roleresult = await _userManager.AddToRoleAsync(user, model.Role = "Sous_Commite");
                     if (roleresult.Succeeded)
                     {
                         _logger.LogInformation("User created a new account with password.");
@@ -147,14 +140,7 @@ namespace projetfinalFJO.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            model.Roles = this._roleManager.Roles.Select<LoginRole, SelectListItem>(
-                r =>
-                new SelectListItem()
-                {
-                    Text = r.Name,
-                    Value = r.Name
-                }
-            ).ToList();
+            model.Roles = this._roleManager.Roles.Select<LoginRole, SelectListItem>(r =>new SelectListItem(){Text = r.Name, Value = r.Name}).ToList();
             return View(model);
         }
 
