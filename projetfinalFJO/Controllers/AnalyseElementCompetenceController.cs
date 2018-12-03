@@ -23,6 +23,8 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody][Bind("NiveauTaxonomique,Reformulation,Context,SavoirFaireProgramme,SavoirEtreProgramme,AdresseCourriel,ElementCompétence,NoProgramme")] AnalyseElementsCompetence analyse)
         {
+            //Prendre le courriel du user actif
+            analyse.AdresseCourriel = this.HttpContext.User.Identity.Name;
             analyse.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {

@@ -17,12 +17,15 @@
 
         <div id="accordion">
         </div>
+        <div id="divBoutonsEnvoie">
+            <a asp-action="ListeCompetence" class="btn btn-info" id="btnListe" style="background-color:darkblue;border-color:darkblue">Retour à la liste de compétence</a>
+            <a class="btn btn-info btnanalyse" id="btnAnalyser" asp-controller="AnalyseCompetence" asp-action="CreerAnalyse">Créer Analyse</a>
+        </div>
     </div>
-    <a  class="btn btn-info btnanalyse" asp-controller="AnalyseCompetence" asp-action="CreerAnalyse">Créer Analyse</a>
 </div>
 
 @section Scripts
-{
+    {
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 }
 
