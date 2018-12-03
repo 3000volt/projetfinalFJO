@@ -117,7 +117,7 @@
         <div id="content">
             <header class="page-header">
                 <nav class="navbar navbar-expand-md  fixed-top text-white" style="background-color:#03224C;" id="navbarCollapse">
-                    <a class="navbar-brand" target=_blank href="#">Navigation</a>
+                    <a class="navbar-brand" target=_blank href="#">FJO-Prod</a>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -136,64 +136,12 @@
                                             <a class="nav-link" asp-action="GererUtilisateur" asp-controller="GererUtilisateur">Gestion d'utilisateur</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-action="Index" asp-controller="Programmes">Gestion de programmes</a>
+                                            <a class="nav-link" asp-action="List_Programme" asp-controller="Programmes">Gestion de programmes</a>
                                         </li>
-                                    }
-                                    else if (@HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") == "Actif")
-                                    {
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-action="Accueil" asp-controller="Home">Accueil</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-action="ListeCours" asp-controller="Cours">Cours</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-action="Index" asp-controller="Competences">Compétences</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-action="ListeAnalyse" asp-controller="AnalyseCompetence">Analyses</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" target=_blank href="#"> Rapports</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu des répartitions</a>
-                                            @*https://www.youtube.com/watch?v=932hSm1yNII*@
-                                            @*Dropdown menu*@
-                                            <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdown" style="width: 100%;">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <p><strong class="sub-menu-heading">Répartition des heures par compétences</strong></p>
-                                                        <p><a asp-action="Index" asp-controller="RepartirHeureCompetences">Consulté la liste des compétences</a></p>
-                                                        <p><a href="#">Item Number1</a></p>
-                                                        <p><a href="#">Item Number1</a></p>
-                                                        <p><a href="#">Item Number1</a></p>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <p><strong class="sub-menu-heading">Repartition des heures par cours</strong></p>
-                                                        <p><a asp-action="Index" asp-controller="RepartitionHeureCours">Consulté la répartition des heures par cours</a></p>
-                                                        <p><a href="#">Item Number1</a></p>
-                                                        <p><a href="#">Item Number1</a></p>
-                                                        <p><a href="#">Item Number1</a></p>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <p><strong class="sub-menu-heading">Repartition des Heures sessions</strong></p>
-                                                        <p><a asp-action="Index" asp-controller="RepartitionHeuresessions">Consulté la répartition des heures session</a></p>
-                                                        <p><a href="#">Item Number1</a></p>
-                                                        <p><a href="#">Item Number1</a></p>
-                                                        <p><a href="#">Item Number1</a></p>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-action="List_Programme" asp-controller="Programmes">Retour à l'accueil d'admin</a>
-                                        </li>
-                                    }
+                                    }    
 
                                 }
-                                else if (this.User.IsInRole("Sous_Commite") || this.User.IsInRole("Srdp"))
+                                else if (this.User.IsInRole("Sous_Commite") || this.User.IsInRole("Srdp")||(this.User.IsInRole("Admin")&& @HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") == "Actif"))
                                 {
 
                                     <li class="nav-item">
