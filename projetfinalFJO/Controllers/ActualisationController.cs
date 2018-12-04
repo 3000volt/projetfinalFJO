@@ -261,6 +261,8 @@ namespace projetfinalFJO.Controllers
             HttpContext.Session.SetString("ActualisationActif", "Actif");
             //Associer la session d'actualisation en cours
             this.HttpContext.Session.SetString("programme", actuVM.NoProgramme);
+            //Associer une session a l actualisation en cours
+            this.HttpContext.Session.SetInt32("Actualisation", numActu);
             //Retourner a la page d'actualisation
             return View("../Home/Accueil", actuVM);
         }
