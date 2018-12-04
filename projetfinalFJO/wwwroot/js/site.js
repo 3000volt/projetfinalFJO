@@ -33,7 +33,7 @@ function fnAddcommpetenceAjax() {
             alert(status);
             $('#elementcomp').show();
         },
-        error: function (xhr, status) { alert("erreur:" + status); }
+        error: function (xhr) { alert("erreur: Le code de compétence doit être unique!"); }
     });
     return false;
 }
@@ -94,7 +94,7 @@ function fnAddelecommpetenceAjax() {
                 "<div class=\"card-body\"><p>" + $("#CriterePerformance").val() + "</p></div>" +
                 "</div></div> ")
         },
-        error: function (xhr, status) { alert("erreur:" + status); }
+        error: function (xhr, status) { alert("erreur: l'élément de compétence doit être unique!"); }
     });
     return false;
 }
@@ -252,15 +252,18 @@ function fnSessionAjax() {
 }
 
 function disableEnvoie() {
-    //ne plus rendre accessible la div de création 
-    $("#divDocumentCreation *").attr('disabled', true);
-    //https://stackoverflow.com/questions/8423812/enable-disable-a-div-and-its-elements-in-javascript
-    //Mettre le bouton modifier utilisable
-    $("#btnModifier").attr('disabled', false);
-    //Mettre l'ajout innaccessible
-    $("#btnAjout").attr('disabled', true);
     //Appeller la function ajax pour créer la compétence
-    fnAddcommpetenceAjax();
+    //Si aucune erreur est lancé
+    if (fnAddcommpetenceAjax()) {
+        //ne plus rendre accessible la div de création 
+        $("#divDocumentCreation *").attr('disabled', true);
+        //https://stackoverflow.com/questions/8423812/enable-disable-a-div-and-its-elements-in-javascript
+        //Mettre le bouton modifier utilisable
+        $("#btnModifier").attr('disabled', false);
+        //Mettre l'ajout innaccessible
+        $("#btnAjout").attr('disabled', true);
+    }
+
 }
 
 function ModifierEnvoie() {
@@ -316,20 +319,22 @@ function AnnulerModification() {
 
 function ConfirmerModification() {
     //Appeller le ajax pour modifier la compétence dans la bd
-    fnUpdatecommpetenceAjax();
-    //recacher le bouton
-    $("#btnConfirmerModif").attr('hidden', true);
-    $("#btnAnnulerModif").attr('hidden', true);
-    //Remmettre modifier accissible
-    $("#btnModifier").attr('disabled', false);
-    //Remmettre la div innaccessible
-    $("#divElementsCompetence *").attr('disabled', false);
-    //Remmettre les boutons d'envoies accessibles
-    $("#btnListe").attr('disabled', false);
-    $("#btnAnalyser").attr('disabled', false);
-    //$("#divBoutonsEnvoie").attr('hidden', true);
-    $("#btnListe").show();
-    $("#btnAnalyser").show();
+    if (fnUpdatecommpetenceAjax()) {
+        //recacher le bouton
+        $("#btnConfirmerModif").attr('hidden', true);
+        $("#btnAnnulerModif").attr('hidden', true);
+        //Remmettre modifier accissible
+        $("#btnModifier").attr('disabled', false);
+        //Remmettre la div innaccessible
+        $("#divElementsCompetence *").attr('disabled', false);
+        //Remmettre les boutons d'envoies accessibles
+        $("#btnListe").attr('disabled', false);
+        $("#btnAnalyser").attr('disabled', false);
+        //$("#divBoutonsEnvoie").attr('hidden', true);
+        $("#btnListe").show();
+        $("#btnAnalyser").show();
+    }
+
 }
 
 function SauvegardeVariable() {

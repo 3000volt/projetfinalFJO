@@ -46,6 +46,7 @@ namespace projetfinalFJO.Controllers
             }
             List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
 
+            ViewBag.Contexte = "Prechoisi";
             ViewBag.Competence = num;
             ViewBag.Description = this._context.Competences.ToList().Find(x => x.CodeCompetence == num).Description;
             ViewBag.ListeElements = listeElements.Count;
@@ -56,6 +57,20 @@ namespace projetfinalFJO.Controllers
             ViewBag.Sequence = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
             ViewBag.CreerAnalyse = new AnalyseCompétence();
             return View();
+        }
+
+        public ActionResult CreerAnalyseListe()
+        {
+            var context = _contextAccessor.HttpContext;
+
+            List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
+            //Avoir la liste de tout les compétences
+            ViewBag.Competence = new SelectList(this._context.Competences, "CodeCompetence", "CodeCompetence");
+            ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
+            ViewBag.Idfamille = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
+            ViewBag.Sequence = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
+            ViewBag.CreerAnalyse = new AnalyseCompétence();
+            return View("CreerAnalyse");
         }
 
         [HttpPost]

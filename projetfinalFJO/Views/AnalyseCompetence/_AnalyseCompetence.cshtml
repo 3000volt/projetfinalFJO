@@ -1,4 +1,7 @@
 ﻿@model projetfinalFJO.Models.AnalyseCompetenceViewModel
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 
 <h4><u>Analyse de la compétence</u></h4>
 <form asp-action="_CreerCompetence">
@@ -10,11 +13,22 @@
             <input asp-for="IdAnalyseAc" class="form-control" />
             <span asp-validation-for="IdAnalyseAc" class="text-danger"></span>
         </div>*@
-            <div class="form-group">
-                <label asp-for="CodeCompetence" class="control-label">Code de compétence</label>
-                <input asp-for="CodeCompetence" value="@ViewBag.Competence" readonly class="form-control" />
-                <span asp-validation-for="CodeCompetence" class="text-danger"></span>
-            </div>
+            @if (ViewBag.Contexte == "Prechoisi")
+            {
+                <div class="form-group">
+                    <label asp-for="CodeCompetence" class="control-label">Code de compétence</label>
+                    <input asp-for="CodeCompetence" value="@ViewBag.Competence" readonly class="form-control" />
+                    <span asp-validation-for="CodeCompetence" class="text-danger"></span>
+                </div>
+            }
+            else if(ViewBag.Contexte == "NonChoisi")
+            {
+                <div class="form-group">
+                    <label asp-for="CodeCompetence" class="control-label">Code de compétence</label>
+                    <select asp-for="CodeCompetence" asp-items="@ViewBag.Competence" readonly class="form-control" />
+                    <span asp-validation-for="CodeCompetence" class="text-danger"></span>
+                </div>
+            }
             <div class="form-group">
                 <label asp-for="Description" class="control-label">Description</label>
                 <input asp-for="Description" value="@ViewBag.Description" readonly class="form-control" />
