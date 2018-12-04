@@ -1,0 +1,55 @@
+﻿@model IEnumerable<projetfinalFJO.Appdata.RepartirHeureCompetence>
+
+@{
+    ViewData["Title"] = "ListeRepartirHeureCompetences";
+}
+
+<h2>Répartition des heures par compétence</h2>
+
+<p>
+    <a class="btn btn-info" asp-action="Create" asp-controller="RepartirHeureCompetences">
+        <i class="fas fa-plus-circle"> Ajouter une répartition</i>
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NbHtotalCompetence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValidationApprouve)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeCompetenceNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NbHtotalCompetence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValidationApprouve)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeCompetenceNavigation.CodeCompetence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoProgrammeNavigation.NoProgramme)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

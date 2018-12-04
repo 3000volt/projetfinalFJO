@@ -45,24 +45,14 @@
         <!-- Sidebar -->
         <!--https://bootstrapious.com/p/bootstrap-sidebar-->
         <nav id="sidebar">
-
-
             <div class="sidebar-header">
                 <div class="row">
-
-
                     <div class="col-sm-0">
                         <h3>Chat</h3>
                     </div>
                     <div class="col ml-0">   <div id="dismiss"><i class="fas fa-arrow-right fa-c"></i></div></div>
                 </div>
-
-
             </div>
-
-
-
-
             <ul class="list-unstyled components">
                 <li class="active">
                     <a target=_blank href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
@@ -136,10 +126,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" asp-action="List_Programme" asp-controller="Programmes">Gestion de programmes</a>
-                                    </li>
-                                
-                                
-
+                                    </li>                         
                             }
                             else if (this.User.IsInRole("Sous_Commite") || this.User.IsInRole("Srdp")  || (this.User.IsInRole("Admin")&& @HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") == "Actif"))
                             {
@@ -168,14 +155,11 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p><strong class="sub-menu-heading">Répartition des heures par compétences</strong></p>
-                                            <p><a asp-action="Index" asp-controller="RepartirHeureCompetences">Consulté la liste des compétences</a></p>
-                                            <p><a href="#">Item Number1</a></p>
-                                            <p><a href="#">Item Number1</a></p>
-                                            <p><a href="#">Item Number1</a></p>
+                                            <p><a asp-action="ListeRepartirHeureCompetences"  asp-controller="RepartirHeureCompetences">Liste des répartitions d'heures par compétences</a></p>
                                         </div>
                                         <div class="col-md-4">
                                             <p><strong class="sub-menu-heading">Repartition des heures par cours</strong></p>
-                                            <p><a asp-action="Index" asp-controller="RepartitionHeureCours">Consulté la répartition des heures par cours</a></p>
+                                            <p><a asp-action="Index" asp-controller="RepartitionHeureCours">Liste des répartitions des heures par cours</a></p>
                                             <p><a href="#">Item Number1</a></p>
                                             <p><a href="#">Item Number1</a></p>
                                             <p><a href="#">Item Number1</a></p>
@@ -187,7 +171,6 @@
                                             <p><a href="#">Item Number1</a></p>
                                             <p><a href="#">Item Number1</a></p>
                                         </div>
-
                                     </div>
                                 </div>
                             </li>
@@ -215,8 +198,6 @@
             </header>
             <div class="col-lg-12 mt-5 well h-scroll">
                 @RenderBody()
-
-
             </div>
 
 
