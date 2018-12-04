@@ -6,30 +6,40 @@
 
 </div>
 
-<div id="divCompetence">
-    <partial name="_AnalyseCompetence" />@*model="ViewBag.CreerAnalyse"*@
-</div>
-<hr />
+@if (ViewBag.Contexte == "Prechoisi" || ViewBag.Contexte == "NonChoisi")
+{
+    <div id="divCompetence">
+        <partial name="_AnalyseCompetence" />@*model="ViewBag.CreerAnalyse"*@
+    </div>
+    <hr />
 
-<div id="tabs">
-    <ul>
-        <li class="loic"><a href="@Url.Action("PartialListeFamille", "AnalyseCompetence")">Assigner une famille</a></li>
-        <li><a href="@Url.Action("PartialAjouterFamille", "AnalyseCompetence")">Créer une famille </a></li>
-    </ul>
-</div>
-<hr />
+    <div id="tabs">
+        <ul>
+            <li class="loic"><a href="@Url.Action("PartialListeFamille", "AnalyseCompetence")">Assigner une famille</a></li>
+            <li><a href="@Url.Action("PartialAjouterFamille", "AnalyseCompetence")">Créer une famille </a></li>
+        </ul>
+    </div>
+    <hr />
 
-<div id="tabs2">
-    <ul>
-        <li class="loic"><a href="@Url.Action("PartialListeSequence", "AnalyseCompetence")">Assigner une séquence</a></li>
-        <li><a href="@Url.Action("PartialAjouterSequence", "AnalyseCompetence")">Créer une séquence </a></li>
-    </ul>
-</div>
-<hr />
 
-<div id="divElementCompetence">
-    <partial name="_AnalyseElementCompetence" />@*model="ViewBag.CreerAnalyse"*@
-</div>
+
+    <div id="tabs2">
+        <ul>
+            <li class="loic"><a href="@Url.Action("PartialListeSequence", "AnalyseCompetence")">Assigner une séquence</a></li>
+            <li><a href="@Url.Action("PartialAjouterSequence", "AnalyseCompetence")">Créer une séquence </a></li>
+        </ul>
+    </div>
+    <hr />
+}
+
+
+@if (ViewBag.Contexte == "Prechoisi" || ViewBag.Contexte == "ElemNonChoisi")
+{
+    <div id="divElementCompetence">
+        <partial name="../AnalyseCompetence/_AnalyseElementCompetence"  />@*model="ViewBag.CreerAnalyse"*@
+    </div>
+}
+
 
 @section Scripts
     {

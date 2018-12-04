@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using projetfinalFJO.Appdata;
 
 namespace projetfinalFJO.Controllers
@@ -35,6 +36,25 @@ namespace projetfinalFJO.Controllers
             //ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.Idfamille);
             //ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
             return BadRequest("élément non ajouté");
+        }
+
+        public ActionResult CreerAnalyseListe()
+        {
+            //Prendre le numéro du code de compétence dans la session
+            string codeCompetence = this.HttpContext.Session.GetString("CodeCompetence");
+            List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
+            //Avoir la liste de tout les compétences
+            ViewBag.Contexte = "ElemNonChoisi";
+            //Avoir ela liste des compétences du programme de l'actualsiation en cours
+            List<Elementcompetence> listeElemComp = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == codeCompetence).Select(element => new Elementcompetence(){ElementCompétence=element.ElementCompétence}).ToList();
+            ViewBag.Element = new SelectList(listeElemComp, "ElementCompétence", "ElementCompétence");//, "ElementCompétence", "ElementCompétence"
+            ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
+            ViewBag.CreerAnalyse = new AnalyseCompétence();
+            //pour n,afficher qu'un formulaire
+            List<string> liste1 = new List<string>();
+            liste1.Add("");
+            ViewBag.NumeroElem = liste1;
+            return View("../AnalyseCompetence/CreerAnalyse");
         }
     }
 }

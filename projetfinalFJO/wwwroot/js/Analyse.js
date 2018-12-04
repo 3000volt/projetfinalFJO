@@ -1,24 +1,36 @@
 ﻿var formModal;
-//$(function () {
+$(function () {
+    alert("TROLL");
+    var code = $("#CodeCompetence").val().toString();
+    alert("testss");
+    $("#Description").val(AfficherDescription(code));
+    //$("#Description").val(AfficherDescription(code));
+    //Appeler la fonction au changement de valeur du select
+    $("#CodeCompetence").on('change', function () {
+        //https://stackoverflow.com/questions/11179406/jquery-get-value-of-select-onchange
+        //appeler la function ajax qui va chanegr la valeur de la description
+        var code = $("#CodeCompetence").val().toString();
+        //alert(code);
+        $("#Description").val(AfficherDescription(code));
+    });
+    //    //$("#AjouterFamilleModal").on("click", function () {
+    //    //    formModal = DimensionAjoutAjax("#divAjouterFamille");
+    //    //    $(formModal).dialog("open");
+    //    //    $("form").prop("title", "Add");
+    //    //});
+    //    //$("#btSubmit").on("click", function () {
+    //    //    $(formModal).dialog("close");
+    //    //    //AjouterFamilleAjax();
+    //    //});
+    //    //$("#btCancel").on("click", function () { $(formModal).dialog("close"); });
 
-//    //$("#AjouterFamilleModal").on("click", function () {
-//    //    formModal = DimensionAjoutAjax("#divAjouterFamille");
-//    //    $(formModal).dialog("open");
-//    //    $("form").prop("title", "Add");
-//    //});
-//    //$("#btSubmit").on("click", function () {
-//    //    $(formModal).dialog("close");
-//    //    //AjouterFamilleAjax();
-//    //});
-//    //$("#btCancel").on("click", function () { $(formModal).dialog("close"); });
+    //    //$("#AjouterSequenceModal").on("click", function () {
+    //    //    formModal = DimensionAjoutAjax("#divAjouterSequence");//TODO**********
+    //    //    $(formModal).dialog("open");
+    //    //    $("form").prop("title", "Add");
+    //    //});
 
-//    //$("#AjouterSequenceModal").on("click", function () {
-//    //    formModal = DimensionAjoutAjax("#divAjouterSequence");//TODO**********
-//    //    $(formModal).dialog("open");
-//    //    $("form").prop("title", "Add");
-//    //});
-
-//});
+});
 
 function Ajustation(item) {
     alert(item);
@@ -62,7 +74,7 @@ function AnalyseElementCompetence(i) {
         SavoirFaireProgramme: $("#Formulaire_" + i + " input[id=SavoirFaireProgramme]").val(),
         SavoirEtreProgramme: $("#Formulaire_" + i + " input[id=SavoirEtreProgramme]").val(),
         //AdresseCourriel: $("#Formulaire_" + i + " input[id=AdresseCourriel]").val(),
-        ElementCompétence: $("#Formulaire_" + i + " input[id=ElementComp_tence]").val(),
+        ElementCompétence: $("#Formulaire_" + i + " #ElementComp_tence").val(),
     };
     $.ajax({
         data: JSON.stringify(data),
@@ -320,4 +332,22 @@ function AssocierSequencejax() {
     });
     return false;
 
+}
+
+function AfficherDescription(i) {
+    var Des = "";
+    var url = "/AnalyseCompetence/AfficherDescription";
+    $.ajax({
+        data: { codeComp: i },
+        type: "POST",
+        async: false,
+        url: url,        
+        datatype: "json",
+        success: function (data) {
+            //$("#Description").val(result);
+            Des = data
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
+    });
+    return Des;
 }

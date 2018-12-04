@@ -65,7 +65,10 @@ namespace projetfinalFJO.Controllers
 
             List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
             //Avoir la liste de tout les compétences
-            ViewBag.Competence = new SelectList(this._context.Competences, "CodeCompetence", "CodeCompetence");
+            ViewBag.Contexte = "NonChoisi";
+            //Avoir ela liste des compétences du programme de l'actualsiation en cours
+            List<Competences> listeComp = this._context.Competences.ToList().FindAll(x=>x.NoProgramme == this.HttpContext.Session.GetString("programme"));
+            ViewBag.Competence = new SelectList(listeComp, "CodeCompetence", "CodeCompetence");
             ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
             ViewBag.Idfamille = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
             ViewBag.Sequence = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
@@ -107,13 +110,6 @@ namespace projetfinalFJO.Controllers
             //ViewBag.groupe = new GroupeCompetence();
             ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
             return PartialView("_partialAjouterSequence");
-        }
-
-        public PartialViewResult PartialListeSequence()
-        {
-            //ViewBag.groupe = new GroupeCompetence();
-            ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
-            return PartialView("_partialListeSequence");
         }
 
         public ActionResult ListeAnalyse()
@@ -167,6 +163,8 @@ namespace projetfinalFJO.Controllers
             //listeElemComp = this._context.AnalyseElementsCompetence.ToList().FindAll(x => x.ElementCompétence == numElement && x.AdresseCourriel == email);
             List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
             ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
+            //Affecter la session au code de compétence en cours
+            this.HttpContext.Session.SetString("CodeCompetence", code);
             return View(listeElemCompComplete);
         }
 
@@ -201,6 +199,17 @@ namespace projetfinalFJO.Controllers
             this._context.Remove(analyse);
             this._context.SaveChanges();
             return RedirectToAction("ListeAnalyse");
+        }
+
+        [HttpPost]
+        public string AfficherDescription(string codeComp)
+        {
+            //variable de la description
+            string description;
+            //l'associer a la description du code correspondant dans la BD
+            description = this._context.Competences.ToList().Find(x => x.CodeCompetence == codeComp).Description;
+            //Retoruenr la valeur
+            return description;
         }
     }
 }

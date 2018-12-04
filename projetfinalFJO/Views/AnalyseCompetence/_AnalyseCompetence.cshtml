@@ -25,7 +25,7 @@
             {
                 <div class="form-group">
                     <label asp-for="CodeCompetence" class="control-label">Code de compétence</label>
-                    <select asp-for="CodeCompetence" asp-items="@ViewBag.Competence" readonly class="form-control" />
+                    <select asp-for="CodeCompetence" asp-items="@ViewBag.Competence" class="form-control"></select>
                     <span asp-validation-for="CodeCompetence" class="text-danger"></span>
                 </div>
             }

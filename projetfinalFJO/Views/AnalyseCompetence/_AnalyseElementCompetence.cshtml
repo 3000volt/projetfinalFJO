@@ -9,57 +9,69 @@
     {
 
         compteur += 1;
-<div id="Formulaire_@compteur" class="row">
-    <div class="col-md-4">
-        <form>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ElementCompétence" class="control-label"></label>
-                <input asp-for="ElementCompétence" class="form-control" value="@element" readonly />
-                <span asp-validation-for="ElementCompétence" class="text-danger"></span>
+        <div id="Formulaire_@compteur" class="row">
+            <div class="col-md-4">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @if (ViewBag.Contexte == "ElemNonChoisi")
+                    {
+                    <div class="form-group">
+                        <label asp-for="ElementCompétence" class="control-label"></label>
+                        <select asp-for="ElementCompétence" asp-items="@ViewBag.Element" class="form-control"></select>
+                        @*<input asp-for="ElementCompétence" class="form-control" value="@element" readonly />*@
+                        <span asp-validation-for="ElementCompétence" class="text-danger"></span>
+                    </div>
+                    }
+                    else if(ViewBag.Contexte == "Prechoisi")
+                    {
+                        <div class="form-group">
+                            <label asp-for="ElementCompétence" class="control-label"></label>
+                            <input asp-for="ElementCompétence" class="form-control" value="@element" readonly />
+                            <span asp-validation-for="ElementCompétence" class="text-danger"></span>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label asp-for="NiveauTaxonomique" class="control-label"></label>
+                        @*<input asp-for="NiveauTaxonomique" class="form-control" />*@
+                        <select asp-for="NiveauTaxonomique" asp-items="@ViewBag.Taxonomie" class="form-control"></select>
+                        <span asp-validation-for="NiveauTaxonomique" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Reformulation" class="control-label"></label>
+                        <input asp-for="Reformulation" class="form-control" />
+                        <span asp-validation-for="Reformulation" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Context" class="control-label"></label>
+                        <input asp-for="Context" class="form-control" />
+                        <span asp-validation-for="Context" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SavoirFaireProgramme" class="control-label"></label>
+                        <input asp-for="SavoirFaireProgramme" class="form-control" />
+                        <span asp-validation-for="SavoirFaireProgramme" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SavoirEtreProgramme" class="control-label"></label>
+                        <input asp-for="SavoirEtreProgramme" class="form-control" />
+                        <span asp-validation-for="SavoirEtreProgramme" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-group">
+                            <label asp-for="AdresseCourriel" class="control-label"></label>
+                            <input id="AdresseCourriel" asp-for="AdresseCourriel" class="form-control" />
+                            <span asp-validation-for="AdresseCourriel" class="text-danger"></span>
+                        </div>*@
+                    <div class="form-group">
+                        <input type="button" value="Create" id="Ajout_@compteur" onclick="Ajustation('Ajout_@compteur')" class="btn btn-default" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="NiveauTaxonomique" class="control-label"></label>
-                @*<input asp-for="NiveauTaxonomique" class="form-control" />*@
-                <select asp-for="NiveauTaxonomique" asp-items="@ViewBag.Taxonomie" class="form-control"></select>
-                <span asp-validation-for="NiveauTaxonomique" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Reformulation" class="control-label"></label>
-                <input asp-for="Reformulation" class="form-control" />
-                <span asp-validation-for="Reformulation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Context" class="control-label"></label>
-                <input asp-for="Context" class="form-control" />
-                <span asp-validation-for="Context" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SavoirFaireProgramme" class="control-label"></label>
-                <input asp-for="SavoirFaireProgramme" class="form-control" />
-                <span asp-validation-for="SavoirFaireProgramme" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SavoirEtreProgramme" class="control-label"></label>
-                <input asp-for="SavoirEtreProgramme" class="form-control" />
-                <span asp-validation-for="SavoirEtreProgramme" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="AdresseCourriel" class="control-label"></label>
-                <input id="AdresseCourriel" asp-for="AdresseCourriel" class="form-control" />
-                <span asp-validation-for="AdresseCourriel" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <input type="button" value="Create" id="Ajout_@compteur" onclick="Ajustation('Ajout_@compteur')" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
     }
 }
-        <div>
-            <a asp-action="Index" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Retour à la liste d'analyse</a>
-        </div>
+<div>
+    <a asp-action="Index" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Retour à la liste d'analyse</a>
+</div>
 
 @*@section  Scripts
 

@@ -32,6 +32,8 @@ function fnAddcommpetenceAjax() {
         success: function (result) {
             alert(status);
             $('#elementcomp').show();
+            disableEnvoie();
+            return true;
         },
         error: function (xhr) { alert("erreur: Le code de compétence doit être unique!"); }
     });
@@ -59,6 +61,8 @@ function fnUpdatecommpetenceAjax() {
         success: function (result) {
             alert(status);
             $('#elementcomp').show();
+            ConfirmerModification();
+            return true;
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -254,15 +258,16 @@ function fnSessionAjax() {
 function disableEnvoie() {
     //Appeller la function ajax pour créer la compétence
     //Si aucune erreur est lancé
-    if (fnAddcommpetenceAjax()) {
-        //ne plus rendre accessible la div de création 
-        $("#divDocumentCreation *").attr('disabled', true);
-        //https://stackoverflow.com/questions/8423812/enable-disable-a-div-and-its-elements-in-javascript
-        //Mettre le bouton modifier utilisable
-        $("#btnModifier").attr('disabled', false);
-        //Mettre l'ajout innaccessible
-        $("#btnAjout").attr('disabled', true);
-    }
+    //if (fnAddcommpetenceAjax()) {
+    //ne plus rendre accessible la div de création 
+    $("#divDocumentCreation *").attr('disabled', true);
+    //https://stackoverflow.com/questions/8423812/enable-disable-a-div-and-its-elements-in-javascript
+    //Mettre le bouton modifier utilisable
+    $("#btnModifier").attr('disabled', false);
+    //Mettre l'ajout innaccessible
+    $("#btnAjout").attr('disabled', true);
+    alert("test");
+    //}
 
 }
 
@@ -319,21 +324,22 @@ function AnnulerModification() {
 
 function ConfirmerModification() {
     //Appeller le ajax pour modifier la compétence dans la bd
-    if (fnUpdatecommpetenceAjax()) {
-        //recacher le bouton
-        $("#btnConfirmerModif").attr('hidden', true);
-        $("#btnAnnulerModif").attr('hidden', true);
-        //Remmettre modifier accissible
-        $("#btnModifier").attr('disabled', false);
-        //Remmettre la div innaccessible
-        $("#divElementsCompetence *").attr('disabled', false);
-        //Remmettre les boutons d'envoies accessibles
-        $("#btnListe").attr('disabled', false);
-        $("#btnAnalyser").attr('disabled', false);
-        //$("#divBoutonsEnvoie").attr('hidden', true);
-        $("#btnListe").show();
-        $("#btnAnalyser").show();
-    }
+    //if (fnUpdatecommpetenceAjax()) {
+    //recacher le bouton
+    $("#btnConfirmerModif").attr('hidden', true);
+    $("#btnAnnulerModif").attr('hidden', true);
+    //Remmettre modifier accissible
+    $("#btnModifier").attr('disabled', false);
+    //Remmettre la div innaccessible
+    $("#divElementsCompetence *").attr('disabled', false);
+    $("#divDocumentCreation *").attr('disabled', true);
+    //Remmettre les boutons d'envoies accessibles
+    $("#btnListe").attr('disabled', false);
+    $("#btnAnalyser").attr('disabled', false);
+    //$("#divBoutonsEnvoie").attr('hidden', true);
+    $("#btnListe").show();
+    $("#btnAnalyser").show();
+    // }
 
 }
 
