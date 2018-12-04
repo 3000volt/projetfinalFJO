@@ -67,7 +67,7 @@ namespace projetfinalFJO.Controllers
             //Avoir la liste de tout les compétences
             ViewBag.Contexte = "NonChoisi";
             //Avoir ela liste des compétences du programme de l'actualsiation en cours
-            List<Competences> listeComp = this._context.Competences.ToList().FindAll(x=>x.NoProgramme == this.HttpContext.Session.GetString("programme"));
+            List<Competences> listeComp = this._context.Competences.ToList().FindAll(x => x.NoProgramme == this.HttpContext.Session.GetString("programme"));
             ViewBag.Competence = new SelectList(listeComp, "CodeCompetence", "CodeCompetence");
             ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
             ViewBag.Idfamille = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
@@ -88,7 +88,7 @@ namespace projetfinalFJO.Controllers
                 await _context.SaveChangesAsync();
                 return Ok("élément ajouté avec succès");
             }
-          
+
             return BadRequest("élément non ajouté");
         }
         public PartialViewResult PartialAjouterFamille()
@@ -142,25 +142,20 @@ namespace projetfinalFJO.Controllers
             List<CompetencesElementCompetence> elements = new List<CompetencesElementCompetence>();
             elements = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == code);
             List<AnalyseElementsCompetence> listeElemCompComplete = new List<AnalyseElementsCompetence>();
-            foreach (CompetencesElementCompetence comp in elements)
+            //foreach (CompetencesElementCompetence comp in elements)
+            //{
+            //    if (analyses.Any(x => x.ElementCompétence == comp.ElementCompétence))
+            //    {
+            //        listeElemCompComplete.Add(analyses.Find(x => x.ElementCompétence == comp.ElementCompétence));
+            //    }
+            //}
+            foreach (AnalyseElementsCompetence a in analyses)
             {
-                if (analyses.Any(x => x.ElementCompétence == comp.ElementCompétence))
+                if (elements.Any(x => x.ElementCompétence == a.ElementCompétence))
                 {
-                    listeElemCompComplete.Add(analyses.Find(x => x.ElementCompétence == comp.ElementCompétence));
+                    listeElemCompComplete.Add(analyses.Find(x => x.ElementCompétence == a.ElementCompétence));
                 }
             }
-            //List<CompetencesElementCompetence> elements = new List<CompetencesElementCompetence>();
-            //elements = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == code);
-            //List<AnalyseElementsCompetence> listeElemComp = new List<AnalyseElementsCompetence>();
-            //foreach (CompetencesElementCompetence element in elements)
-            //{
-            //    //Récupréer le num de l'elements
-            //    string numElement = element.ElementCompétence;// this._context.CompetencesElementCompetence.ToList().Find(x => x.CodeCompetence == element.CodeCompetence).ElementCompétence;
-            //    //Ajouter a l aliste
-            //    listeElemComp.Add(this._context.AnalyseElementsCompetence.ToList().Find(x => x.ElementCompétence == numElement && x.AdresseCourriel == email));
-            //}
-            //foreach(AnalyseElementsCompetence anal in analyses.Where(x=>x.ElementCompétence == ))
-            //listeElemComp = this._context.AnalyseElementsCompetence.ToList().FindAll(x => x.ElementCompétence == numElement && x.AdresseCourriel == email);
             List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
             ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
             //Affecter la session au code de compétence en cours
