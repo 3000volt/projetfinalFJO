@@ -24,7 +24,7 @@ namespace projetfinalFJO.Controllers
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Session.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
+            return View(await _context.Session.ToListAsync());
         }
 
         // GET: Sessions/Details/5
@@ -56,9 +56,8 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("NomSession,NoProgramme")] Session session)
+        public async Task<IActionResult> Create([FromBody][Bind("NomSession")] Session session)
         {
-            session.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
                 _context.Session.Add(session);
@@ -89,7 +88,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("NomSession,NoProgramme")] Session session)
+        public async Task<IActionResult> Edit(string id, [Bind("NomSession")] Session session)
         {
             if (id != session.NomSession)
             {

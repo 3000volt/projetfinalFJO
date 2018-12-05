@@ -63,9 +63,10 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("NbhCompetenceSession,ValidationApprouve,IdAnalyseRhs,AdresseCourriel,CodeCompetence,NomSession,NoProgramme")] RepartitionHeuresession repartitionHeuresession)
+        public async Task<IActionResult> Create([FromBody][Bind("NbhCompetenceSession,ValidationApprouve,IdAnalyseRhs,CodeCompetence,NomSession,NoProgramme")] RepartitionHeuresession repartitionHeuresession)
         {
-            repartitionHeuresession.NoProgramme = this.HttpContext.Session.GetString("programme"); 
+            repartitionHeuresession.NoProgramme = this.HttpContext.Session.GetString("programme");
+            repartitionHeuresession.AdresseCourriel = this.HttpContext.User.Identity.Name;
             if (ModelState.IsValid)
             {
                 _context.Add(repartitionHeuresession);
