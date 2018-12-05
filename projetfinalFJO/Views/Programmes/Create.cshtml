@@ -1,4 +1,4 @@
-﻿@model projetfinalFJO.Appdata.Programmes
+﻿@model projetfinalFJO.Models.ProgrammesVM
 
 @{
     ViewData["Title"] = "Create";
@@ -43,6 +43,13 @@
                     <label asp-for="NbCompetencesOptionnelles" class="control-label"></label>
                     <input asp-for="NbCompetencesOptionnelles" type="number" class="form-control" />
                     <span asp-validation-for="NbCompetencesOptionnelles" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProgrammeDeuxAns" class="control-label">Programme de 2 ans: </label>
+                    <input type="radio" asp-for="ProgrammeDeuxAns" value="true" checked>
+                    <label>Oui</label>
+                    <input type="radio" asp-for="ProgrammeDeuxAns" value="false">
+                    <label>Non</label>
                 </div>
             </div>
 

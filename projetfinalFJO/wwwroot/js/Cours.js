@@ -1,6 +1,6 @@
 ﻿var formModal;
 $(function () {
-    alert("fdgdfsgdfgsdfgsdf");
+    alert("000");
     //Charger le selectlist initialement
     ChagerAjax();
     $("#btSubmit").on("click", function () {
@@ -8,7 +8,10 @@ $(function () {
         $("form").prop("title") === "Add" ? fnAddAjax() : fneditPost();
     });
     $("#btCancel").on("click", function () { $(formModal).dialog("close"); });
-
+    //Quand le select change, ajuste le selectlist en dessous des groupes
+    $("#NomSession").on('change', function () {
+        ChagerAjax();
+    });
 });
 
 //Charger le selectlist du groupe
@@ -21,7 +24,7 @@ function ChagerAjax() {
         url: url,
         datatype: "json",
         success: function (data) {
-
+            $("select[id='NomGroupe']").empty();
             var choix = '';
             for (var i = 0; i < data.length; i++) {
                 choix += '<option value="' + data[i] + '">' + data[i] + '</option>';

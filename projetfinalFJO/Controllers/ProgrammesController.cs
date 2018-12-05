@@ -44,8 +44,8 @@ namespace projetfinalFJO.Controllers
                 return NotFound();
             }
             ProgrammesDetail details = new ProgrammesDetail();
-            details.program =  programmes;
-            details.ListComp= _context.Competences.ToList().FindAll(x=>x.NoProgramme==id);
+            details.program = programmes;
+            details.ListComp = _context.Competences.ToList().FindAll(x => x.NoProgramme == id);
             details.comp = new Competences();
             var test = details;
 
@@ -64,22 +64,45 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NoProgramme,NomProgramme,NbHeure,NbUnite,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
+        public async Task<IActionResult> Create([Bind("NoProgramme,NomProgramme,NbHeure,NbUnite,NbCompetencesObligatoires,NbCompetencesOptionnelles,ProgrammeDeuxAns,CondtionsAdmission")] ProgrammesVM programmesVM)
         {
             // Define a regular expression for repeated words.
             //Regex rx = new Regex(@"(?:\d+\s+\d[/]\d|\d)", RegexOptions.Compiled);
             //if (rx.IsMatch(programmes.NbUnite.ToString()))
             //{    //}
 
-                if (ModelState.IsValid)
+            //Convertir en programme
+            Programmes programmes = new Programmes()
+            {
+                NoProgramme = programmesVM.NoProgramme,
+                NomProgramme = programmesVM.NomProgramme,
+                NbHeure = programmesVM.NbHeure,
+                NbUnite = programmesVM.NbUnite,
+                NbCompetencesObligatoires = programmesVM.NbCompetencesObligatoires,
+                NbCompetencesOptionnelles = programmesVM.NbCompetencesOptionnelles,
+                CondtionsAdmission = programmesVM.CondtionsAdmission
+            };
+            //Trouver le nombre de session necessaire pour le programme
+            bool deuxAns = programmesVM.ProgrammeDeuxAns;
+            if (ModelState.IsValid)
+            {
+                List<Session> listeSession = new List<Session>();
+                for (int i = 0; i < 4; i++)
                 {
-                    _context.Add(programmes);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(List_Programme));
+
                 }
+                //Associer le nombre de session au programme
+                if (!deuxAns)
+                {
+
+                }
+                _context.Add(programmes);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(List_Programme));
+            }
 
 
-            
+
             return View(programmes);
         }
 
