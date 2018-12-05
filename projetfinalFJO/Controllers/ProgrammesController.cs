@@ -44,8 +44,8 @@ namespace projetfinalFJO.Controllers
                 return NotFound();
             }
             ProgrammesDetail details = new ProgrammesDetail();
-            details.program =  programmes;
-            details.ListComp= _context.Competences.ToList().FindAll(x=>x.NoProgramme==id);
+            details.program = programmes;
+            details.ListComp = _context.Competences.ToList().FindAll(x => x.NoProgramme == id);
             details.comp = new Competences();
             var test = details;
 
@@ -64,22 +64,22 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NoProgramme,NomProgramme,NbHeure,NbUnite,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
+        public async Task<IActionResult> Create([Bind("NoProgramme,NomProgramme,NbHeureFormationGenerale,NbUniteFormationGenerale,NbHeureFormationTechnique,NbUniteFormationTechnique,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
         {
             // Define a regular expression for repeated words.
             //Regex rx = new Regex(@"(?:\d+\s+\d[/]\d|\d)", RegexOptions.Compiled);
             //if (rx.IsMatch(programmes.NbUnite.ToString()))
             //{    //}
 
-                if (ModelState.IsValid)
-                {
-                    _context.Add(programmes);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(List_Programme));
-                }
+            if (ModelState.IsValid)
+            {
+                _context.Add(programmes);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(List_Programme));
+            }
 
 
-            
+
             return View(programmes);
         }
 
@@ -104,7 +104,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("NoProgramme,NomProgramme,NbHeure,NbUnite,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
+        public async Task<IActionResult> Edit(string id, [Bind("NoProgramme,NomProgramme,NbHeureFormationGenerale,NbUniteFormationGenerale,NbHeureFormationTechnique,NbUniteFormationTechnique,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
         {
             if (id != programmes.NoProgramme)
             {

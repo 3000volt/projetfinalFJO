@@ -33,10 +33,10 @@ namespace projetfinalFJO.Appdata
         public string NoProgramme { get; set; }
         [Display(Name = "Nom du programme")]
         public string NomProgramme { get; set; }
-        [Display(Name = "Nombre d'heures")]
-        public int? NbHeure { get; set; }
-        [Display(Name = "Nombre d'unité")]
-        public int? NbUnite { get; set; }
+        public int? NbHeureFormationGenerale { get; set; }
+        public string NbUniteFormationGenerale { get; set; }
+        public int? NbHeureFormationTechnique { get; set; }
+        public string NbUniteFormationTechnique { get; set; }
         [Display(Name = "Nombre de compétences obligatoires")]
         public int? NbCompetencesObligatoires { get; set; }
         [Display(Name = "Nombre de compétences optionnelles")]

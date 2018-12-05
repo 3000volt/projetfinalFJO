@@ -24,25 +24,7 @@ namespace projetfinalFJO.Appdata
             this.ConnectionString = connexion;
         }
 
-        //public void InsererActualisation(ActualisationInformation actu)
-        //{
-        //    //utiliser le connectionString pour pouvoir affecter la BD
-        //    using (SqlConnection con = new SqlConnection(this.ConnectionString))
-        //    {
-        //        //Requete pour ajouter un livre
-        //        string sqlStr = "insert into ActualisationInformation(NomActualisation, NoProgramme, Approuve) values(@NumActualisation, @NomActualisation, @NoProgramme, @Approuve)";
-        //        //Code pour affecter la BD
-        //        SqlCommand cmd = new SqlCommand(sqlStr, con);
-        //        cmd.CommandType = CommandType.Text;
-        //        con.Open();
-        //        cmd.Parameters.AddWithValue("NomActualisation", actu.NomActualisation);
-        //        cmd.Parameters.AddWithValue("NoProgramme", actu.NoProgramme);
-        //        //Par defaut, le programme ne sera pas approuvé
-        //        cmd.Parameters.AddWithValue("Approuve", false);
-        //        cmd.ExecuteNonQuery();
-        //        con.Close();
-        //    }
-        //}
+
 
         public void InsererMembresdesactualisations(Membresdesactualisations me)
         {
@@ -606,6 +588,10 @@ namespace projetfinalFJO.Appdata
                     .ValueGeneratedNever();
 
                 entity.Property(e => e.CondtionsAdmission).HasColumnType("text");
+
+                entity.Property(e => e.NbUniteFormationGenerale).HasMaxLength(100);
+
+                entity.Property(e => e.NbUniteFormationTechnique).HasMaxLength(100);
 
                 entity.Property(e => e.NomProgramme).HasMaxLength(100);
             });
