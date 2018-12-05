@@ -1,11 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-// Write your JavaScript code.
-
-//ajouter une compétence
-
+﻿//ajouter une compétence
 $(function () {
     //Variables globales pour aider au fonctionnement
     var obligatoire;
@@ -204,14 +197,14 @@ function fnAddRepartitonHeureMaxCompAjax() {
 
 //ajouter un répartition des heures max de la compétence
 function fnRepartitionHeureSessionAjax() {
-    alert($(" div[id='ui-id-6'] select[id='NomSession'] ").val());
-    alert($("div[id='ui-id-6'] input[id='NbhCompetenceSession']").val());
+    alert($(" div[id='ui-id-8'] select[id='NomSession'] ").val());
+    alert($("div[id='ui-id-8'] input[id='NbhCompetenceSession']").val());
     var url = "/RepartitionHeuresessions/Create";
     var data = {
-        NbhCompetenceSession: $("div[id='ui-id-6'] input[id='NbhCompetenceSession']").val(),
-        AdresseCourriel: $("div[id='ui-id-6'] select[id='AdresseCourriel']").val(),
-        CodeCompetence: $("div[id='ui-id-6'] select[id='CodeCompetence']").val(),
-        NomSession: $(" div[id='ui-id-6'] select[id='NomSession'] ").val(),
+        NbhCompetenceSession: $("div[id='ui-id-8'] input[id='NbhCompetenceSession']").val(),
+        AdresseCourriel: $("div[id='ui-id-8'] select[id='AdresseCourriel']").val(),
+        CodeCompetence: $("div[id='ui-id-8'] select[id='CodeCompetence']").val(),
+        NomSession: $(" div[id='ui-id-8'] select[id='NomSession'] ").val(),
     };
     $.ajax({
         data: JSON.stringify(data),
@@ -229,7 +222,6 @@ function fnRepartitionHeureSessionAjax() {
     });
     return false;
 }
-
 
 //ajouter un session
 function fnSessionAjax() {
@@ -257,18 +249,12 @@ function fnSessionAjax() {
 
 function disableEnvoie() {
     //Appeller la function ajax pour créer la compétence
-    //Si aucune erreur est lancé
-    //if (fnAddcommpetenceAjax()) {
-    //ne plus rendre accessible la div de création 
     $("#divDocumentCreation *").attr('disabled', true);
     //https://stackoverflow.com/questions/8423812/enable-disable-a-div-and-its-elements-in-javascript
     //Mettre le bouton modifier utilisable
     $("#btnModifier").attr('disabled', false);
     //Mettre l'ajout innaccessible
     $("#btnAjout").attr('disabled', true);
-    alert("test");
-    //}
-
 }
 
 function ModifierEnvoie() {
@@ -323,8 +309,6 @@ function AnnulerModification() {
 }
 
 function ConfirmerModification() {
-    //Appeller le ajax pour modifier la compétence dans la bd
-    //if (fnUpdatecommpetenceAjax()) {
     //recacher le bouton
     $("#btnConfirmerModif").attr('hidden', true);
     $("#btnAnnulerModif").attr('hidden', true);
@@ -339,8 +323,6 @@ function ConfirmerModification() {
     //$("#divBoutonsEnvoie").attr('hidden', true);
     $("#btnListe").show();
     $("#btnAnalyser").show();
-    // }
-
 }
 
 function SauvegardeVariable() {

@@ -23,39 +23,33 @@
             <li><a href="@Url.Action("partialtableRepSession", "RepartirHeureCompetences")">Tableau de répartition des compétences par session</a></li>
         </ul>
     </div>
-    @*<div id="session">
-            <partial name="_PartialRep_Heure_session" model="ViewBag.SessionRep" />
-        </div>*@
 </div>
 
 @section Scripts
     {
+    <script>
+        /*https://jqueryui.com/tabs/#ajax  */
+        $(function () {
+            $("#tabs").tabs({
+                beforeLoad: function (event, ui) {
+                    ui.jqXHR.fail(function () {
+                        ui.panel.html(
+                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                            "If this wouldn't be a demo.");
+                    });
+                }
+            });
 
-<script>
-    /*https://jqueryui.com/tabs/#ajax  */
-    $(function () {
-        $("#tabs").tabs({
-            beforeLoad: function (event, ui) {
-                ui.jqXHR.fail(function () {
-                    ui.panel.html(
-                        "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-                        "If this wouldn't be a demo.");
-                });
-            }
+            $("#tabs2").tabs({
+                beforeLoad: function (event, ui) {
+                    ui.jqXHR.fail(function () {
+                        ui.panel.html(
+                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                            "If this wouldn't be a demo.");
+                    });
+                }
+            });
         });
-
-        $("#tabs2").tabs({
-            beforeLoad: function (event, ui) {
-                ui.jqXHR.fail(function () {
-                    ui.panel.html(
-                        "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-                        "If this wouldn't be a demo.");
-                });
-            }
-        });
-    });
-
-
     </script>
 
 }

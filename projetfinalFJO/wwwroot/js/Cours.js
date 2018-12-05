@@ -1,5 +1,8 @@
 ﻿var formModal;
 $(function () {
+    alert("fdgdfsgdfgsdfgsdf");
+    //Charger le selectlist initialement
+    ChagerAjax();
     $("#btSubmit").on("click", function () {
         $(formModal).dialog("close");
         $("form").prop("title") === "Add" ? fnAddAjax() : fneditPost();
@@ -7,6 +10,28 @@ $(function () {
     $("#btCancel").on("click", function () { $(formModal).dialog("close"); });
 
 });
+
+//Charger le selectlist du groupe
+function ChagerAjax() {
+    var url = "/Cours/ChargerGroupe";
+    $.ajax({
+        data: { NomSession: $("#NomSession").val() },
+        type: "POST",
+        async: false,
+        url: url,
+        datatype: "json",
+        success: function (data) {
+
+            var choix = '';
+            for (var i = 0; i < data.length; i++) {
+                choix += '<option value="' + data[i] + '">' + data[i] + '</option>';
+            }
+            $("select[id='NomGroupe']").append(choix);
+            //https://stackoverflow.com/questions/3446069/populate-dropdown-select-with-array-using-jquery
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
+    });
+}
 
 //Ajouter un cours
 function AjouterCoursAjax() {
@@ -24,7 +49,7 @@ function AjouterCoursAjax() {
     $.ajax({
         data: JSON.stringify(data),
         type: "POST",
-        url: url/* https://stackoverflow.com/questions/20011282/redirecttoaction-not-working-after-successful-jquery-ajax-post*/,
+        url: url,//https://stackoverflow.com/questions/20011282/redirecttoaction-not-working-after-successful-jquery-ajax-post*/,
         datatype: "text/plain",
         contentType: "application/json; charset=utf-8",
         beforeSend: function (request) {

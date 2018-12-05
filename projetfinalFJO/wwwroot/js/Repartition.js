@@ -23,8 +23,6 @@
                     $("table[id='" + table + "'] td[id='" + leId + "'] input[id='NbHCoursCompetence']").attr("readonly", true);
                     $("table[id='" + table + "'] td[id='" + leId + "'] input[id='NbHCoursCompetence']").attr("disabled", true);
                 }
-
-
             }
         }
         var col = 0;
@@ -38,9 +36,6 @@
         });
         //https://stackoverflow.com/questions/10431987/jquery-each-loop-in-table-row
     });
-
-
-
 });
 
 function AjouterTableau(i) {
@@ -113,37 +108,6 @@ function HeureCoursCompetence(i, y) {
     //https://forum.jquery.com/topic/ajax-returning-bool-value-out-of-success
 }
 
-//function AnalyseCompetence() {
-//    alert("testREPBS");
-//    var url = "/AnalyseCompetence/Create";
-//    var data = {
-//        NiveauTaxonomique: $("#NiveauTaxonomique").val(),
-//        Reformulation: $("#Reformulation").val(),
-//        Context: $("#Context").val(),
-//        SavoirFaireProgramme: $("#SavoirFaireProgramme").val(),
-//        SavoirEtreProgramme: $("#SavoirEtreProgramme").val(),
-//        AdresseCourriel: $("#AdresseCourriel").val(),
-
-//        CodeCompetence: $("#CodeCompetence").val(),
-//    };
-//    $.ajax({
-//        data: JSON.stringify(data),
-//        type: "POST",
-//        url: url,
-//        datatype: "text/plain",
-//        contentType: "application/json; charset=utf-8",
-//        beforeSend: function (request) {
-//            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
-//        },
-//        success: function (result) {
-//            alert(status);
-//        },
-//        error: function (xhr, status) { alert("erreur:" + status); }
-//    });
-//    return false;
-//}
-
-
 function AjouterNbHeuresCours(tableau_donner) {
     var url = "/RepartitionHeureCoursSessionCompetences/AjouterNbHeures";
     var data = tableau_donner;
@@ -165,9 +129,6 @@ function AjouterNbHeuresCours(tableau_donner) {
 function GererPonderation(i) {
     var heures;
     var url = "/RepartitionHeureCoursSessionCompetences/GererPonderation";
-    //var data = {
-    //    NomCours: i,
-    //};
     $.ajax({
         data: "{'NomCours':'" + i + "'}",
         type: "POST",

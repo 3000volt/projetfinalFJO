@@ -32,17 +32,40 @@ namespace projetfinalFJO.Controllers
         {
             return View(await _contexte.Cours.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
         }
+
+        [HttpPost]
+        public List<string> ChargerGroupe(string NomSession)
+        {
+            List<GroupeCompetence> listeGroupeCompetence = this._contexte.GroupeCompetence.ToList();
+            listeGroupeCompetence.RemoveAll(x => x.NomSession != NomSession);
+            List<string> listeGroupe = new List<string>();
+            foreach (GroupeCompetence g in listeGroupeCompetence)
+            {
+                //voir si le groupe estd eja dans la liste
+                if (!listeGroupe.Contains(g.NomGroupe))
+                {
+                    listeGroupe.Add(g.NomGroupe);
+                }
+            }
+            return listeGroupe;
+        }
+
         /// <summary>
         /// Affiche la vue pour ajouter un cours
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public IActionResult AjouterCours()
-        {  //peupler les listes
-            ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
+        {
+            //peupler les listes
             ViewBag.NoProgramme = new SelectList(_contexte.Programmes, "NoProgramme", "NoProgramme");
-            ViewBag.NomSession = new SelectList(_contexte.Session,"NomSession","NomSession");
+            ViewBag.NomSession = new SelectList(_contexte.Session, "NomSession", "NomSession");
+            //Ajuster le selectlist du groupe a la session sélectionné
+            //
+
+            //ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
             ViewBag.Cours = new Cours();
+            //ViewBag.Groupe = new SelectList(new List<string>());
             return View();
         }
         /// <summary>
@@ -54,13 +77,27 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AjouterCours([FromBody][Bind("NoCours,NomCours,PonderationCours,DepartementCours,TypedeCours,NoProgramme,NomSession,NomGroupe")]Cours cours)
         {
-           if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 //HttpContext.Session.SetString("Cours",JsonConvert.SerializeObject(cours));
                 _contexte.Add(cours);
+                //Ajouter a la table CoursCompetences
+                //Trouver la liste contenant tout les codeCompetence du groupe concerné
+                List<GroupeCompetence> listeGroupe = this._contexte.GroupeCompetence.ToList().FindAll(x => x.NomGroupe == cours.NomGroupe);
+                foreach (GroupeCompetence g in listeGroupe)
+                {
+                    //Ajouter a la BD chaque Competence auu cours a la table en approprié
+                    this._contexte.CoursCompetences.Add(new CoursCompetences()
+                    {
+                        NoCours = cours.NoCours,
+                        CodeCompetence = g.CodeCompetence,
+                        Complete = true, //TODO -- GÉRER CA!!!!!!
+                        NoProgramme = cours.NoProgramme
+                    });
+                }
+                //Sauvegarder les modifications
                 await _contexte.SaveChangesAsync();
-
-               return Json(Url.Action("ListeCours","Cours"));
+                return Json(Url.Action("ListeCours", "Cours"));
             }
 
             return BadRequest("Erreur,Le cours n'a pas pu être ajouté");
@@ -74,7 +111,7 @@ namespace projetfinalFJO.Controllers
             //vérifier si l'id est null
             if (id == null)
                 return NotFound();
-        
+
 
             //récupérer le cours
             Cours cours = await _contexte.Cours.FindAsync(id);
@@ -92,21 +129,21 @@ namespace projetfinalFJO.Controllers
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> ModifierCours(string id)
-        { 
+        {
             //vérifier si l'id est null
             if (id == null)
                 return NotFound();
-            
+
 
             //récupérer le cours
             Cours cours = await _contexte.Cours.FindAsync(id);
-            
+
             //vérifier si le cours est null
             if (cours == null)
             {
                 return NotFound();
             }
-            
+
             //peupler les 3 listes
             ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
             ViewBag.NoProgramme = new SelectList(_contexte.Programmes, "NoProgramme", "NoProgramme");
@@ -139,16 +176,16 @@ namespace projetfinalFJO.Controllers
         public async Task<IActionResult> SupprimerCours(string id)
         {
             //vérifier si l'id est null
-            if(id == null)
+            if (id == null)
                 return NotFound();
-           
+
             //aller chercher le cours dans le contexte
             Cours cours = await _contexte.Cours.FindAsync(id);
 
             //vérifier si le cours est null
             if (cours == null)
                 return NotFound();
-            
+
             return View(cours);
         }
         /// <summary>
