@@ -69,40 +69,14 @@ namespace projetfinalFJO.Controllers
             // Define a regular expression for repeated words.
             //Regex rx = new Regex(@"(?:\d+\s+\d[/]\d|\d)", RegexOptions.Compiled);
             //if (rx.IsMatch(programmes.NbUnite.ToString()))
-            //{    //}
+            //{    //}        
 
-            //Convertir en programme
-            Programmes programmes = new Programmes()
-            {
-                NoProgramme = programmesVM.NoProgramme,
-                NomProgramme = programmesVM.NomProgramme,
-                NbHeure = programmesVM.NbHeure,
-                NbUnite = programmesVM.NbUnite,
-                NbCompetencesObligatoires = programmesVM.NbCompetencesObligatoires,
-                NbCompetencesOptionnelles = programmesVM.NbCompetencesOptionnelles,
-                CondtionsAdmission = programmesVM.CondtionsAdmission
-            };
-            //Trouver le nombre de session necessaire pour le programme
-            bool deuxAns = programmesVM.ProgrammeDeuxAns;
             if (ModelState.IsValid)
             {
-                List<Session> listeSession = new List<Session>();
-                for (int i = 0; i < 4; i++)
-                {
-
-                }
-                //Associer le nombre de session au programme
-                if (!deuxAns)
-                {
-
-                }
                 _context.Add(programmes);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(List_Programme));
             }
-
-
-
             return View(programmes);
         }
 

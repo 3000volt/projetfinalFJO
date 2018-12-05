@@ -91,26 +91,6 @@ namespace projetfinalFJO.Controllers
 
             return BadRequest("élément non ajouté");
         }
-        public PartialViewResult PartialAjouterFamille()
-        {
-            //ViewBag.groupe = new GroupeCompetence();
-            ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
-            return PartialView("_partialAjouterFamille");
-        }
-
-        public PartialViewResult PartialListeFamille()
-        {
-            //ViewBag.groupe = new GroupeCompetence();
-            ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
-            return PartialView("_partialListeFamille");
-        }
-
-        public PartialViewResult PartialAjouterSequence()
-        {
-            //ViewBag.groupe = new GroupeCompetence();
-            ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
-            return PartialView("_partialAjouterSequence");
-        }
 
         public ActionResult ListeAnalyse()
         {

@@ -251,5 +251,33 @@ namespace projetfinalFJO.Controllers
             this._context.SaveChanges();
             return Ok("Séquence associer avec succes a la compétence");
         }
+
+        public PartialViewResult PartialAjouterFamille()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
+            return PartialView("_partialAjouterFamille");
+        }
+
+        public PartialViewResult PartialListeFamille()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
+            return PartialView("_partialListeFamille");
+        }
+
+        public PartialViewResult PartialAjouterSequence()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
+            return PartialView("_partialAjouterSequence");
+        }
+
+        public PartialViewResult PartialListeSequence()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
+            return PartialView("_partialListeSequence");
+        }
     }
 }
