@@ -41,7 +41,6 @@ function AjouterCoursAjax() {
         NomCours: $("#NomCours").val(),
         PonderationCours: $("#PonderationCours").val(),
         DepartementCours: $("#DepartementCours").val(),
-        TypedeCours: $("#TypedeCours").val(),
         NoProgramme: $("#NoProgramme").val(),
         NomSession: $("#NomSession").val(),
         NomGroupe: $("#NomGroupe").val()

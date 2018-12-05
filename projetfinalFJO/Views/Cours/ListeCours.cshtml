@@ -6,48 +6,71 @@
 
 <h2>Liste des cours éxistants</h2>
 
-   <a class="btn btn-info" asp-action="AjouterCours" asp-controller="Cours">
-        <i class="fas fa-plus-circle"> Ajouter un cours</i>
-    </a>
-<table class="table table-hover">
-    <thead class="card-header">
+<a class="btn btn-info" asp-action="AjouterCours" asp-controller="Cours">
+    <i class="fas fa-plus-circle"> Ajouter un cours</i>
+</a>
+<p>
+    @using (@Html.BeginForm("ListeCours", "Cours", FormMethod.Get))
+    {
+        <b>Recherche par nom de cours:</b>
+
+        @Html.TextBox("search")
+        <input type="submit" value="Rechercher" />
+    }
+</p>
+
+<table class="table table-hover" border="1">
+    @if (Model.Count() == 0)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NomCours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PonderationCours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DepartementCours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TypedeCours)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomCours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PonderationCours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartementCours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypedeCours)
-            </td>
-            <td>
-                <a class="btn btn-info btnlist" asp-action="ModifierCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-pen"></i></a> |
-                <a class="btn btn-info btnlist" asp-action="DetailsCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-info-circle"></i></a> ||
-                <a class="btn btn-info btnlist" asp-action="SupprimerCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-trash"></i></a>
+            <td colspan="4">
+                Aucun enregistrement trouvé.
             </td>
         </tr>
-}
-    </tbody>
+    }
+    else
+    {
+        <thead class="card-header">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomCours)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PonderationCours)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepartementCours)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TypedeCours)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomCours)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PonderationCours)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartementCours)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypedeCours)
+                    </td>
+                    <td>
+                        <a class="btn btn-info btnlist" asp-action="ModifierCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-pen"></i></a> |
+                        <a class="btn btn-info btnlist" asp-action="DetailsCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-info-circle"></i></a> ||
+                        <a class="btn btn-info btnlist" asp-action="SupprimerCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    }
 </table>
