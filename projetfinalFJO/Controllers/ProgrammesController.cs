@@ -64,7 +64,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NoProgramme,NomProgramme,NbHeure,NbUnite,NbCompetencesObligatoires,NbCompetencesOptionnelles,ProgrammeDeuxAns,CondtionsAdmission")] ProgrammesVM programmesVM)
+        public async Task<IActionResult> Create([Bind("NoProgramme,NomProgramme,NbHeureFormationGenerale,NbUniteFormationGenerale,NbHeureFormationTechnique,NbUniteFormationTechnique,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
         {
             // Define a regular expression for repeated words.
             //Regex rx = new Regex(@"(?:\d+\s+\d[/]\d|\d)", RegexOptions.Compiled);
@@ -127,7 +127,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("NoProgramme,NomProgramme,NbHeure,NbUnite,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
+        public async Task<IActionResult> Edit(string id, [Bind("NoProgramme,NomProgramme,NbHeureFormationGenerale,NbUniteFormationGenerale,NbHeureFormationTechnique,NbUniteFormationTechnique,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
         {
             if (id != programmes.NoProgramme)
             {
