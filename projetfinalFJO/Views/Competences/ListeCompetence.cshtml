@@ -5,63 +5,83 @@
 }
 <div class="list">
     <h2>Liste de compétences</h2>
-        <a class="btn btn-info" asp-action="Create">
-            <i class="fas fa-plus-circle"> Ajouter une compétence</i>
-        </a>
+    <a class="btn btn-info" asp-action="Create">
+        <i class="fas fa-plus-circle"> Ajouter une compétence</i>
+    </a>
+    <p>
+        @using (@Html.BeginForm("ListeCompetence", "Competences", FormMethod.Get))
+        {
+            <b>Recherche par nom de compétence:</b>
+
+            @Html.TextBox("search")
+            <input type="submit" value="Rechercher" />
+        }
+    </p>
     <table class="table table-hover">
-        <thead class="card-header">
+        @if (Model.Count() == 0)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CodeCompetence)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ObligatoireCégep)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ContextRealisation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NomFamilleNavigation)
-                </th>
-                <th></th>
+                <td colspan="4">
+                    Aucune compétence trouvée.
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+        }
+        else
+        {
+            <thead class="card-header">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CodeCompetence)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ObligatoireCégep)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ContextRealisation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NoProgrammeNavigation.NoProgramme)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NomFamilleNavigation.NomFamille)
-                    </td>
-                    <td>
-                        <a class="btn btn-info btnlist" asp-action="Edit" asp-route-id="@item.CodeCompetence"><i class="fas fa-pen"></i></a> |
-                        <a class="btn btn-info btnlist" asp-action="Details" asp-route-id="@item.CodeCompetence"><i class="fas fa-info-circle"></i></a> |
-                        <a class="btn btn-info btnlist" asp-action="Delete" asp-route-id="@item.CodeCompetence"><i class="fas fa-trash"></i></a>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CodeCompetence)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ObligatoireCégep)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ContextRealisation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NomFamilleNavigation)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodeCompetence)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ObligatoireCégep)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContextRealisation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoProgrammeNavigation.NoProgramme)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomFamilleNavigation.NomFamille)
+                        </td>
+                        <td>
+                            <a class="btn btn-info btnlist" asp-action="Edit" asp-route-id="@item.CodeCompetence"><i class="fas fa-pen"></i></a> |
+                            <a class="btn btn-info btnlist" asp-action="Details" asp-route-id="@item.CodeCompetence"><i class="fas fa-info-circle"></i></a> |
+                            <a class="btn btn-info btnlist" asp-action="Delete" asp-route-id="@item.CodeCompetence"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
     </table>
 </div>
 

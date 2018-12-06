@@ -28,10 +28,9 @@ namespace projetfinalFJO.Controllers
         /// Affiche la liste de cours
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> ListeCours(string recherche)
+        public async Task<IActionResult> ListeCours(string search)
         {
-
-            return View(await _contexte.Cours.Where(x => x.NomCours.StartsWith(recherche) || recherche == null).ToListAsync());
+            return View(await _contexte.Cours.Where(x => x.NomCours.StartsWith(search) || search == null).ToListAsync());
         }
 
         [HttpPost]
