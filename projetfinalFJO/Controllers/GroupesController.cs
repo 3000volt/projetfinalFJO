@@ -22,7 +22,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Groupes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> List_groupe()
         {
             return View(await _context.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
         }
@@ -67,6 +67,23 @@ namespace projetfinalFJO.Controllers
                 return Ok("ajout reussi");
             }
             return BadRequest("groupe non ajouté");
+        }
+
+        // POST: Groupes/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CréerGroupe([FromBody][Bind("NomGroupe,NoProgramme")] Groupe groupe)
+        {
+            groupe.NoProgramme = this.HttpContext.Session.GetString("programme"); ;
+            if (ModelState.IsValid)
+            {
+                _context.Add(groupe);
+                await _context.SaveChangesAsync();
+                RedirectToAction(nameof(List_groupe));
+            }
+            return View(groupe);
         }
 
         // GET: Groupes/Edit/5
@@ -115,7 +132,7 @@ namespace projetfinalFJO.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(List_groupe));
             }
             return View(groupe);
         }
@@ -146,7 +163,7 @@ namespace projetfinalFJO.Controllers
             var groupe = await _context.Groupe.FindAsync(id);
             _context.Groupe.Remove(groupe);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(List_groupe));
         }
 
         private bool GroupeExists(string id)

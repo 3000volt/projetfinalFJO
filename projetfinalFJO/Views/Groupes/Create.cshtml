@@ -10,12 +10,8 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="CréerGroupe">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NoProgramme" class="control-label"></label>
-                <select asp-for="NoProgramme" class="form-control" asp-items="ViewBag.NoProgramme"></select>
-            </div>
             <div class="form-group">
                 <label asp-for="NomGroupe" class="control-label"></label>
                 <input asp-for="NomGroupe" class="form-control" />
@@ -29,7 +25,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Retour à la liste</a>
+    <a asp-action="List_groupe">Retour à la liste</a>
 </div>
 
 @section Scripts {

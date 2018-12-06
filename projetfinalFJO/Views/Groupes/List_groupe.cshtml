@@ -1,0 +1,43 @@
+﻿@model IEnumerable<projetfinalFJO.Appdata.Groupe>
+
+@{
+    ViewData["Title"] = "List_groupe";
+}
+
+<h2>List_groupe</h2>
+
+<p>
+    <a class="btn btn-info" asp-action="Create">
+        <i class="fas fa-plus-circle"> Ajouter un groupe</i>
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomGroupe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomGroupe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoProgrammeNavigation.NoProgramme)
+            </td>
+            <td>
+                <a class="btn btn-info btnlist testing" asp-action="Edit" asp-route-id="@item.NomGroupe"><i class="fas fa-pen"></i><span>Modifier la compétence</span></a> |
+                <a class="btn btn-info btnlist testing" asp-action="Details" asp-route-id="@item.NomGroupe"><i class="fas fa-info-circle"></i><span>Voir les détails</span></a> |
+                <a class="btn btn-info btnlist testing" asp-action="Delete" asp-route-id="@item.NomGroupe"><i class="fas fa-trash"></i><span>Supprimer</span></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
