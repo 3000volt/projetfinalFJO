@@ -123,7 +123,6 @@ function fnAssocierelecommpetenceAjax() {
   [ Show pass ]*/
 //ajouter un groupe
 function fnGroupeAjax() {
-    alert($("#NomGroupe2").val());
     var url = "/Groupes/Create";
     var data = {
         NomGroupe: $("#NomGroupe2").val(),
@@ -146,7 +145,6 @@ function fnGroupeAjax() {
 }
 
 function fnGroupeCompAjax() {
-    alert($("select[id='CodeCompetence'] ").val());
     var url = "/GroupeCompetences/Create";
     var data = {
         CodeCompetence: $("select[id='CodeCompetence'] ").val(),
@@ -172,7 +170,6 @@ function fnGroupeCompAjax() {
 
 //ajouter un répartition des heures max de la compétence
 function fnAddRepartitonHeureMaxCompAjax() {
-    alert($("#NbHtotalCompetence").val());
     var url = "/RepartirHeureCompetences/Create";
     var data = {
         CodeCompetence: $("#CodeCompetence").val(),
@@ -189,6 +186,15 @@ function fnAddRepartitonHeureMaxCompAjax() {
         },
         success: function (result) {
             alert(result);
+            //Désactive le champs de la répartition des heures max
+            $("#CodeCompetence").attr('disabled', true);
+            $("#NbHtotalCompetence").attr('disabled', true);
+            $("div[id='heuremax'] input[type='button']").attr('disabled', true);
+
+            //Affiche les autres div de répartition
+            $('#tabs').show();
+            $('#tabs2').show();
+            
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -197,8 +203,6 @@ function fnAddRepartitonHeureMaxCompAjax() {
 
 //ajouter un répartition des heures max de la compétence
 function fnRepartitionHeureSessionAjax() {
-    alert($(" div[id='ui-id-8'] select[id='NomSession'] ").val());
-    alert($("div[id='ui-id-8'] input[id='NbhCompetenceSession']").val());
     var url = "/RepartitionHeuresessions/Create";
     var data = {
         NbhCompetenceSession: $("div[id='ui-id-8'] input[id='NbhCompetenceSession']").val(),

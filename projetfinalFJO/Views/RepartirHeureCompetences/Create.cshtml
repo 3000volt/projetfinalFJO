@@ -9,14 +9,14 @@
     <div id="heuremax">
         <partial name="_PartialRep_Heure" model="ViewBag.CompHeureRep" />
     </div>
-    <div id="tabs">
+    <div id="tabs" style="display:none">
         <ul>
             <li><a href="@Url.Action("partialGroupeComp", "RepartirHeureCompetences")">Assigner un groupe à une compétence</a></li>
             <li><a href="@Url.Action("partialGroupe", "RepartirHeureCompetences")">Créer un groupe </a></li>
             <li><a href="@Url.Action("partialtableRepGroupeComp", "RepartirHeureCompetences")">Tableau de répartition des compétences par groupe</a></li>
         </ul>
     </div>
-    <div id="tabs2">
+    <div id="tabs2"style="display:none">
         <ul>
             <li><a href="@Url.Action("partialSessionComp", "RepartirHeureCompetences")">Répartir les heures par session</a></li>
             <li><a href="@Url.Action("partialSession", "RepartirHeureCompetences")">Créer une session</a></li>
