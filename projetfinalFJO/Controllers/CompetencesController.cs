@@ -41,6 +41,7 @@ namespace projetfinalFJO.Controllers
                 .Include(c => c.NomFamilleNavigation)
                 .Include(c => c.NoProgrammeNavigation)
                 .FirstOrDefaultAsync(m => m.CodeCompetence == id);
+
             if (competences == null)
             {
                 return NotFound();
@@ -87,15 +88,8 @@ namespace projetfinalFJO.Controllers
         public async Task<IActionResult> Update([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation")] Competences competences)
         {
             competences.NoProgramme = this.HttpContext.Session.GetString("programme");
-            //competences.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
-                //Trouver la competence concerné
-               // Competences compConcerne = JsonConvert.DeserializeObject<Competences>(HttpContext.Session.GetString("Competence"));
-               // Competences comp = this._context.Competences.ToList().Find(x => x.CodeCompetence == compConcerne.CodeCompetence && x.NoProgramme == compConcerne.NoProgramme);
-                //Indiquer le changement
-                //comp = competences;
-                //Modifier a la BD
                 _context.Update(competences);
                 // https://stackoverflow.com/questions/25894587/how-to-update-record-using-entity-framework-6
                 await _context.SaveChangesAsync();
@@ -162,7 +156,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Competences/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Supprimer_Compétence(string id)
         {
             if (id == null)
             {

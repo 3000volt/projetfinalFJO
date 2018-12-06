@@ -207,6 +207,7 @@ namespace projetfinalFJO.Controllers
 
         public PartialViewResult partialtableRepGroupeComp()
         {
+            ViewData["NomSession"] = _context.Session.ToList();
             ViewData["Groupes"] = _context.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
             ViewData["GroupeCompetence"] = _context.GroupeCompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
             return PartialView("_partialtableRepGroupeComp");
