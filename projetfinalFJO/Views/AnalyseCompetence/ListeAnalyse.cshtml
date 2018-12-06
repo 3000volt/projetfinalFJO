@@ -45,10 +45,10 @@
                     @Html.DisplayFor(modelItem => item.AdresseCourriel)
                 </td>
                 <td>
-                    @Html.ActionLink("Consulter analyse éléments", "ListeElements", new { code = item.CodeCompetence, email = item.AdresseCourriel }) |
-                    @Html.ActionLink("Modifier", "ModifierAnalyse", new { code = item.CodeCompetence, email = item.AdresseCourriel }) |
-                    @Html.ActionLink("Consulter", "ConsulterAnalyse", new { code = item.CodeCompetence, email = item.AdresseCourriel }) |
-                    @Html.ActionLink("Supprimer", "SupprimerAnalyse", new { code = item.CodeCompetence, email = item.AdresseCourriel })
+                    <a class="btn btn-info btnlist testing" asp-action="ListeElements" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-pen"></i><span>List éléments</span></a> |
+                    <a class="btn btn-info btnlist testing" asp-action="ConsulterAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-info-circle"></i><span>Voir les détails</span></a> |
+                    <a class="btn btn-info btnlist testing" asp-action="ModifierAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-pen"></i><span>Modifier l'analyse</span></a>|
+                    <a class="btn btn-info btnlist testing" asp-action="SupprimerAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-trash"></i><span>Supprimer</span></a>                   
                 </td>
             </tr>
         }
