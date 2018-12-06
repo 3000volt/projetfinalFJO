@@ -172,11 +172,11 @@ function fnGroupeCompAjax() {
 
 //ajouter un répartition des heures max de la compétence
 function fnAddRepartitonHeureMaxCompAjax() {
-    alert($("#CodeCompetence").val());
+    alert($("#NbHtotalCompetence").val());
     var url = "/RepartirHeureCompetences/Create";
     var data = {
         CodeCompetence: $("#CodeCompetence").val(),
-        NbHsessionCompetence: $("#NbHsessionCompetence").val(),
+        NbHtotalCompetence: $("#NbHtotalCompetence").val(),
     };
     $.ajax({
         data: JSON.stringify(data),

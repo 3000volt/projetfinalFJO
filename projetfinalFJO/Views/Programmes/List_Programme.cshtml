@@ -18,21 +18,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.NomProgramme)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.NbHeure)
+            <th>
+                @Html.DisplayNameFor(model => model.NbHeureFormationTechnique)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NbUnite)
-            </th>*@
+                @Html.DisplayNameFor(model => model.NbUniteFormationTechnique)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.NbCompetencesObligatoires)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NbCompetencesOptionnelles)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CondtionsAdmission)
-            </th>
+
+            
             <th></th>
         </tr>
     </thead>
@@ -43,25 +39,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.NomProgramme)
                 </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.NbHeure)
+                <td>
+                    @Html.DisplayFor(modelItem => item.NbHeureFormationTechnique)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NbUnite)
-                </td>*@
+                    @Html.DisplayFor(modelItem => item.NbUniteFormationTechnique)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NbCompetencesObligatoires)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NbCompetencesOptionnelles)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CondtionsAdmission)
-                </td>
-                <td>
-                    <a class="btn btn-info btnlist" asp-action="Edit" asp-route-id="@item.NoProgramme"><i class="fas fa-pen"></i></a>|
-                    <a class="btn btn-info btnlist" asp-action="Details" asp-route-id="@item.NoProgramme"><i class="fas fa-info-circle"></i></a> |
-                    <a class="btn btn-info btnlist" asp-action="Delete" asp-route-id="@item.NoProgramme"><i class="fas fa-trash"></i></a>
+                    <a class="btn btn-info btnlist testing" asp-action="Edit" asp-route-id="@item.NoProgramme"><i class="fas fa-pen iconlist"></i><span>Modifier le programme</span></a>|
+                    <a class="btn btn-info btnlist testing" asp-action="Details" asp-route-id="@item.NoProgramme"><i class="fas fa-info-circle iconlist"></i><span>Voir les détails</span></a> |
+                    <a class="btn btn-info btnlist testing" asp-action="Delete" asp-route-id="@item.NoProgramme"><i class="fas fa-trash iconlist"></i><span>Supprimer</span></a>
                 </td>
             </tr>
         }
