@@ -1,33 +1,39 @@
 ﻿@model projetfinalFJO.Appdata.Cours
 
 @{
-    ViewData["Title"] = "AjouterCours";
+    //ViewData["Title"] = "AjouterCours";
 
-    //tester la vue des groupes
-    ViewBag.groupes = new List<projetfinalFJO.Appdata.Groupe>
-{
-new projetfinalFJO.Appdata.Groupe(){
-NomGroupe = "Prog",
-NoProgramme = "420"
+
 }
-};
-}
-
-<div id="principale">
-
-    <div id="ListeGroupe">
-        <partial name="_AddPartialListeGroupe" model="ViewBag.groupes" />
-    </div>
-
-    <div id="AjoutCours">
-        <partial name="_AddPartialAjouterCours" />
-
-        <div id="accordion">
-        </div>
+<div id="ListeGroupe">
+    <div id="tabs">
+        <ul>
+            <li><a href="@Url.Action("AfficherGroupe", "Cours")">Groupes</a></li>
+        </ul>
     </div>
 </div>
+<hr />
+<div id="AjoutCours">
+    <partial name="_AddPartialAjouterCours" />
+    <div id="accordion">
+    </div>
+</div>
+
 @section Scripts
     {
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        /*https://jqueryui.com/tabs/#ajax  */
+        $(function () {
+            $("#tabs").tabs({
+                beforeLoad: function (event, ui) {
+                    ui.jqXHR.fail(function () {
+                        ui.panel.html(
+                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                            "If this wouldn't be a demo.");
+                    });
+                }
+            });
+        });
+    </script>
     <script src="~/js/Cours.js"></script>
 }

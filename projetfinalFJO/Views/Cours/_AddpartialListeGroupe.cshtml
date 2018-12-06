@@ -1,23 +1,43 @@
-﻿@model IEnumerable<projetfinalFJO.Appdata.Groupe>
-
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
-<table class="table">
+﻿<h3 style="text-align:center; text-decoration:underline">Tableau de la répartition des groupes par compétences</h3>
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th></th>
+            <th>Compétences/Groupe</th>
+            @foreach (var element in ViewBag.Groupes as IEnumerable<projetfinalFJO.Appdata.Groupe>)
+            {
+                <th scope="col">
+                    @element.NomGroupe
+                </th>
+            }
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-action="Edit"  asp-route-id="@item.NomGroupe">Éditer</a> |
-                <a asp-action="Details" asp-route-id="@item.NomGroupe">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.NomGroupe">Supprimer</a>
-            </td>
-        </tr>
-}
+        @{
+            var ancienne = "";
+            var list3 = ViewBag.GroupeCompetence as IEnumerable<projetfinalFJO.Appdata.GroupeCompetence>;
+
+            @foreach (var item in list3)
+            {
+                <tr>
+                    <td>@item.CodeCompetence</td>
+
+                    @foreach (var element in ViewBag.Groupes as IEnumerable<projetfinalFJO.Appdata.Groupe>)
+                    {
+
+                        if (element.NomGroupe == item.NomGroupe)
+                        {
+                            <td scope="col">
+                                X
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    }
+                    <td>@item.NomSession</td>
+                </tr>
+            }
+        }
     </tbody>
 </table>

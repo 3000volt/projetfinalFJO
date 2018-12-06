@@ -28,9 +28,9 @@ namespace projetfinalFJO.Controllers
         /// Affiche la liste de cours
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> ListeCours()
+        public async Task<IActionResult> ListeCours(string search)
         {
-            return View(await _contexte.Cours.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
+            return View(await _contexte.Cours.Where(x => x.NomCours.StartsWith(search) || search == null).ToListAsync());
         }
 
         [HttpPost]
@@ -41,7 +41,7 @@ namespace projetfinalFJO.Controllers
             List<string> listeGroupe = new List<string>();
             foreach (GroupeCompetence g in listeGroupeCompetence)
             {
-                //voir si le groupe estd eja dans la liste
+                //voir si le groupe est deja dans la liste
                 if (!listeGroupe.Contains(g.NomGroupe))
                 {
                     listeGroupe.Add(g.NomGroupe);
@@ -49,6 +49,18 @@ namespace projetfinalFJO.Controllers
             }
             return listeGroupe;
         }
+
+        public async Task<IActionResult> ListeCoursGeneral()
+        {
+            return View(await _contexte.Cours.Where(x => x.TypedeCours == "Général").ToListAsync());
+        }
+        //[HttpGet]
+        //public async Task<IActionResult> AssocierCoursGeneralSession()
+        //{
+        //    ViewBag.Cours = new SelectList(_contexte.Cours.Where(x => x.TypedeCours == "Général"), "NomCours","NomCours");
+        //    ViewBag.ViewBag.NomSession = new SelectList(_contexte.Session, "NomSession", "NomSession");
+        //    return View();
+        //}
 
         /// <summary>
         /// Affiche la vue pour ajouter un cours
@@ -63,7 +75,7 @@ namespace projetfinalFJO.Controllers
             //Ajuster le selectlist du groupe a la session sélectionné
             //
 
-            //ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
+            ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
             ViewBag.Cours = new Cours();
             //ViewBag.Groupe = new SelectList(new List<string>());
             return View();
@@ -75,10 +87,12 @@ namespace projetfinalFJO.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AjouterCours([FromBody][Bind("NoCours,NomCours,PonderationCours,DepartementCours,TypedeCours,NoProgramme,NomSession,NomGroupe")]Cours cours)
+        public async Task<IActionResult> AjouterCours([FromBody][Bind("NoCours,NomCours,PonderationCours,DepartementCours,NoProgramme,NomSession,NomGroupe")]Cours cours)
         {
+           
             if (ModelState.IsValid)
             {
+                 cours.TypedeCours = "Technique";
                 //HttpContext.Session.SetString("Cours",JsonConvert.SerializeObject(cours));
                 _contexte.Add(cours);
                 //Ajouter a la table CoursCompetences
@@ -86,7 +100,7 @@ namespace projetfinalFJO.Controllers
                 List<GroupeCompetence> listeGroupe = this._contexte.GroupeCompetence.ToList().FindAll(x => x.NomGroupe == cours.NomGroupe);
                 foreach (GroupeCompetence g in listeGroupe)
                 {
-                    //Ajouter a la BD chaque Competence auu cours a la table en approprié
+                    //Ajouter a la BD chaque Competence au cours a la table en approprié
                     this._contexte.CoursCompetences.Add(new CoursCompetences()
                     {
                         NoCours = cours.NoCours,
@@ -201,6 +215,13 @@ namespace projetfinalFJO.Controllers
             _contexte.Cours.Remove(cours);
             await _contexte.SaveChangesAsync();
             return RedirectToAction("ListeCours");
+        }
+
+        public PartialViewResult AfficherGroupe()
+        {
+            ViewData["Groupes"] = _contexte.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
+            ViewData["GroupeCompetence"] = _contexte.GroupeCompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
+            return PartialView("_AddPartialListeGroupe");
         }
     }
 }
