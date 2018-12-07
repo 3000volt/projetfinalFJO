@@ -10,69 +10,87 @@
     <a class="btn btn-info" asp-action="CreerActualisation">
         <i class="fas fa-plus-circle"> Créer une actualisation</i>
     </a>
+    <p>
+        @using (@Html.BeginForm("Actualisation", "Actualisation", FormMethod.Get))
+        {
+            <b>Recherche par nom de nom d'actualisation / numero de programme:</b>
+
+            @Html.TextBox("search")
+            <input type="submit" value="Rechercher" />
+        }
+    </p>
     <table class="table table-hover">
-        <thead class="card-header">
+        @if (Model.Count() == 0)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.NumActualisation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NomActualisation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NoProgramme)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NomProgramme)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Approuve)
-                </th>
-                <th></th>
+                <td colspan="4">
+                    Aucun enregistrement trouvé.
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+        }
+        else
+        {
+            <thead class="card-header">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NumActualisation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NomActualisation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NoProgramme)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NomProgramme)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Approuve)
-                    </td>
-                    <td>
-                        <a class="btn btn-info btnlist" title="Actualiser" asp-action="Actualiser" asp-route-numActu="@item.NumActualisation">
-                            Actualiser
-                        </a>|
-                        <a class="btn btn-info btnlist" title="Modifier" asp-action="Modifier" asp-route-numActu="@item.NumActualisation">
-                            <i class="fas fa-pen"></i>
-                        </a>|
-                        <a class="btn btn-info btnlist" title="Gérer la liste des membres de cette actualisation" asp-action="MembresActualisation" asp-route-numActu="@item.NumActualisation" asp-route-programme="@item.NoProgramme">
-                            <i class="fas fa-users"></i>
-                        </a>|
-                        <a class="btn btn-info btnlist" asp-action="Details" title="Information" asp-route-numActu="@item.NumActualisation">
-                            <i class="fas fa-info-circle"></i>
-                        </a> |
-                        <a class="btn btn-info btnlist" title="Supprimer" asp-action="SupprimerActualisation" asp-route-numActu="@item.NumActualisation">
-                            <i class="fas fa-trash"></i>
-                        </a>
-
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumActualisation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NomActualisation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NoProgramme)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NomProgramme)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Approuve)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumActualisation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomActualisation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoProgramme)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomProgramme)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Approuve)
+                        </td>
+                        <td>
+                            <a class="btn btn-info btnlist" title="Actualiser" asp-action="Actualiser" asp-route-numActu="@item.NumActualisation">
+                                Actualiser
+                            </a>|
+                            <a class="btn btn-info btnlist" title="Modifier" asp-action="Modifier" asp-route-numActu="@item.NumActualisation">
+                                <i class="fas fa-pen"></i>
+                            </a>|
+                            <a class="btn btn-info btnlist" title="Gérer la liste des membres de cette actualisation" asp-action="MembresActualisation" asp-route-numActu="@item.NumActualisation" asp-route-programme="@item.NoProgramme">
+                                <i class="fas fa-users"></i>
+                            </a>|
+                            <a class="btn btn-info btnlist" asp-action="Details" title="Information" asp-route-numActu="@item.NumActualisation">
+                                <i class="fas fa-info-circle"></i>
+                            </a> |
+                            <a class="btn btn-info btnlist" title="Supprimer" asp-action="SupprimerActualisation" asp-route-numActu="@item.NumActualisation">
+                                <i class="fas fa-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
     </table>
-
-
 </div>
     

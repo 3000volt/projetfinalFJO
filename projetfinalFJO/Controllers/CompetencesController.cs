@@ -25,9 +25,7 @@ namespace projetfinalFJO.Controllers
         // GET: Competences
         public async Task<IActionResult> ListeCompetence(string search)
         {
-            return View(await _context.Competences.Where(x => x.Description.StartsWith(search) || search == null).ToListAsync());
-            //var actualisationContext = _context.Competences.Include(c => c.NomFamilleNavigation).Include(c => c.NoProgrammeNavigation).Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme")));
-            //return View(await actualisationContext.ToListAsync());
+            return View(await _context.Competences.Where(x => x.Description.StartsWith(search) || x.NoProgramme.StartsWith(search) || search == null).ToListAsync());
         }
 
         // GET: Competences/Details/5

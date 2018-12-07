@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using projetfinalFJO.Appdata;
 
 namespace projetfinalFJO.Models
 {
@@ -17,7 +18,11 @@ namespace projetfinalFJO.Models
         [Display(Name = "Programme")]
         public string NomProgramme { get; set; }
         [Display(Name = "Approuvée?")]
-        public bool? Approuve { get; set; } 
+        public bool? Approuve { get; set; }
 
+        public static explicit operator ActualisationViewModel(List<ActualisationInformation> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

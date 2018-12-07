@@ -92,11 +92,11 @@ namespace projetfinalFJO.Controllers
             return BadRequest("élément non ajouté");
         }
 
-        public ActionResult ListeAnalyse()
+        public ActionResult ListeAnalyse(string search)
         {
             //Récupérer toute la liste des analyses
             List<AnalyseCompetenceVM> liste = new List<AnalyseCompetenceVM>();
-            var listeAnalyseComplete = this._context.AnalyseCompétence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
+            var listeAnalyseComplete = _context.AnalyseCompétence.Where(x => x.AdresseCourriel.StartsWith(search) || x.CodeCompetence.StartsWith(search) || search == null).ToList();
             foreach (AnalyseCompétence analyse in listeAnalyseComplete)
             {
                 liste.Add(new AnalyseCompetenceVM

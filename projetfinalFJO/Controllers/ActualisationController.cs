@@ -37,10 +37,11 @@ namespace projetfinalFJO.Controllers
             this.contextLogin = log;
         }
 
-        public IActionResult Actualisation()
+        public IActionResult Actualisation(string search)
         {
-            listeActualisation = this.contexteActu.ActualisationInformation.ToList();
+            //listeActualisation = this.contexteActu.ActualisationInformation.ToList();
             ActualisationViewModel actu = new ActualisationViewModel();
+            listeActualisation = this.contexteActu.ActualisationInformation.Where(x => x.NomActualisation.StartsWith(search) || x.NoProgramme.StartsWith(search) || search == null).ToList();
 
             List<ActualisationViewModel> actuListe = listeActualisation.Select(x => new ActualisationViewModel
             {
@@ -50,6 +51,7 @@ namespace projetfinalFJO.Controllers
                 NomProgramme = Selection(x.NoProgramme),
                 Approuve = x.Approuve
             }).ToList();
+
             //Mettre la session a null pour recuperer le bon layout
             HttpContext.Session.SetString("ActualisationActif", "Innactif");
             return View(actuListe);

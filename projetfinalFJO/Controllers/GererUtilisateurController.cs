@@ -39,6 +39,7 @@ namespace projetfinalFJO.Controllers
             string userID;
             //Liste de tout les utilisateurs avec leur roles
             var liste = this.contextLogin.UserRoles.ToList();
+            
 
             foreach (LoginUser util in this.contextLogin.Users.ToList())
             {

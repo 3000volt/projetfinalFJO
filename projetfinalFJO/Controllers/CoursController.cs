@@ -30,7 +30,7 @@ namespace projetfinalFJO.Controllers
         /// <returns></returns>
         public async Task<IActionResult> ListeCours(string search)
         {
-            return View(await _contexte.Cours.Where(x => x.NomCours.StartsWith(search) || search == null).ToListAsync());
+            return View(await _contexte.Cours.Where(x => x.NomCours.StartsWith(search) || x.DepartementCours.StartsWith(search) || search == null).ToListAsync());
         }
 
         [HttpPost]

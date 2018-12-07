@@ -22,9 +22,10 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Groupes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            return View(await _context.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
+            //return View(await _context.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
+            return View(await _context.Groupe.Where(x => x.NomGroupe.StartsWith(search) || x.NoProgramme.StartsWith(search) || search == null).ToListAsync());
         }
 
         // GET: Groupes/Details/5

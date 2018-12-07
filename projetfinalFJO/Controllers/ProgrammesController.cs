@@ -24,9 +24,9 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Programmes
-        public async Task<IActionResult> List_Programme()
+        public async Task<IActionResult> List_Programme(string search)
         {
-            return View(await _context.Programmes.ToListAsync());
+            return View(await _context.Programmes.Where(x => x.NomProgramme.StartsWith(search) || search == null).ToListAsync());
         }
 
         // GET: Programmes/Details/5

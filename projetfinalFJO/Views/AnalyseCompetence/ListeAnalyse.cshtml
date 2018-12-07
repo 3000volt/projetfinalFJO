@@ -5,52 +5,72 @@
 }
 
 <h2>Liste des analyse</h2>
-
 <p>
-    <a asp-action="CreerAnalyseListe" asp-controller="AnalyseCompetence" class="btn btn-info">Créer un analyse</a>
+    <a asp-action="CreerAnalyseListe" asp-controller="AnalyseCompetence" class="btn btn-info">
+      <i class="fas fa-plus-circle"> Créer une analyse</i>
+    </a>
 </p>
+<p>
+    @using (@Html.BeginForm("ListeAnalyse", "AnalyseCompetence", FormMethod.Get))
+    {
+        <b>Recherche par code de compétence / courriel:</b>
 
+        @Html.TextBox("search")
+        <input type="submit" value="Rechercher" />
+    }
+</p>
 <table class="table table-hover">
-    <thead class="card-header">
+    @if (Model.Count() == 0)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CodeCompetence)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NiveauTaxonomique)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ValidationApprouve)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdresseCourriel)
-            </th>
-            <th></th>
+            <td colspan="4">
+                Aucune analyse trouvée.
+            </td>
         </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    }
+    else
+    {
+        <thead class="card-header">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodeCompetence)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NiveauTaxonomique)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ValidationApprouve)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AdresseCourriel)
-                </td>
-                <td>
-                    <a class="btn btn-info btnlist testing" asp-action="ListeElements" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-pen"></i><span>List éléments</span></a> |
-                    <a class="btn btn-info btnlist testing" asp-action="ConsulterAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-info-circle"></i><span>Voir les détails</span></a> |
-                    <a class="btn btn-info btnlist testing" asp-action="ModifierAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-pen"></i><span>Modifier l'analyse</span></a>|
-                    <a class="btn btn-info btnlist testing" asp-action="SupprimerAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-trash"></i><span>Supprimer</span></a>                   
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.CodeCompetence)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NiveauTaxonomique)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ValidationApprouve)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AdresseCourriel)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CodeCompetence)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NiveauTaxonomique)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ValidationApprouve)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdresseCourriel)
+                    </td>
+                    <td>
+                        <a class="btn btn-info btnlist testing" asp-action="ListeElements" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-pen"></i><span>List éléments</span></a> |
+                        <a class="btn btn-info btnlist testing" asp-action="ConsulterAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-info-circle"></i><span>Voir les détails</span></a> |
+                        <a class="btn btn-info btnlist testing" asp-action="ModifierAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-pen"></i><span>Modifier l'analyse</span></a>|
+                        <a class="btn btn-info btnlist testing" asp-action="SupprimerAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-trash"></i><span>Supprimer</span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+    </table>

@@ -9,6 +9,15 @@
 <p>
     <a asp-action="Create">Ajouter un groupe</a>
 </p>
+<p>
+    @using (@Html.BeginForm("ListeCours", "Cours", FormMethod.Get))
+    {
+        <b>Recherche par nom de groupe/ numéro de programme:</b>
+
+        @Html.TextBox("search")
+        <input type="submit" value="Rechercher" />
+    }
+</p>
 <table class="table">
     <thead>
         <tr>
