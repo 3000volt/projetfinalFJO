@@ -165,3 +165,7 @@ div.card-header.cardstyle {
         transform: scale(1) rotate(0);
         opacity: 1;
     }
+
+.iconlist {
+ color:white;
+}

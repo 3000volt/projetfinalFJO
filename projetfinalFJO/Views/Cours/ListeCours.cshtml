@@ -63,10 +63,10 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.TypedeCours)
                     </td>
-                    <td>
-                        <a class="btn btn-info btnlist" asp-action="ModifierCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-pen"></i></a> |
-                        <a class="btn btn-info btnlist" asp-action="DetailsCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-info-circle"></i></a> ||
-                        <a class="btn btn-info btnlist" asp-action="SupprimerCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-trash"></i></a>
+                    <td>              
+                        <a class="btn btn-info btnlist testing" asp-action="ModifierCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-pen iconlist"></i><span>Modifier le cour</span></a> |
+                        <a class="btn btn-info btnlist testing" asp-action="DetailsCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-info-circle iconlist"></i><span>Voir les détails </span></a> ||
+                        <a class="btn btn-info btnlist testing" asp-action="SupprimerCours" asp-controller="Cours" asp-route-id="@item.NoCours"><i class="fas fa-trash iconlist"></i><span>Supprimer</span></a>
                     </td>
                 </tr>
             }

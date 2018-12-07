@@ -64,7 +64,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("NbHsessionCompetence,CodeCompetence,ValidationApprouve,NoProgramme")] RepartirHeureCompetence repartirHeureCompetence)
+        public async Task<IActionResult> Create([FromBody][Bind("NbHtotalCompetence,CodeCompetence,ValidationApprouve,NoProgramme")] RepartirHeureCompetence repartirHeureCompetence)
         {
             repartirHeureCompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
