@@ -172,7 +172,7 @@ namespace projetfinalFJO.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return NotFound();//
             }
 
             var elementcompetence = await _context.Elementcompetence
