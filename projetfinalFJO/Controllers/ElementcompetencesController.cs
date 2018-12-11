@@ -64,6 +64,23 @@ namespace projetfinalFJO.Controllers
             return View("ListeElementCompetence", listeElemComp);
         }
 
+        // POST: Elementcompetences/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([FromBody][Bind("ElementCompétence,CriterePerformance,NoProgramme")] Elementcompetence elementcompetence)
+        {
+            elementcompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
+            if (ModelState.IsValid)
+            {
+                _context.Add(elementcompetence);
+                await _context.SaveChangesAsync();
+                return Ok("élément ajouté avec succès");
+            }
+            return BadRequest("élément non ajouté");
+        }
+
         // GET: Elementcompetences/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -93,7 +110,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Creer(Elementcompetence elementcompetence)//[FromBody][Bind("ElementCompétence,CriterePerformance")]
+        public async Task<IActionResult> Creer(Elementcompetence elementcompetence)
         {
             elementcompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
 
