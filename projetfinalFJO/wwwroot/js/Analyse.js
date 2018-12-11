@@ -56,7 +56,7 @@ function AnalyseElementCompetence(i) {
 function AjouterFamilleAjax() {
     alert("allo");
     alert($("#NomFamille2").val());
-    var url = "/Competences/AjouterFamille";
+    var url = "/AnalyseCompetence/AjouterFamille";
     var data = {
         NomFamille: $("#NomFamille2").val(),
     };
@@ -76,7 +76,7 @@ function AjouterFamilleAjax() {
 }
 
 function AjouterSequenceAjax() {
-    var url = "/Competences/AjouterSequence";
+    var url = "/AnalyseCompetence/AjouterSequence";
     var data = {
         NomSequence: $("#NomSequence2").val(),
     };
@@ -136,6 +136,54 @@ function Ajustation(item) {
     num = a.charAt(6);
 
     AnalyseElementCompetence(num);
+}
+
+function AssocierFamilleAjax() {
+    var url = "/AnalyseCompetence/AssocierFamille";
+    var data = {
+        CodeCompetence: $("#CodeCompetence").val(),
+        NomFamille: $("#NomFamille").val()
+    };
+    $.ajax({
+        data: JSON.stringify(data),
+        type: "POST",
+        url: url,
+        datatype: "text/plain",
+        contentType: "application/json; charset=utf-8",
+        //beforeSend: function (request) {
+        //    request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+        //},
+        success: function (result) {
+            alert(result);
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
+    });
+    return false;
+
+}
+
+function AssocierSequencejax() {
+    var url = "/AnalyseCompetence/AssocierSequence";
+    var data = {
+        CodeCompetence: $("#CodeCompetence").val(),
+        NomSequence: $("#NomSequence").val()
+    };
+    $.ajax({
+        data: JSON.stringify(data),
+        type: "POST",
+        url: url,
+        datatype: "text/plain",
+        contentType: "application/json; charset=utf-8",
+        //beforeSend: function (request) {
+        //    request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+        //},
+        success: function (result) {
+            alert(result);
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
+    });
+    return false;
+
 }
 
 //function AnalyseCompetence() {

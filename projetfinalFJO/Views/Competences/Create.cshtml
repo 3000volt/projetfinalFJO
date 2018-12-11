@@ -15,33 +15,11 @@
     <div id="elementcomp" style="display:none;">
         <partial name="_AddPartialelementcompetence" model="ViewBag.element" />
 
-        <div id="accordion">
-        </div>
+        
         <div id="divBoutonsEnvoie">
             <a asp-action="ListeCompetence" class="btn btn-info" id="btnListe" style="background-color:darkblue;border-color:darkblue">Retour à la liste de compétence</a>
             <a class="btn btn-info btnanalyse" id="btnAnalyser" asp-controller="AnalyseCompetence" asp-action="CreerAnalyse">Créer Analyse</a>
         </div>
     </div>
 </div>
-
-@section Scripts
-    {
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        /*https://jqueryui.com/tabs/#ajax  */
-        $(function () {
-            $("#tabs").tabs({
-                beforeLoad: function (event, ui) {
-                    ui.jqXHR.fail(function () {
-                        ui.panel.html(
-                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-                            "If this wouldn't be a demo.");
-                    });
-                }
-            });
-        });
-
-    </script>
-
-}
 

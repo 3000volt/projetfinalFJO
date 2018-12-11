@@ -82,7 +82,7 @@ namespace projetfinalFJO.Controllers
             {
                 _context.Add(groupe);
                 await _context.SaveChangesAsync();
-                RedirectToAction(nameof(List_groupe));
+                RedirectToAction(nameof(Index));
             }
             return View(groupe);
         }
@@ -133,7 +133,7 @@ namespace projetfinalFJO.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(List_groupe));
+                return RedirectToAction(nameof(Index));
             }
             return View(groupe);
         }
@@ -164,7 +164,7 @@ namespace projetfinalFJO.Controllers
             var groupe = await _context.Groupe.FindAsync(id);
             _context.Groupe.Remove(groupe);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(List_groupe));
+            return RedirectToAction(nameof(Index));
         }
 
         private bool GroupeExists(string id)

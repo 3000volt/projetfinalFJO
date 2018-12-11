@@ -96,6 +96,7 @@ namespace projetfinalFJO.Appdata
                 con.Close();
             }
         }
+
         public virtual DbSet<ActualisationInformation> ActualisationInformation { get; set; }
         public virtual DbSet<AnalyseCompétence> AnalyseCompétence { get; set; }
         public virtual DbSet<AnalyseElementsCompetence> AnalyseElementsCompetence { get; set; }
@@ -300,6 +301,10 @@ namespace projetfinalFJO.Appdata
                 entity.Property(e => e.NomFamille).HasMaxLength(30);
 
                 entity.Property(e => e.NomSequence).HasMaxLength(25);
+
+                entity.Property(e => e.Titre)
+                    .IsRequired()
+                    .HasMaxLength(25);
 
                 entity.HasOne(d => d.NoProgrammeNavigation)
                     .WithMany(p => p.Competences)

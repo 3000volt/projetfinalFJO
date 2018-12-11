@@ -48,7 +48,7 @@ namespace projetfinalFJO.Controllers
 
             ViewBag.Contexte = "Prechoisi";
             ViewBag.Competence = num;
-            ViewBag.Description = this._context.Competences.ToList().Find(x => x.CodeCompetence == num).Description;
+            ViewBag.Description = this._context.Competences.ToList().Find(x => x.CodeCompetence == num).Titre;
             ViewBag.ListeElements = listeElements.Count;
             ViewBag.NumeroElem = elements;
             ViewBag.Numero = num;
@@ -180,11 +180,94 @@ namespace projetfinalFJO.Controllers
         public string AfficherDescription(string codeComp)
         {
             //variable de la description
-            string description;
+            string Titre;
             //l'associer a la description du code correspondant dans la BD
-            description = this._context.Competences.ToList().Find(x => x.CodeCompetence == codeComp).Description;
+            Titre = this._context.Competences.ToList().Find(x => x.CodeCompetence == codeComp).Titre;
             //Retoruenr la valeur
-            return description;
+            return Titre;
+        }
+
+        [HttpPost]
+        public IActionResult AjouterFamille([FromBody]Famillecompetence famille)
+        {
+            famille.NoProgramme = this.HttpContext.Session.GetString("programme");
+            if (famille != null)
+            {
+                this._context.Famillecompetence.Add(famille);
+                this._context.SaveChanges();
+                return Ok("élément ajouté avec succès");
+
+            }
+            return BadRequest("élément non ajouté");
+        }
+
+        [HttpPost]
+        public IActionResult AjouterSequence([FromBody]Sequences sequence)
+        {
+            sequence.NoProgramme = this.HttpContext.Session.GetString("programme");
+            if (sequence != null)
+            {
+                this._context.Sequences.Add(sequence);
+                this._context.SaveChanges();
+                return Ok("élément ajouté avec succès");
+
+
+            }
+            return BadRequest("élément non ajouté");
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult AssocierFamille([FromBody]Competences competence)
+        {
+            //Prendre l'objet de la compétence concerné
+            Competences comp = this._context.Competences.ToList().Find(x => x.CodeCompetence == competence.CodeCompetence);
+            //Associer la bonne famille
+            comp.NomFamille = competence.NomFamille;
+            //Sauvegarder dans la BD
+            this._context.SaveChanges();
+            return Ok("Famille associer avec succes a la compétence");
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult AssocierSequence([FromBody]Competences competence)
+        {
+            //Prendre l'objet de la compétence concerné
+            Competences comp = this._context.Competences.ToList().Find(x => x.CodeCompetence == competence.CodeCompetence);
+            //Associer la bonne famille
+            comp.NomSequence = competence.NomSequence;
+            //Sauvegarder dans la BD
+            this._context.SaveChanges();
+            return Ok("Séquence associer avec succes a la compétence");
+        }
+
+        public PartialViewResult PartialAjouterFamille()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
+            return PartialView("_partialAjouterFamille");
+        }
+
+        public PartialViewResult PartialListeFamille()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
+            return PartialView("_partialListeFamille");
+        }
+
+        public PartialViewResult PartialAjouterSequence()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
+            return PartialView("_partialAjouterSequence");
+        }
+
+        public PartialViewResult PartialListeSequence()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
+            return PartialView("_partialListeSequence");
         }
     }
 }

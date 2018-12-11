@@ -64,7 +64,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation")] Competences competences)
+        public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ObligatoireCégep,Titre,Description,ContextRealisation")] Competences competences)
         {
             competences.NoProgramme = this.HttpContext.Session.GetString("programme");
             //competences.NoProgramme = this.HttpContext.Session.GetString("programme");
@@ -84,7 +84,7 @@ namespace projetfinalFJO.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update([FromBody][Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation")] Competences competences)
+        public async Task<IActionResult> Update([FromBody][Bind("CodeCompetence,ObligatoireCégep,Titre,Description,ContextRealisation")] Competences competences)
         {
             competences.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
@@ -122,7 +122,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,ObligatoireCégep,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
+        public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,ObligatoireCégep,Titre,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
         {
             if (id != competences.CodeCompetence)
             {
@@ -190,87 +190,5 @@ namespace projetfinalFJO.Controllers
             return _context.Competences.Any(e => e.CodeCompetence == id);
         }
 
-        [HttpPost]
-        public IActionResult AjouterFamille([FromBody]Famillecompetence famille)
-        {
-            famille.NoProgramme = this.HttpContext.Session.GetString("programme");
-            if (famille != null)
-            {
-                this._context.Famillecompetence.Add(famille);
-                this._context.SaveChanges();
-                return Ok("élément ajouté avec succès");
-
-            }
-            return BadRequest("élément non ajouté");
-        }
-
-        [HttpPost]
-        public IActionResult AjouterSequence([FromBody]Sequences sequence)
-        {
-            sequence.NoProgramme = this.HttpContext.Session.GetString("programme");
-            if (sequence != null)
-            {
-                this._context.Sequences.Add(sequence);
-                this._context.SaveChanges();
-                return Ok("élément ajouté avec succès");
-
-
-            }
-            return BadRequest("élément non ajouté");
-        }
-
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult AssocierFamille([FromBody]Competences competence)
-        {
-            //Prendre l'objet de la compétence concerné
-            Competences comp = this._context.Competences.ToList().Find(x => x.CodeCompetence == competence.CodeCompetence);
-            //Associer la bonne famille
-            comp.NomFamille = competence.NomFamille;
-            //Sauvegarder dans la BD
-            this._context.SaveChanges();
-            return Ok("Famille associer avec succes a la compétence");
-        }
-
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult AssocierSequence([FromBody]Competences competence)
-        {
-            //Prendre l'objet de la compétence concerné
-            Competences comp = this._context.Competences.ToList().Find(x => x.CodeCompetence == competence.CodeCompetence);
-            //Associer la bonne famille
-            comp.NomSequence = competence.NomSequence;
-            //Sauvegarder dans la BD
-            this._context.SaveChanges();
-            return Ok("Séquence associer avec succes a la compétence");
-        }
-
-        public PartialViewResult PartialAjouterFamille()
-        {
-            //ViewBag.groupe = new GroupeCompetence();
-            ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
-            return PartialView("_partialAjouterFamille");
-        }
-
-        public PartialViewResult PartialListeFamille()
-        {
-            //ViewBag.groupe = new GroupeCompetence();
-            ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
-            return PartialView("_partialListeFamille");
-        }
-
-        public PartialViewResult PartialAjouterSequence()
-        {
-            //ViewBag.groupe = new GroupeCompetence();
-            ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
-            return PartialView("_partialAjouterSequence");
-        }
-
-        public PartialViewResult PartialListeSequence()
-        {
-            //ViewBag.groupe = new GroupeCompetence();
-            ViewData["NomSequence"] = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
-            return PartialView("_partialListeSequence");
-        }
     }
 }

@@ -19,7 +19,7 @@ namespace projetfinalFJO.Models
         public string CodeCompetence { get; set; }
         public string Famille { get; set; }
         public string Sequence { get; set; }
-        public string Description { get; set; }
+        public string Titre { get; set; }
 
     }
 }

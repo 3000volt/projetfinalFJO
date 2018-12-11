@@ -12,18 +12,44 @@
         <partial name="_AnalyseCompetence" />@*model="ViewBag.CreerAnalyse"*@
     </div>
     <hr />
+    @*<div id="accordion">
+    </div>*@
+    <div id="tabs">
+        <ul>
+            <li class="loic"><a href="@Url.Action("PartialListeFamille", "AnalyseCompetence")">Assigner une famille</a></li>
+            <li><a href="@Url.Action("PartialAjouterFamille", "AnalyseCompetence")">Créer une famille </a></li>
+            <li class="loic"><a href="@Url.Action("PartialListeSequence", "AnalyseCompetence")">Assigner une séquence</a></li>
+            <li><a href="@Url.Action("PartialAjouterSequence", "AnalyseCompetence")">Créer une séquence </a></li>
+        </ul>
+    </div>
 }
 
 
 @if (ViewBag.Contexte == "Prechoisi" || ViewBag.Contexte == "ElemNonChoisi")
 {
     <div id="divElementCompetence">
-        <partial name="../AnalyseCompetence/_AnalyseElementCompetence"  />@*model="ViewBag.CreerAnalyse"*@
+        <partial name="../AnalyseCompetence/_AnalyseElementCompetence" />@*model="ViewBag.CreerAnalyse"*@
     </div>
 }
 
-
 @section Scripts
     {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/js/Analyse.js"></script>
+    <script>
+        /*https://jqueryui.com/tabs/#ajax  */
+        $(function () {
+            $("#tabs").tabs({
+                beforeLoad: function (event, ui) {
+                    ui.jqXHR.fail(function () {
+                        ui.panel.html(
+                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                            "If this wouldn't be a demo.");
+                    });
+                }
+            });
+        });
+
+    </script>
+
 }
