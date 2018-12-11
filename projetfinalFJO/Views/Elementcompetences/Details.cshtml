@@ -1,0 +1,36 @@
+﻿@model projetfinalFJO.Appdata.Elementcompetence
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Elementcompetence</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ElementCompétence)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ElementCompétence)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CriterePerformance)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CriterePerformance)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NoProgramme)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NoProgramme)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="ListeElementCompetence2">Retour a la liste</a>
+</div>
