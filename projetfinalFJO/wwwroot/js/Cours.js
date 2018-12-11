@@ -64,6 +64,27 @@ function AjouterCoursAjax() {
     });
     return false;
 }
+//pas fini
+function AjouterPrealableAjax() {
+    var url = "/Cours/AjouterPrealable";
+    var data = {
+        Prealable: $("#NomSequence2").val(),
+    };
+    $.ajax({
+        data: JSON.stringify(data),
+        //data: $("form").serialize(),
+        type: "POST",
+        url: url,
+        datatype: "text/plain",
+        contentType: "application/json; charset=utf-8",
+        //contentType : "application/x-www-form-urlencoded; charset=utf-8",
+        success: function (result) {
+            alert(result);
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
+    });
+}
+
 
 function DimensionAjoutAjax(divId) {
     var formModal = $(divId).dialog({

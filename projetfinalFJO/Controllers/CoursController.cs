@@ -87,13 +87,13 @@ namespace projetfinalFJO.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AjouterCours([FromBody][Bind("NoCours,NomCours,PonderationCours,DepartementCours,NoProgramme,NomSession,NomGroupe")]Cours cours)
+        public async Task<IActionResult> AjouterCours([FromBody][Bind("NoCours,NomCours,PonderationCours,TypeDeCours,DepartementCours,NoProgramme,NomSession,NomGroupe")]Cours cours)
         {
            
             if (ModelState.IsValid)
             {
-                 cours.TypedeCours = "Technique";
-                //HttpContext.Session.SetString("Cours",JsonConvert.SerializeObject(cours));
+                
+                HttpContext.Session.SetString("Cours",JsonConvert.SerializeObject(cours));
                 _contexte.Add(cours);
                 //Ajouter a la table CoursCompetences
                 //Trouver la liste contenant tout les codeCompetence du groupe concerné
@@ -160,7 +160,7 @@ namespace projetfinalFJO.Controllers
 
             //peupler les 3 listes
             ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
-            ViewBag.NoProgramme = new SelectList(_contexte.Programmes, "NoProgramme", "NoProgramme");
+            ViewBag.NoProgramme = new SelectList(_contexte.Programmes, "NoProgramme", "NomProgramme");
             ViewBag.NomSession = new SelectList(_contexte.Session, "NomSession", "NomSession");
 
             return View(cours);
@@ -222,6 +222,22 @@ namespace projetfinalFJO.Controllers
             ViewData["Groupes"] = _contexte.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
             ViewData["GroupeCompetence"] = _contexte.GroupeCompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
             return PartialView("_AddPartialListeGroupe");
+        }
+
+        [HttpGet]
+        public IActionResult AjouterPrealable()
+        {
+            ViewBag.Cours = new SelectList(_contexte.Cours, "NoCours", "NomCours");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AjouterPrealable(Prealables prealables)
+        {
+            Cours cours =  JsonConvert.DeserializeObject<Cours>(this.HttpContext.Session.GetString("Cours"));
+            cours.Prealables.Add(prealables);
+            this._contexte.Cours.Update(cours);
+            return View();
         }
     }
 }
