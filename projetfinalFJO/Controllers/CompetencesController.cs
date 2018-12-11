@@ -49,6 +49,23 @@ namespace projetfinalFJO.Controllers
             return View(competences);
         }
 
+        public ActionResult ListeElementCompetence(string id)
+        {
+            //Il faut retourner la liste des élément sde compétences de la compétence concernée
+            List<CompetencesElementCompetence> listeCompElemComp = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == id);
+            List<string> listeNomElem = new List<string>();
+            foreach(CompetencesElementCompetence compElemComp in listeCompElemComp)
+            {
+                listeNomElem.Add(compElemComp.ElementCompétence);
+            }
+            List<Elementcompetence> listeElemComp = new List<Elementcompetence>();
+            foreach(string listeElem in listeNomElem)
+            {
+                listeElemComp.Add(this._context.Elementcompetence.ToList().Find(x => x.ElementCompétence == listeElem));
+            }
+            return View(listeElemComp);
+        }
+
         // GET: Competences/Create
         public IActionResult Create()
         {
@@ -113,7 +130,8 @@ namespace projetfinalFJO.Controllers
                 return NotFound();
             }
             ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.NomFamille);
-            ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
+            ViewData["Sequence"] = new SelectList(_context.Sequences, "IdSequence", "NomSequence", competences.NomSequence);
+            //ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
             return View(competences);
         }
 
@@ -124,6 +142,8 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,ObligatoireCégep,Titre,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
         {
+            //Prend rel enuméro du programme
+            competences.NoProgramme = this.HttpContext.Session.GetString("NoPorgramme");
             if (id != competences.CodeCompetence)
             {
                 return NotFound();
