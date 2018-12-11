@@ -49,23 +49,6 @@ namespace projetfinalFJO.Controllers
             return View(competences);
         }
 
-        public ActionResult ListeElementCompetence(string id)
-        {
-            //Il faut retourner la liste des élément sde compétences de la compétence concernée
-            List<CompetencesElementCompetence> listeCompElemComp = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == id);
-            List<string> listeNomElem = new List<string>();
-            foreach(CompetencesElementCompetence compElemComp in listeCompElemComp)
-            {
-                listeNomElem.Add(compElemComp.ElementCompétence);
-            }
-            List<Elementcompetence> listeElemComp = new List<Elementcompetence>();
-            foreach(string listeElem in listeNomElem)
-            {
-                listeElemComp.Add(this._context.Elementcompetence.ToList().Find(x => x.ElementCompétence == listeElem));
-            }
-            return View(listeElemComp);
-        }
-
         // GET: Competences/Create
         public IActionResult Create()
         {
