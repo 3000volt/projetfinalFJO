@@ -22,12 +22,26 @@
                 <span asp-validation-for="PonderationCours" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DepartementCours" class="control-label"></label>
-                <input asp-for="DepartementCours" class="form-control" />
-                <span asp-validation-for="DepartementCours" class="text-danger"></span>
+                <label asp-for="TypedeCours" class="control-label"></label>
+                <select asp-for="TypedeCours" class="form-control">
+                    <option value="Générale">Générale</option>
+                    <option value="Technique">Technique</option>
+                </select>
+                <span asp-validation-for="TypedeCours" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="DepartementCours" class="control-label"></label>
+                <select asp-for="DepartementCours" class="form-control">
+                    <option value="Administration">Administration</option>
+                    <option value="Informatique">Informatique</option>
+                    <option value="Langues">Langues</option>
+                    <option value="Psychologie">Pyschologie</option>
+                    <option value="Santé">Santé</option>
+                </select>
+                <span asp-validation-for="DepartementCours" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="NoProgramme" class="control-label"></label>
                 <select asp-for="NoProgramme" class="form-control" asp-items="ViewBag.NoProgramme"></select>
