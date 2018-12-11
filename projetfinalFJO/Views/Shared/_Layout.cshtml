@@ -114,7 +114,6 @@
                             @{if (this.User.IsInRole("Admin") && @HttpContextAccessor.HttpContext.Session.GetString("ActualisationActif") != "Actif")
                                 //https://stackoverflow.com/questions/43698878/how-to-get-session-value-asp-net-core-inside-a-view
                                 {
-
                                     <li class="nav-item">
                                         <a class="nav-link" id="#" asp-action="Actualisation" asp-controller="Actualisation">Actualisation </a>
                                     </li>

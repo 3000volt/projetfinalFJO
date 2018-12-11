@@ -18,13 +18,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="CriterePerformance" class="control-label"></label>
-                        <input asp-for="CriterePerformance" class="form-control" />
+                        <textarea asp-for="CriterePerformance" class="form-control"></textarea>
                         <span asp-validation-for="CriterePerformance" class="text-danger"></span>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <input type="button" value="Ajouter élément de compétence" class="btn btn-info" onclick="fnAddelecommpetenceAjax()" />
+                <input type="button" value="Modifier" class="btn btn-info" onclick="fnModifierelecommpetenceAjax($('#ElementCompétence').val(),$('#CriterePerformance').val())" hidden />
+                <input type="button" value="Annuler" class="btn btn-info" onclick="AnnulerModif()" hidden />
             </div>
 
         </form>
