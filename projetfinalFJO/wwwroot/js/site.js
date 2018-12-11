@@ -93,7 +93,8 @@ function fnAddelecommpetenceAjax() {
                 "" + name + "" +
                 "</a></h5></div>" +
                 "<div id=" + name + " class=\"collapse\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">" +
-                "<div class=\"card-body\"><p>" + $("#CriterePerformance").val() + "</p><input value = 'Modifier' type=button id=btnModifier onClick='ModifierElemComp(" + name + "," + $("#CriterePerformance").val() + ")'/><input value = 'Supprimer' type=button id=btnSupprimer onClick='fnSupprimerElemComp(" + name + "," + $("#CriterePerformance").val() + ")'/> </p></div>" +
+                "<div class=\"card-body\"><p>" + $("#CriterePerformance").val() +
+                "</p><input value = \"Modifier\" type=\"button\" id=\"btnModifier\" onclick=\"ModifierElemComp(" + name + "," + $("#CriterePerformance").val() + ")/\"> </p></div>" +
                 "</div></div> ");
             //Effacer les champs de l'élémentd
             $("#ElementCompétence").val("");
