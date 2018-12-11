@@ -11,6 +11,7 @@ function fnAddcommpetenceAjax() {
         CodeCompetence: $("#CodeCompetence").val(),
         ObligatoireCégep: $("[name=Obli]:checked").val(),
         Description: $("#Description").val(),
+        Titre: $("#Titre").val(),
         ContextRealisation: $("#ContextRealisation").val(),
         Titre: $("#Titre").val(),
     };
@@ -24,7 +25,7 @@ function fnAddcommpetenceAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(status);
+            alert("Compétence créé avec succès!");
             $('#elementcomp').show();
             disableEnvoie();
             return true;
@@ -41,6 +42,7 @@ function fnUpdatecommpetenceAjax() {
         CodeCompetence: $("#CodeCompetence").val(),
         ObligatoireCégep: $("[name=Obli]:checked").val(),
         Description: $("#Description").val(),
+        Titre: $("#Titre").val(),
         ContextRealisation: $("#ContextRealisation").val(),
     };
     $.ajax({
@@ -53,7 +55,7 @@ function fnUpdatecommpetenceAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(status);
+            alert("Compétence modifié avec succès!");
             $('#elementcomp').show();
             ConfirmerModification();
             return true;
@@ -80,7 +82,9 @@ function fnAddelecommpetenceAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(status);
+            //Message de statut réussie
+            alert("Éléments de compétence ajouté avec succès!");
+            //Ajouter a la liste des éléments
             var name = $("#ElementComp_tence").val();
             fnAssocierelecommpetenceAjax();
             $("#accordion").append("<div class=\"card cardcollapse\"><div class=\"card-header\" id=\"headingOne\">" +
@@ -89,10 +93,37 @@ function fnAddelecommpetenceAjax() {
                 "" + name + "" +
                 "</a></h5></div>" +
                 "<div id=" + name + " class=\"collapse\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">" +
-                "<div class=\"card-body\"><p>" + $("#CriterePerformance").val() + "</p></div>" +
-                "</div></div> ")
+                "<div class=\"card-body\"><p>" + $("#CriterePerformance").val() + "</p><input value = 'Modifier' type=button id=btnModifier onClick='ModifierElemComp(" + name + "," + $("#CriterePerformance").val() + ")'/><input value = 'Supprimer' type=button id=btnSupprimer onClick='fnSupprimerElemComp(" + name + "," + $("#CriterePerformance").val() + ")'/> </p></div>" +
+                "</div></div> ");
+            //Effacer les champs de l'élémentd
+            $("#ElementCompétence").val("");
+            $("#CriterePerformance").val("");
         },
         error: function (xhr, status) { alert("erreur: l'élément de compétence doit être unique!"); }
+    });
+    return false;
+}
+
+function ModifierElemComp() {
+    
+}
+
+//Modifier l'element de compétence
+function fnModifierElemComp(i, y) {
+    var url = "/ElementCompetences/Modifier";
+    $.ajax({
+        data: { ElementCompétence: i, Critere: y},
+        type: "POST",
+        url: url,
+        datatype: "text/plain",
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (request) {
+            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+        },
+        success: function (result) {
+            // alert(status);
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
     });
     return false;
 }
@@ -114,7 +145,7 @@ function fnAssocierelecommpetenceAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(status);
+            // alert(status);
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -138,7 +169,7 @@ function fnGroupeAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(result);
+            // alert(result);
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -162,7 +193,7 @@ function fnGroupeCompAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(result);
+            //alert(result);
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -186,7 +217,7 @@ function fnAddRepartitonHeureMaxCompAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(result);
+            //  alert(result);
             //Désactive le champs de la répartition des heures max
             $("#CodeCompetence").attr('disabled', true);
             $("#NbHtotalCompetence").attr('disabled', true);
@@ -195,7 +226,7 @@ function fnAddRepartitonHeureMaxCompAjax() {
             //Affiche les autres div de répartition
             $('#tabs').show();
             $('#tabs2').show();
-            
+
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -221,7 +252,7 @@ function fnRepartitionHeureSessionAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(result);
+            // alert(result);
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -245,7 +276,7 @@ function fnSessionAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(result);
+            //  alert(result);
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });

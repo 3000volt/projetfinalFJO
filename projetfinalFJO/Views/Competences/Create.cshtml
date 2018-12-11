@@ -14,8 +14,9 @@
 
     <div id="elementcomp" style="display:none;">
         <partial name="_AddPartialelementcompetence" model="ViewBag.element" />
+        <div id="accordion">
+        </div>
 
-        
         <div id="divBoutonsEnvoie">
             <a asp-action="ListeCompetence" class="btn btn-info" id="btnListe" style="background-color:darkblue;border-color:darkblue">Retour à la liste de compétence</a>
             <a class="btn btn-info btnanalyse" id="btnAnalyser" asp-controller="AnalyseCompetence" asp-action="CreerAnalyse">Créer Analyse</a>

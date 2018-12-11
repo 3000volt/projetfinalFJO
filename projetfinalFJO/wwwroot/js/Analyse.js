@@ -223,6 +223,7 @@ function AnalyseCompetence() {
         NiveauTaxonomique: $("#NiveauTaxonomique").val(),
         Reformulation: $("#Reformulation").val(),
         Context: $("#Context").val(),
+        Titre: $("#Titre").val(),
         SavoirFaireProgramme: $("#SavoirFaireProgramme").val(),
         SavoirEtreProgramme: $("#SavoirEtreProgramme").val(),
         //AdresseCourriel: $("#AdresseCourriel").val(),
