@@ -154,7 +154,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Modifier(string id, [Bind("ElementCompétence,CriterePerformance,NoProgramme")] Elementcompetence elementcompetence)
+        public async Task<IActionResult> Modifier(string id, [FromBody][Bind("ElementCompétence,CriterePerformance,NoProgramme")] Elementcompetence elementcompetence)
         {
             if (id != elementcompetence.ElementCompétence)
             {

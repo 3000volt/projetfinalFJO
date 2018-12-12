@@ -1,9 +1,7 @@
 ﻿//ajouter une compétence
 $(function () {
     //Variables globales pour aider au fonctionnement
-    var obligatoire;
-    var Description;
-    var Contexte;
+   
 });
 function fnAddcommpetenceAjax() {
     var url = "/Competences/Create";
@@ -88,17 +86,18 @@ function fnAddelecommpetenceAjax() {
             var name = $("#ElementComp_tence").val();
             fnAssocierelecommpetenceAjax();
             $("#accordion").append("<div class=\"card cardcollapse\"><div class=\"card-header\" id=\"headingOne\">" +
-                "<h5 class=\"mb-0\">" +
+                "<div class=\"row\"><div class=\"col-sm-4\"><h5 class=\"mb-0\">" +
                 "<a class=\"collapselien\" data-toggle=\"collapse\" data-target=\"#" + name + "\" aria-expanded=\"true\" aria-controls=\"collapseOne\"" + "style=" + "color:white;" + " >" +
                 "" + name + "" +
-                "</a></h5></div>" +
+                "</a></h5></div><div class=\"col-sm-8\" style=\"text-align: right;\"><a class=\"btn btn-info btnlist testing\"onclick=\"fnSuppElemComp(" + name + "," + $("#ElementComp_tence").val() + ")\" >" +
+                "<i class=\"fas fa-trash iconlist\"></i><span>Supprimer</span></a></div> </div></div>" +
                 "<div id=" + name + " class=\"collapse\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">" +
                 "<div class=\"card-body\"><p>" + $("#CriterePerformance").val() +
-                "</p><input value = \"Modifier\" type=\"button\" id=\"btnModifier2\" onclick=\"ModifierElemComp(" + name + "," + $("#CriterePerformance").val() + ")\"> </p></div>" +
+                "</p></div>" +
                 "</div></div> ");
             //Effacer les champs de l'élémentd
-            //$("#ElementCompétence").val("");
-            //$("#CriterePerformance").val("");
+            $("#ElementCompétence").val("");
+            $("#CriterePerformance").val("");
         },
         error: function (xhr, status) { alert("erreur: l'élément de compétence doit être unique!"); }
     });
