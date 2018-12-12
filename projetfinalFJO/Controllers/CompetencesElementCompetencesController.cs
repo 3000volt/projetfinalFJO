@@ -68,7 +68,8 @@ namespace projetfinalFJO.Controllers
             {
                 _context.Add(competencesElementCompetence);
                 await _context.SaveChangesAsync();
-                return Ok("élément ajouté avec succès");
+                //retoune les critères de performance de la compétence
+                return Ok(_context.Elementcompetence.ToList().Find(x=>x.ElementCompétence==competencesElementCompetence.ElementCompétence).CriterePerformance);
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
             ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "Idelementcomp", competencesElementCompetence.ElementCompétence);

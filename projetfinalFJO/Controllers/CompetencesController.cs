@@ -25,7 +25,7 @@ namespace projetfinalFJO.Controllers
         // GET: Competences
         public async Task<IActionResult> ListeCompetence(string search)
         {
-            return View(await _context.Competences.Where(x => x.Description.StartsWith(search) || x.NoProgramme.StartsWith(search) || search == null).ToListAsync());
+            return View(await _context.Competences.Where(x => x.Titre.StartsWith(search) || x.CodeCompetence.StartsWith(search) || search == null).ToListAsync());
         }
 
         // GET: Competences/Details/5
@@ -52,10 +52,7 @@ namespace projetfinalFJO.Controllers
         // GET: Competences/Create
         public IActionResult Create()
         {
-            ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille");
-            ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme");
             ViewBag.competence = new Competences();
-            ViewBag.element = new Elementcompetence();
             return View();
         }
 
@@ -100,7 +97,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Competences/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> ModifierCompetence(string id)
         {
             if (id == null)
             {
@@ -123,10 +120,10 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,ObligatoireCégep,Titre,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
+        public async Task<IActionResult> ModifierCompetence(string id, [Bind("CodeCompetence,ObligatoireCégep,Titre,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
         {
             //Prend rel enuméro du programme
-            competences.NoProgramme = this.HttpContext.Session.GetString("NoPorgramme");
+            competences.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (id != competences.CodeCompetence)
             {
                 return NotFound();
@@ -193,5 +190,18 @@ namespace projetfinalFJO.Controllers
             return _context.Competences.Any(e => e.CodeCompetence == id);
         }
 
+        public PartialViewResult partialElementcompetence()
+        {
+            ViewBag.Elementcompetence = new Elementcompetence();
+            return PartialView("_PartialElementcompetence");
+        }
+        public PartialViewResult partialCompElement()
+        {
+
+            ViewBag.SessionRep = new CompetencesElementCompetence();
+            ViewData["CodeCompetence"] = new SelectList(_context.Competences.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "CodeCompetence", "CodeCompetence");
+            ViewData["ElementCompétence"] = new SelectList(_context.Elementcompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))), "ElementCompétence", "ElementCompétence");
+            return PartialView("_PartialCompElement");
+        }
     }
 }

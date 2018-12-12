@@ -4,6 +4,7 @@ $(function () {
    
 });
 var compname = "";
+var name = "";
 function fnAddcommpetenceAjax() {
     var url = "/Competences/Create";
     var data = {
@@ -26,7 +27,7 @@ function fnAddcommpetenceAjax() {
         success: function (result) {
             alert("Compétence créé avec succès!");
             compname = $("#CodeCompetence").val();
-            $('#elementcomp').show();
+            $('#tabs').show();
             disableEnvoie();
             return true;
         },
@@ -69,7 +70,7 @@ function fnUpdatecommpetenceAjax() {
 function fnAddelecommpetenceAjax() {
     var url = "/Elementcompetences/Create";
     var data = {
-        ElementCompétence: $("#ElementComp_tence").val(),
+        ElementCompétence: $("div[id='ui-id-4'] input[id='ElementComp_tence']").val(),
         CriterePerformance: $("#CriterePerformance").val(),
     };
     $.ajax({
@@ -84,21 +85,9 @@ function fnAddelecommpetenceAjax() {
         success: function (result) {
             //Message de statut réussie
             alert("Éléments de compétence ajouté avec succès!");
-            //Ajouter a la liste des éléments
-            var name = $("#ElementComp_tence").val();
-            fnAssocierelecommpetenceAjax();
-            $("#accordion").append("<div class=\"card cardcollapse\"><div class=\"card-header\" id=\"headingOne"+name+"\">" +
-                "<div class=\"row\"><div class=\"col-sm-4\"><h5 class=\"mb-0\">" +
-                "<a class=\"collapselien\" data-toggle=\"collapse\" data-target=\"#" + name + "\" aria-expanded=\"true\" aria-controls=\"collapseOne\"" + "style=" + "color:white;" + " >" +
-                "" + name + "" +
-                "</a></h5></div><div class=\"col-sm-8\" style=\"text-align: right;\"><a class=\"btn btn-info btnlist testing\"onclick=\"fnSuppElemComp('" + name + "','" + compname + "')\" >" +
-                "<i class=\"fas fa-trash iconlist\"></i><span>Supprimer</span></a></div> </div></div>" +
-                "<div id=" + name + " class=\"collapse\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">" +
-                "<div class=\"card-body\"><p>" + $("#CriterePerformance").val() +
-                "</p></div>" +
-                "</div></div> ");
-            //Effacer les champs de l'élémentd
-            $("#ElementCompétence").val("");
+                           
+            //Effacer les champs de l'élément
+            $("div[id='ui-id-4'] input[id='ElementComp_tence']").val("");
             $("#CriterePerformance").val("");
         },
         error: function (xhr, status) { alert("erreur: l'élément de compétence doit être unique!"); }
@@ -131,7 +120,7 @@ function fnAssocierelecommpetenceAjax() {
     var url = "/CompetencesElementCompetences/Create";
     var data = {
         CodeCompetence: $("#CodeCompetence").val(),
-        ElementCompétence: $("#ElementComp_tence").val(),
+        ElementCompétence: $("div[id='ui-id-2'] select[id='ElementComp_tence']").val(),
     };
     $.ajax({
         data: JSON.stringify(data),
@@ -143,7 +132,17 @@ function fnAssocierelecommpetenceAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            // alert(status);
+            name = $("div[id='ui-id-2'] select[id='ElementComp_tence']").val();
+            $("#accordion").append("<div class=\"card cardcollapse\"><div class=\"card-header\" id=\"headingOne" + name + "\">" +
+                "<div class=\"row\"><div class=\"col-sm-4\"><h5 class=\"mb-0\">" +
+                "<a class=\"collapselien\" data-toggle=\"collapse\" data-target=\"#" + name + "\" aria-expanded=\"true\" aria-controls=\"collapseOne\"" + "style=" + "color:white;" + " >" +
+                "" + name + "" +
+                "</a></h5></div><div class=\"col-sm-8\" style=\"text-align: right;\"><a class=\"btn btn-info btnlist testing\"onclick=\"fnSuppElemComp('" + name + "','" + compname + "')\" >" +
+                "<i class=\"fas fa-trash iconlist\"></i><span>Supprimer</span></a></div> </div></div>" +
+                "<div id=" + name + " class=\"collapse\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">" +
+                "<div class=\"card-body\"><p>" + result +
+                "</p></div>" +
+                "</div></div> ");
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -167,7 +166,9 @@ function fnSuppElemComp(i, y) {
             alert(result);
             var titre = "#headingOne";
             titre += result;
+            $("#"+result).hide();
             $(titre).hide();
+            
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });

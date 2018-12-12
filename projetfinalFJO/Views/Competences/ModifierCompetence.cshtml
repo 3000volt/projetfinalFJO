@@ -1,31 +1,29 @@
 ﻿@model projetfinalFJO.Appdata.Competences
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "ModifierCompetence";
 }
 
-<h2>Edit</h2>
+<h4>Modifier la compétence</h4>
 
-<h4>Competences</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="ModifierCompetence">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CodeCompetence" class="control-label"></label>
-                <input asp-for="CodeCompetence" readonly class="form-control" />
-                <span asp-validation-for="CodeCompetence" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ObligatoireCégep" class="control-label"></label>
-                <input asp-for="ObligatoireCégep" class="form-control" />
-                <span asp-validation-for="ObligatoireCégep" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="CodeCompetence" />
+
             <div class="form-group">
                 <label asp-for="Titre" class="control-label"></label>
                 <input asp-for="Titre" class="form-control" />
                 <span asp-validation-for="Titre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ObligatoireCégep" class="control-label">Compétence obligatoire: </label>
+                <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="true">
+                <label>Oui</label>
+                <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="false">
+                <label>Non</label>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
@@ -36,15 +34,14 @@
                 <label asp-for="ContextRealisation" class="control-label"></label>
                 <input asp-for="ContextRealisation" class="form-control" />
                 <span asp-validation-for="ContextRealisation" class="text-danger"></span>
-            </div>            
+            </div>           
             <div class="form-group">
-                <input type="submit" value="Sauvegarder" class="btn btn-default" />
+                <input type="submit" value="Enregistrer les modifications" class="btn btn-info" />
             </div>
         </form>
     </div>
 </div>
-
 <div>
-    <a asp-action="ListeCompetence">Retour à la liste</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 

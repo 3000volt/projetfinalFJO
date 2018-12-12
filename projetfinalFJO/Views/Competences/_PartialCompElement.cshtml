@@ -1,0 +1,26 @@
+﻿@model projetfinalFJO.Appdata.CompetencesElementCompetence
+
+@{
+    ViewData["Title"] = "partialCompElement";
+}
+
+
+<h4>Associers des éléments de la competence à la compétence</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ElementCompétence" class="control-label"></label>
+                <select asp-for="ElementCompétence" class ="form-control" asp-items="ViewBag.ElementCompétence"></select>
+            </div>
+            <div class="form-group">               
+                <input type="button" value="Associer l'élément" class="btn btn-info" onclick="fnAssocierelecommpetenceAjax()" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
