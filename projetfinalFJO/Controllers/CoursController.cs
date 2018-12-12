@@ -261,17 +261,17 @@ namespace projetfinalFJO.Controllers
             return PartialView("_AddPartialListePrealable");
         }
 
-        [HttpPost]
-        public ActionResult AssocierPrealable(/*[FromBody]*/Prealables prealables)
-        {
-            //prealables.NoProgramme = this.HttpContext.Session.GetString("programme");
-            //Cours cours = JsonConvert.DeserializeObject<Cours>(this.HttpContext.Session.GetString("Cours"));
-            //prealables.NoCours = cours.NoCours;
-            //cours.Prealables.Add(prealables);
-            //_contexte.Prealables.Add(prealables);
-            ////Sauvegarder dans la BD
-            //this._contexte.SaveChanges();
-            //return Ok("Préalable ajouté");
-        }
+        //[HttpPost]
+        //public ActionResult AssocierPrealable(/*[FromBody]*/Prealables prealables)
+        //{
+        //    //prealables.NoProgramme = this.HttpContext.Session.GetString("programme");
+        //    //Cours cours = JsonConvert.DeserializeObject<Cours>(this.HttpContext.Session.GetString("Cours"));
+        //    //prealables.NoCours = cours.NoCours;
+        //    //cours.Prealables.Add(prealables);
+        //    //_contexte.Prealables.Add(prealables);
+        //    ////Sauvegarder dans la BD
+        //    //this._contexte.SaveChanges();
+        //    //return Ok("Préalable ajouté");
+        //}
     }
 }
