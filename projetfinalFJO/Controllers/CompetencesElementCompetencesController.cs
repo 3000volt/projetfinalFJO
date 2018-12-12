@@ -165,5 +165,21 @@ namespace projetfinalFJO.Controllers
         {
             return _context.CompetencesElementCompetence.Any(e => e.CodeCompetence == id);
         }
+
+        // POST: CompetencesElementCompetences/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> supprimer([FromBody][Bind("CodeCompetence,ElementCompétence,NoProgramme")] CompetencesElementCompetence comp)
+        {
+            comp.NoProgramme = this.HttpContext.Session.GetString("programme");
+            if (ModelState.IsValid)
+            {
+                _context.CompetencesElementCompetence.Remove(comp);              
+                await _context.SaveChangesAsync();
+                return Ok(comp.ElementCompétence);
+            }
+            
+            return BadRequest("élément non supprimer");
+        }
     }
 }
