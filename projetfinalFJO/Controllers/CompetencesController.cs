@@ -145,9 +145,7 @@ namespace projetfinalFJO.Controllers
                     }
                 }
                 return RedirectToAction(nameof(ListeCompetence));
-            }
-            ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.NomFamille);
-            ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
+            }            
             return View(competences);
         }
 
