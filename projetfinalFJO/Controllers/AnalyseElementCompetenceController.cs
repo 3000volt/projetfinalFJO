@@ -33,8 +33,7 @@ namespace projetfinalFJO.Controllers
                 await _context.SaveChangesAsync();
                 return Ok("élément ajouté avec succès");
             }
-            //ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.Idfamille);
-            //ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
+          
             return BadRequest("élément non ajouté");
         }
 

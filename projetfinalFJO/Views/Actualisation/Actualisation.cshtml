@@ -70,20 +70,20 @@
                             @Html.DisplayFor(modelItem => item.Approuve)
                         </td>
                         <td>
-                            <a class="btn btn-info btnlist" title="Actualiser" asp-action="Actualiser" asp-route-numActu="@item.NumActualisation">
-                                Actualiser
+                            <a class="btn btn-info btnlist testing" title="Actualiser" asp-action="Actualiser" asp-route-numActu="@item.NumActualisation">
+                                <i class="fas fa-door-open iconlist"></i><span>Accéder à l'actualisation</span>
                             </a>|
-                            <a class="btn btn-info btnlist" title="Modifier" asp-action="Modifier" asp-route-numActu="@item.NumActualisation">
-                                <i class="fas fa-pen"></i>
+                            <a class="btn btn-info btnlist testing" title="Modifier" asp-action="Modifier" asp-route-numActu="@item.NumActualisation">
+                                <i class="fas fa-pen iconlist"></i><span>Modifier l'actualisation</span>
                             </a>|
-                            <a class="btn btn-info btnlist" title="Gérer la liste des membres de cette actualisation" asp-action="MembresActualisation" asp-route-numActu="@item.NumActualisation" asp-route-programme="@item.NoProgramme">
-                                <i class="fas fa-users"></i>
+                            <a class="btn btn-info btnlist testing" title="Gérer la liste des membres de cette actualisation" asp-action="MembresActualisation" asp-route-numActu="@item.NumActualisation" asp-route-programme="@item.NoProgramme">
+                                <i class="fas fa-users iconlist"></i><span>Membres actualisation</span>
                             </a>|
-                            <a class="btn btn-info btnlist" asp-action="Details" title="Information" asp-route-numActu="@item.NumActualisation">
-                                <i class="fas fa-info-circle"></i>
+                            <a class="btn btn-info btnlist testing" asp-action="Details" title="Information" asp-route-numActu="@item.NumActualisation">
+                                <i class="fas fa-info-circle iconlist"></i><span>Voir les détails</span>
                             </a> |
-                            <a class="btn btn-info btnlist" title="Supprimer" asp-action="SupprimerActualisation" asp-route-numActu="@item.NumActualisation">
-                                <i class="fas fa-trash"></i>
+                            <a class="btn btn-info btnlist testing" title="Supprimer" asp-action="SupprimerActualisation" asp-route-numActu="@item.NumActualisation">
+                                <i class="fas fa-trash iconlist"></i><span>Supprimer</span>
                             </a>
 
                         </td>

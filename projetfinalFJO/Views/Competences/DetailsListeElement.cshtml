@@ -1,0 +1,42 @@
+﻿@model IEnumerable<projetfinalFJO.Appdata.CompetencesElementCompetence>
+
+@{
+    ViewData["Title"] = "DetailsListeElement";
+}
+
+<h2>DetailsListeElement</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-info" >Accéder à la liste des éléments</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeCompetenceNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementCompétenceNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeCompetence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ElementCompétence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoProgramme)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

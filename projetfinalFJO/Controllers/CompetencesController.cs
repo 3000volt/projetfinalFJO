@@ -25,7 +25,7 @@ namespace projetfinalFJO.Controllers
         // GET: Competences
         public async Task<IActionResult> ListeCompetence(string search)
         {
-            return View(await _context.Competences.Where(x => x.Titre.StartsWith(search) || x.CodeCompetence.StartsWith(search) || search == null).ToListAsync());
+            return View(await _context.Competences.Where(x => x.Titre.StartsWith(search) && x.NoProgramme == this.HttpContext.Session.GetString("programme") || x.CodeCompetence.StartsWith(search) && x.NoProgramme == this.HttpContext.Session.GetString("programme") || search == null && x.NoProgramme == this.HttpContext.Session.GetString("programme")).ToListAsync());
         }
 
         // GET: Competences/Details/5
@@ -36,17 +36,12 @@ namespace projetfinalFJO.Controllers
                 return NotFound();
             }
 
-            var competences = await _context.Competences
+            ViewData["competence"]= await _context.Competences
                 .Include(c => c.NomFamilleNavigation)
                 .Include(c => c.NoProgrammeNavigation)
                 .FirstOrDefaultAsync(m => m.CodeCompetence == id);
-
-            if (competences == null)
-            {
-                return NotFound();
-            }
-
-            return View(competences);
+            ViewData["listelement"] =  _context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == id);           
+            return View();
         }
 
         // GET: Competences/Create
@@ -64,7 +59,6 @@ namespace projetfinalFJO.Controllers
         public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ObligatoireCégep,Titre,Description,ContextRealisation")] Competences competences)
         {
             competences.NoProgramme = this.HttpContext.Session.GetString("programme");
-            //competences.NoProgramme = this.HttpContext.Session.GetString("programme");
             if (ModelState.IsValid)
             {
                 //Mettre la session a cette compétence
@@ -121,6 +115,7 @@ namespace projetfinalFJO.Controllers
         {
             //Prend rel enuméro du programme
             competences.NoProgramme = this.HttpContext.Session.GetString("programme");
+
             if (id != competences.CodeCompetence)
             {
                 return NotFound();

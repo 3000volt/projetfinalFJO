@@ -24,8 +24,7 @@ namespace projetfinalFJO.Controllers
         // GET: Groupes
         public async Task<IActionResult> List_groupe(string search)
         {
-            //return View(await _context.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
-            return View(await _context.Groupe.Where(x => x.NomGroupe.StartsWith(search) || x.NoProgramme.StartsWith(search) || search == null).ToListAsync());
+            return View(await _context.Groupe.Where(x => x.NomGroupe.StartsWith(search) && x.NoProgramme == this.HttpContext.Session.GetString("programme") || x.NoProgramme.StartsWith(search) && x.NoProgramme == this.HttpContext.Session.GetString("programme") || search == null && x.NoProgramme == this.HttpContext.Session.GetString("programme")).ToListAsync());
         }
 
         // GET: Groupes/Details/5

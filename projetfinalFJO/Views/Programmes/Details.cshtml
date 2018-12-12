@@ -13,22 +13,32 @@
         <div class="row">
             <div class="form-group col-4">
                 <label asp-for="program.NomProgramme" class="control-label"></label> :
-                @Html.DisplayFor(model => model.program.NomProgramme)            
+                @Html.DisplayFor(model => model.program.NomProgramme)
             </div>
             <div class="form-group col-4">
                 <label asp-for="program.NoProgramme" class="control-label"></label> :
                 @Html.DisplayFor(model => model.program.NoProgramme)
             </div>
-            @*<div class="form-group col-4">
-                <label asp-for="program.NbHeure" class="control-label"></label> :
-                @Html.DisplayFor(model => model.program.NbHeure)
-            </div>*@
+            <div class="form-group col-4">
+                <label asp-for="program.NbHeureFormationTechnique" class="control-label"></label>:
+                @Html.DisplayFor(model => model.program.NbHeureFormationTechnique)
+            </div>
         </div>
         <div class="row">
-            @*<div class="form-group col-4">
-                <label asp-for="program.NbUnite" class="control-label"></label> :
-                @Html.DisplayFor(model => model.program.NbUnite)
-            </div>*@
+             <div class="form-group col-4">
+                <label asp-for="program.NbHeureFormationGenerale" class="control-label"></label>:
+                  @Html.DisplayFor(model => model.program.NbHeureFormationGenerale)
+            </div>
+              <div class="form-group col-4">
+                  <label asp-for="program.NbUniteFormationGenerale" class="control-label"></label>:
+                  @Html.DisplayFor(model => model.program.NbUniteFormationGenerale)
+              </div>
+            <div class="form-group col-4">
+                <label asp-for="program.NbUniteFormationTechnique" class="control-label"></label>:
+                @Html.DisplayFor(model => model.program.NbUniteFormationTechnique)
+            </div>
+        </div>
+        <div class="row">          
             <div class="form-group col-4">
                 <label asp-for="program.NbCompetencesObligatoires" class="control-label"></label> :
                 @Html.DisplayFor(model => model.program.NbCompetencesObligatoires)
@@ -40,7 +50,7 @@
         </div>
         <div class="row">
             <div class="form-group col-6">
-                <label asp-for="program.CondtionsAdmission" class="control-label"></label> 
+                <label asp-for="program.CondtionsAdmission" class="control-label"></label>
                 <textarea asp-for="program.CondtionsAdmission" class="form-control" style="height:180px" readonly></textarea>
             </div>
         </div>
@@ -72,16 +82,7 @@
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.comp.Description)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.comp.ContextRealisation)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.comp.NoProgramme)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.comp.NomFamille)
-                                </th>
+                                </th>                                                              
                                 <th>
                                     Option disponible
                                 </th>
@@ -99,16 +100,7 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Description)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ContextRealisation)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NoProgrammeNavigation.NoProgramme)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomFamilleNavigation.NomFamille)
-                                    </td>
+                                    </td>                                                                                                        
                                     <td>
                                         <a class="btn btn-info btnlist" asp-action="Edit" asp-route-id="@item.CodeCompetence"><i class="fas fa-pen"></i></a> |
                                         <a class="btn btn-info btnlist" asp-action="Details" asp-route-id="@item.CodeCompetence"><i class="fas fa-info-circle"></i></a> |

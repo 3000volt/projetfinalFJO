@@ -122,13 +122,7 @@ namespace projetfinalFJO.Controllers
             List<CompetencesElementCompetence> elements = new List<CompetencesElementCompetence>();
             elements = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == code);
             List<AnalyseElementsCompetence> listeElemCompComplete = new List<AnalyseElementsCompetence>();
-            //foreach (CompetencesElementCompetence comp in elements)
-            //{
-            //    if (analyses.Any(x => x.ElementCompétence == comp.ElementCompétence))
-            //    {
-            //        listeElemCompComplete.Add(analyses.Find(x => x.ElementCompétence == comp.ElementCompétence));
-            //    }
-            //}
+            
             foreach (AnalyseElementsCompetence a in analyses)
             {
                 if (elements.Any(x => x.ElementCompétence == a.ElementCompétence))
