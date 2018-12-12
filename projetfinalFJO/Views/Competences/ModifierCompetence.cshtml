@@ -4,15 +4,15 @@
     ViewData["Title"] = "ModifierCompetence";
 }
 
-<h4>Modifier la compétence</h4>
+<h2>Modifier la compétence</h2>
+
 
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="ModifierCompetence">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CodeCompetence" />
-
+            <input type="hidden" asp-for="CodeCompetence" />                  
             <div class="form-group">
                 <label asp-for="Titre" class="control-label"></label>
                 <input asp-for="Titre" class="form-control" />
@@ -20,9 +20,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="ObligatoireCégep" class="control-label">Compétence obligatoire: </label>
-                <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="true">
+                <input type="radio" asp-for="ObligatoireCégep" value="true">
                 <label>Oui</label>
-                <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="false">
+                <input type="radio" asp-for="ObligatoireCégep" value="false">
                 <label>Non</label>
             </div>
             <div class="form-group">
@@ -36,7 +36,9 @@
                 <span asp-validation-for="ContextRealisation" class="text-danger"></span>
             </div>           
             <div class="form-group">
-                <input type="submit" value="Enregistrer les modifications" class="btn btn-info" />
+                <div class="form-group">
+                    <input type="submit" value="Enregistrer les modifications" class="btn btn-info" />
+                </div>
             </div>
         </form>
     </div>

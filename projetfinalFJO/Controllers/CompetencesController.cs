@@ -108,10 +108,7 @@ namespace projetfinalFJO.Controllers
             if (competences == null)
             {
                 return NotFound();
-            }
-            ViewData["Idfamille"] = new SelectList(_context.Famillecompetence, "Idfamille", "NomFamille", competences.NomFamille);
-            ViewData["Sequence"] = new SelectList(_context.Sequences, "IdSequence", "NomSequence", competences.NomSequence);
-            //ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme", competences.NoProgramme);
+            }            
             return View(competences);
         }
 
