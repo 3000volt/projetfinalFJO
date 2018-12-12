@@ -40,9 +40,9 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete">
+    <form asp-action="Delete" asp-route-id="@Model.CodeCompetence">
         <input type="hidden" asp-for="CodeCompetence" />
-        <input type="submit" value="Supprimer" class="btn btn-info" /> |
+        <input type="submit" value="Supprimer" class="btn btn-info"  /> |
         <a asp-action="ListeCompetence">Retour à la liste</a>
     </form>
 </div>

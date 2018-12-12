@@ -5,55 +5,54 @@
         <h4>Competences</h4>
     </div>
     <div class="card-body ">
-        <form>
-            <div class="row" id="divDocumentCreation">
-                <div class="col-md-4">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="CodeCompetence" class="control-label">Code de compétence</label>
-                        <input asp-for="CodeCompetence" class="form-control" />
-                        <span asp-validation-for="CodeCompetence" class="text-danger"></span>
-                    </div>
-                    <div class="form-group" id="divObligatoireCegep">
-                        <label asp-for="ObligatoireCégep" class="control-label">Compétence obligatoire: </label>
-                        <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="true" checked>
-                        <label>Oui</label>
-                        <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="false">
-                        <label>Non</label>
-                    </div>
+       
+            <form>
+                <div class="row" id="divDocumentCreation">
                     <div class="col-md-4">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="Titre" class="control-label"></label>
                             <input asp-for="Titre" class="form-control" />
                             <span asp-validation-for="Titre" class="text-danger"></span>
                         </div>
+                        <div class="form-group">
+                            <label asp-for="CodeCompetence" class="control-label">Code de compétence</label>
+                            <input asp-for="CodeCompetence" class="form-control" />
+                            <span asp-validation-for="CodeCompetence" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" id="divObligatoireCegep">
+                            <label asp-for="ObligatoireCégep" class="control-label">Compétence obligatoire: </label>
+                            <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="true" checked>
+                            <label>Oui</label>
+                            <input type="radio" asp-for="ObligatoireCégep" name="Obli" value="false">
+                            <label>Non</label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="Description" class="control-label"></label>
-                        <textarea asp-for="Description" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;"></textarea>
-                        <span asp-validation-for="Description" class="text-danger"></span>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ContextRealisation" class="control-label">Contexte de réalisation</label>
+                            <textarea asp-for="ContextRealisation" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;" ­­></textarea>
+                            <span asp-validation-for="ContextRealisation" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label asp-for="ContextRealisation" class="control-label">Contexte de réalisation</label>
-                        <textarea asp-for="ContextRealisation" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 163px;" ­­></textarea>
-                        <span asp-validation-for="ContextRealisation" class="text-danger"></span>
-                    </div>
-                </div>
+            </form>
+
+            <div class="form-group">
+                <input type="button" id="btnAjout" value="Ajouter compétence" class="btn btn-info" onclick="fnAddcommpetenceAjax()" />
+                <input type="button" id="btnModifier" value="Modifier compétence" class="btn btn-info" onclick="ModifierEnvoie()" disabled />
+                <input type="button" id="btnConfirmerModif" value="Confirmer modifications" class="btn btn-info" onclick="fnUpdatecommpetenceAjax()" hidden />
+                <input type="button" id="btnAnnulerModif" value="Annuler les modifications" class="btn btn-info" onclick="AnnulerModification()" hidden />
             </div>
-        </form>
-
-        <div class="form-group">
-            <input type="button" id="btnAjout" value="Ajouter compétence" class="btn btn-info" onclick="fnAddcommpetenceAjax()" />
-            <input type="button" id="btnModifier" value="Modifier compétence" class="btn btn-info" onclick="ModifierEnvoie()" disabled />
-            <input type="button" id="btnConfirmerModif" value="Confirmer modifications" class="btn btn-info" onclick="fnUpdatecommpetenceAjax()" hidden />
-            <input type="button" id="btnAnnulerModif" value="Annuler les modifications" class="btn btn-info" onclick="AnnulerModification()" hidden />
         </div>
     </div>
-</div>
 
 

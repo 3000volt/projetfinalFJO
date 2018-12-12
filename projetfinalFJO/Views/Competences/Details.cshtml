@@ -1,65 +1,16 @@
-﻿@model projetfinalFJO.Appdata.Competences
+﻿
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Competences</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CodeCompetence)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CodeCompetence)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ObligatoireCégep)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ObligatoireCégep)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Titre)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Titre)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ContextRealisation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ContextRealisation)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NomFamille)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NomFamille)
-        </dd>
-        @*<dt>
-            @Html.DisplayNameFor(model => model.NoProgramme)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NoProgramme)
-        </dd>*@
-        <dt>
-            @Html.DisplayNameFor(model => model.NomSequence)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NomSequence)
-        </dd>
-    </dl>
+<div id="competence">
+    <partial name="DetailsCompétence" model="ViewBag.competence" />
+</div>
+<div id="competence">
+    <partial name="DetailsListeElement" model="ViewBag.listelement" />
 </div>
 <div>
-    <a asp-action="ListeCompetence">Retour à la liste</a>
+    <a asp-action="ListeCompetence" class="btn btn-info">Retour à la liste</a>
 </div>

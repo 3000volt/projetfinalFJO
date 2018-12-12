@@ -12,15 +12,39 @@
         <partial name="_AddPartialcompetence" model="ViewBag.competence" />
     </div>
 
-    <div id="elementcomp" style="display:none;">
-        <partial name="_AddPartialelementcompetence" model="ViewBag.element" />
+    <div id="elementcomp" >
+        <div id="tabs" class="list" style="margin-bottom:5px; display:none;">
+            <ul>
+                <li><a href="@Url.Action("partialCompElement", "Competences")">Assigner un enoncé à une compétence</a></li>
+                <li><a href="@Url.Action("partialElementcompetence", "Competences")">Créer un énoncé</a></li>
+            </ul>
+        </div>
         <div id="accordion">
         </div>
 
         <div id="divBoutonsEnvoie">
-            <a asp-action="ListeCompetence" class="btn btn-info" id="btnListe" style="background-color:darkblue;border-color:darkblue">Retour à la liste de compétence</a><br />
-            <a class="btn btn-info btnanalyse" id="btnAnalyser" asp-controller="AnalyseCompetence" asp-action="CreerAnalyse">Créer Analyse</a>
+            <a class="btn btn-info btnanalyse" id="btnAnalyser" asp-controller="AnalyseCompetence" asp-action="CreerAnalyse">Créer Analyse</a><br />
+            <a asp-action="ListeCompetence" class="btn btn-info" id="btnListe" style="background-color:darkblue;border-color:darkblue">Retour à la liste de compétence</a>
         </div>
     </div>
 </div>
 
+@section Scripts
+    {
+
+    <script>
+        /*https://jqueryui.com/tabs/#ajax  */
+        $(function () {
+            $("#tabs").tabs({
+                beforeLoad: function (event, ui) {
+                    ui.jqXHR.fail(function () {
+                        ui.panel.html(
+                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                            "If this wouldn't be a demo.");
+                    });
+                }
+            });  
+        }); 
+    </script>
+
+}

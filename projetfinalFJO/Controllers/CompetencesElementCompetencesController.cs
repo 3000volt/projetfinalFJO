@@ -22,7 +22,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: CompetencesElementCompetences
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListComp_Elem()
         {
             var actualisationContext = _context.CompetencesElementCompetence.Include(c => c.CodeCompetenceNavigation).Include(c => c.ElementCompétenceNavigation).Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme")));
             return View(await actualisationContext.ToListAsync());
@@ -68,7 +68,8 @@ namespace projetfinalFJO.Controllers
             {
                 _context.Add(competencesElementCompetence);
                 await _context.SaveChangesAsync();
-                return Ok("élément ajouté avec succès");
+                //retoune les critères de performance de la compétence
+                return Ok(_context.Elementcompetence.ToList().Find(x=>x.ElementCompétence==competencesElementCompetence.ElementCompétence).CriterePerformance);
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
             ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "Idelementcomp", competencesElementCompetence.ElementCompétence);
@@ -123,7 +124,7 @@ namespace projetfinalFJO.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListComp_Elem));
             }
             ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
             ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance", competencesElementCompetence.ElementCompétence);
@@ -158,7 +159,7 @@ namespace projetfinalFJO.Controllers
             var competencesElementCompetence = await _context.CompetencesElementCompetence.FindAsync(id);
             _context.CompetencesElementCompetence.Remove(competencesElementCompetence);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListComp_Elem));
         }
 
         private bool CompetencesElementCompetenceExists(string id)
