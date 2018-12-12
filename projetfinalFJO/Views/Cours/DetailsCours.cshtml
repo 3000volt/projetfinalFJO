@@ -35,23 +35,32 @@
             @Html.DisplayFor(model => model.TypedeCours)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.NoProgrammeNavigation)
+            @Html.DisplayNameFor(model => model.NoProgramme)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.NoProgrammeNavigation.NoProgramme)
+            @Html.DisplayFor(model => model.NoProgramme)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.NomGroupeNavigation)
+            @Html.DisplayNameFor(model => model.NomGroupe)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.NomGroupeNavigation.NomGroupe)
+            @Html.DisplayFor(model => model.NomGroupe)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.NomSessionNavigation)
+            @Html.DisplayNameFor(model => model.NomSession)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.NomSessionNavigation.NomSession)
+            @Html.DisplayFor(model => model.NomSession)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Prealables)
+        </dt>
+        
+            @foreach (var element in Model.Prealables)
+            {
+               <dd> @Html.DisplayFor(Model => element)</dd>
+            }
+       
     </dl>
 </div>
 <div>

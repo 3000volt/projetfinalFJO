@@ -18,13 +18,32 @@
     <div id="accordion">
     </div>
 </div>
-
+<hr />
+<div id="Ajoutprealable">
+    <div id="tabs2">
+        <ul>
+            <li><a href="@Url.Action("PartialListePrealable", "Cours")">Liste des préalabes</a></li>
+            <li><a href="@Url.Action("PartialAjouterPrealable", "Cours")">Ajouter un préalable</a></li>
+        </ul>
+    </div>
+</div>
+</div>
 @section Scripts
     {
     <script>
         /*https://jqueryui.com/tabs/#ajax  */
         $(function () {
             $("#tabs").tabs({
+                beforeLoad: function (event, ui) {
+                    ui.jqXHR.fail(function () {
+                        ui.panel.html(
+                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                            "If this wouldn't be a demo.");
+                    });
+                }
+            });
+
+            $("#tabs2").tabs({
                 beforeLoad: function (event, ui) {
                     ui.jqXHR.fail(function () {
                         ui.panel.html(

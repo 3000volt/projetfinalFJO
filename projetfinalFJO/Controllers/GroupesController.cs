@@ -75,7 +75,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CréerGroupe([FromBody][Bind("NomGroupe,NoProgramme")] Groupe groupe)
+        public async Task<IActionResult> CréerGroupe(/*[FromBody]*/[Bind("NomGroupe,NoProgramme")] Groupe groupe)
         {
             groupe.NoProgramme = this.HttpContext.Session.GetString("programme"); ;
             if (ModelState.IsValid)
@@ -84,7 +84,7 @@ namespace projetfinalFJO.Controllers
                 await _context.SaveChangesAsync();
                 RedirectToAction(nameof(List_groupe));
             }
-            return View(groupe);
+            return BadRequest("groupe non ajouté");
         }
 
         // GET: Groupes/Edit/5

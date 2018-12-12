@@ -73,11 +73,9 @@ namespace projetfinalFJO.Controllers
             ViewBag.NoProgramme = new SelectList(_contexte.Programmes, "NoProgramme", "NoProgramme");
             ViewBag.NomSession = new SelectList(_contexte.Session, "NomSession", "NomSession");
             //Ajuster le selectlist du groupe a la session sélectionné
-            //
-
             ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
             ViewBag.Cours = new Cours();
-            //ViewBag.Groupe = new SelectList(new List<string>());
+            ViewBag.CoursList = new SelectList(_contexte.Cours.ToList(), "NoCours", "NomCours");
             return View();
         }
         /// <summary>
@@ -87,9 +85,10 @@ namespace projetfinalFJO.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AjouterCours([FromBody][Bind("NoCours,NomCours,PonderationCours,TypeDeCours,DepartementCours,NoProgramme,NomSession,NomGroupe")]Cours cours)
+        public async Task<IActionResult> AjouterCours([FromBody][Bind("NoCours,NomCours,PonderationCours,TypedeCours,DepartementCours,NomSession,NomGroupe")]Cours cours)
         {
-           
+            cours.NoProgramme = this.HttpContext.Session.GetString("programme");
+
             if (ModelState.IsValid)
             {
                 
@@ -205,39 +204,74 @@ namespace projetfinalFJO.Controllers
         /// <summary>
         /// Supprimer le cours
         /// </summary>
-        /// <param name="cours"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SupprimerCoursPost(string NoCours)
+        public async Task<IActionResult> SupprimerCoursPost(string id)
         {
-            var cours = await _contexte.Cours.FindAsync(NoCours);
+            Cours cours = await _contexte.Cours.FindAsync(id);
             _contexte.Cours.Remove(cours);
             await _contexte.SaveChangesAsync();
-            return RedirectToAction("ListeCours");
+            return RedirectToAction(nameof(ListeCours));
         }
-
+        /// <summary>
+        /// Afficher les groupes éxistants
+        /// </summary>
+        /// <returns></returns>
         public PartialViewResult AfficherGroupe()
         {
             ViewData["Groupes"] = _contexte.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
             ViewData["GroupeCompetence"] = _contexte.GroupeCompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
             return PartialView("_AddPartialListeGroupe");
         }
-
+        /// <summary>
+        /// Afficher la vue d'ajout de préalable
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult AjouterPrealable()
         {
-            ViewBag.Cours = new SelectList(_contexte.Cours, "NoCours", "NomCours");
+            ViewBag.CoursList = new SelectList(_contexte.Cours.ToList(), "NoCours", "NomCours");
             return View();
         }
 
         [HttpPost]
-        public IActionResult AjouterPrealable(Prealables prealables)
+        public IActionResult AjouterPrealablePost([Bind("NoCoursPrealable,NoCours")] Prealables prealables)
         {
+            prealables.NoProgramme = this.HttpContext.Session.GetString("programme");
             Cours cours =  JsonConvert.DeserializeObject<Cours>(this.HttpContext.Session.GetString("Cours"));
             cours.Prealables.Add(prealables);
             this._contexte.Cours.Update(cours);
             return View();
+        }
+
+        public PartialViewResult PartialAjouterPrealable()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["CoursList"] = new SelectList(_contexte.Cours, "NoCours", "NomCours");
+            return PartialView("_AddPartialAjouterPrealable");
+        }
+
+        public PartialViewResult PartialListePrealable()
+        {
+            //ViewBag.groupe = new GroupeCompetence();
+            ViewData["CoursList"] = new SelectList(_contexte.Cours, "NoCours", "NomCours");
+            ViewBag.CoursList = new SelectList(_contexte.Cours.ToList(), "NoCours", "NomCours");
+            return PartialView("_AddPartialListePrealable");
+        }
+
+        [HttpPost]
+        public ActionResult AssocierPrealable(/*[FromBody]*/Prealables prealables)
+        {
+            //prealables.NoProgramme = this.HttpContext.Session.GetString("programme");
+            //Cours cours = JsonConvert.DeserializeObject<Cours>(this.HttpContext.Session.GetString("Cours"));
+            //prealables.NoCours = cours.NoCours;
+            //cours.Prealables.Add(prealables);
+            //_contexte.Prealables.Add(prealables);
+            ////Sauvegarder dans la BD
+            //this._contexte.SaveChanges();
+            //return Ok("Préalable ajouté");
         }
     }
 }

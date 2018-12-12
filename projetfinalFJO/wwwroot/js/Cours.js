@@ -38,13 +38,14 @@ function ChagerAjax() {
 
 //Ajouter un cours
 function AjouterCoursAjax() {
+
     var url = "/Cours/AjouterCours";
     var data = {
         NoCours: $("#NoCours").val(),
         NomCours: $("#NomCours").val(),
         PonderationCours: $("#PonderationCours").val(),
+        TypeDeCours: $("#TypedeCours").val(),
         DepartementCours: $("#DepartementCours").val(),
-        NoProgramme: $("#NoProgramme").val(),
         NomSession: $("#NomSession").val(),
         NomGroupe: $("#NomGroupe").val()
     };
@@ -65,25 +66,27 @@ function AjouterCoursAjax() {
     return false;
 }
 //pas fini
-function AjouterPrealableAjax() {
-    var url = "/Cours/AjouterPrealable";
+function AssocierPrealableAjax() {
+    var url = "/Cours/AssocierPrealable";
     var data = {
-        Prealable: $("#NomSequence2").val(),
+        NoCoursPrealable: $("#NoCoursPrealable").val(),
+        NoCours: $("#NoCours").val()
     };
     $.ajax({
         data: JSON.stringify(data),
-        //data: $("form").serialize(),
         type: "POST",
         url: url,
         datatype: "text/plain",
         contentType: "application/json; charset=utf-8",
-        //contentType : "application/x-www-form-urlencoded; charset=utf-8",
         success: function (result) {
             alert(result);
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
+    return false;
+
 }
+
 
 
 function DimensionAjoutAjax(divId) {

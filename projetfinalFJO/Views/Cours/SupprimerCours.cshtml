@@ -10,6 +10,12 @@
         <hr />*@
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.NoCours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NoCours)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.NomCours)
         </dt>
         <dd>
@@ -40,13 +46,10 @@
             @Html.DisplayFor(model => model.NomSession)
         </dd>
     </dl>
-
-    <form asp-action="Supprimer" asp-controller="Cours">
-        <input type="hidden" asp-for="NoCours" />
-        <div>
-            <input type="submit" value="Supprimer" class="btn btn-default" />|
-            <a asp-action="ListeCours" class="btn btn-info">Retour à la liste</a>
-        </div>
+    
+    <form asp-action="Supprimer" asp-controller="Cours" asp-route-id="@Model.NoCours">
+       <input type="submit" value="Supprimer" class="btn btn-default" />|
+       <a asp-action="ListeCours" class="btn btn-info">Retour à la liste</a>
     </form>
 </div>
 

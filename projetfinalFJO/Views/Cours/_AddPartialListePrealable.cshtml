@@ -1,0 +1,42 @@
+﻿<h3 style="text-align:center; text-decoration:underline">Répartition des cours par session</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Compétences/Groupe</th>
+            @foreach (var element in ViewBag.CoursList as IEnumerable<projetfinalFJO.Appdata.Cours>)
+            {
+                <th scope="col">
+                    @element.NomCours
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var listCours = ViewBag.listCours as IEnumerable<projetfinalFJO.Appdata.Cours>;
+
+            @foreach (var item in listCours)
+            {
+                <tr>
+                    <td>@item.NoCours</td>
+
+                    @foreach (var element in ViewBag.CourList as IEnumerable<projetfinalFJO.Appdata.Cours>)
+                    {
+
+                        if (element.NomCours == item.NomCours)
+                        {
+                            <td scope="col">
+                                X
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    }
+                    <td>@item.NomSession</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
