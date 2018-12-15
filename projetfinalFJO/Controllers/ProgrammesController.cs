@@ -30,7 +30,7 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Programmes/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> InfoProgramme(string id)
         {
             if (id == null)
             {
