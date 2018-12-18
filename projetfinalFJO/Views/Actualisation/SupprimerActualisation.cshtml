@@ -5,8 +5,6 @@
 }
 
 <h2>Supprimer l'actualisation</h2>
-
-<h3>Êtes-vous certain de vouloir suppriemr cette actualisation</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -41,9 +39,8 @@
             @Html.DisplayFor(model => model.Approuve)
         </dd>
     </dl>
-    <h4>Entrez votre mot de passe pour confirmer</h4>
-    <label>Mot de passe</label>
-    <input type="text" id="mdp" />
+    <h5>Entrez votre mot de passe pour confirmer la suppression</h5>
+    <input type="text" id="mdp" placeholder="Mot de passe" />
     <input type="button" value="Confirmer" onclick="SupprimerActualisation(@Model.NumActualisation)" />
     @*<form asp-action="SupprimerActualisation2">
             <input asp-for="NumActualisation" value="@Model.NumActualisation" type="hidden" />
