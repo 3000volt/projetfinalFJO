@@ -32,25 +32,32 @@ namespace projetfinalFJO.Controllers
         // GET: Programmes/Details/5
         public async Task<IActionResult> InfoProgramme(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var programmes = await _context.Programmes
-                .FirstOrDefaultAsync(m => m.NoProgramme == id);
-            if (programmes == null)
+                var programmes = await _context.Programmes
+                    .FirstOrDefaultAsync(m => m.NoProgramme == id);
+                if (programmes == null)
+                {
+                    return NotFound();
+                }
+                ProgrammesDetail details = new ProgrammesDetail();
+                details.program = programmes;
+                details.ListComp = _context.Competences.ToList().FindAll(x => x.NoProgramme == id);
+                details.comp = new Competences();
+                var test = details;
+
+
+                return View(test);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            ProgrammesDetail details = new ProgrammesDetail();
-            details.program = programmes;
-            details.ListComp = _context.Competences.ToList().FindAll(x => x.NoProgramme == id);
-            details.comp = new Competences();
-            var test = details;
-
-
-            return View(test);
         }
 
         // GET: Programmes/Create
@@ -66,34 +73,43 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NoProgramme,NomProgramme,NbHeureFormationGenerale,NbUniteFormationGenerale,NbHeureFormationTechnique,NbUniteFormationTechnique,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
         {
-            // Define a regular expression for repeated words.
-            //Regex rx = new Regex(@"(?:\d+\s+\d[/]\d|\d)", RegexOptions.Compiled);
-            //if (rx.IsMatch(programmes.NbUnite.ToString()))
-            //{    //}        
-
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(programmes);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(List_Programme));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(programmes);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(List_Programme));
+                }
+                return View(programmes);
             }
-            return View(programmes);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
         }
 
         // GET: Programmes/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var programmes = await _context.Programmes.FindAsync(id);
-            if (programmes == null)
-            {
-                return NotFound();
+                var programmes = await _context.Programmes.FindAsync(id);
+                if (programmes == null)
+                {
+                    return NotFound();
+                }
+                return View(programmes);
             }
-            return View(programmes);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
         }
 
         // POST: Programmes/Edit/5
@@ -103,50 +119,64 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("NoProgramme,NomProgramme,NbHeureFormationGenerale,NbUniteFormationGenerale,NbHeureFormationTechnique,NbUniteFormationTechnique,NbCompetencesObligatoires,NbCompetencesOptionnelles,CondtionsAdmission")] Programmes programmes)
         {
-            if (id != programmes.NoProgramme)
+            try
             {
-                return NotFound();
-            }
+                if (id != programmes.NoProgramme)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(programmes);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProgrammesExists(programmes.NoProgramme))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(programmes);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!ProgrammesExists(programmes.NoProgramme))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(List_Programme));
                 }
-                return RedirectToAction(nameof(List_Programme));
+                return View(programmes);
             }
-            return View(programmes);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
         }
 
         // GET: Programmes/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var programmes = await _context.Programmes
-                .FirstOrDefaultAsync(m => m.NoProgramme == id);
-            if (programmes == null)
+                var programmes = await _context.Programmes
+                    .FirstOrDefaultAsync(m => m.NoProgramme == id);
+                if (programmes == null)
+                {
+                    return NotFound();
+                }
+
+                return View(programmes);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(programmes);
         }
 
         // POST: Programmes/Delete/5
@@ -154,10 +184,18 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var programmes = await _context.Programmes.FindAsync(id);
-            _context.Programmes.Remove(programmes);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(List_Programme));
+            try
+            {
+                var programmes = await _context.Programmes.FindAsync(id);
+                _context.Programmes.Remove(programmes);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(List_Programme));
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+
         }
 
         private bool ProgrammesExists(string id)
