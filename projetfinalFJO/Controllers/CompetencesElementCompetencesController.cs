@@ -24,36 +24,60 @@ namespace projetfinalFJO.Controllers
         // GET: CompetencesElementCompetences
         public async Task<IActionResult> ListComp_Elem()
         {
-            var actualisationContext = _context.CompetencesElementCompetence.Include(c => c.CodeCompetenceNavigation).Include(c => c.ElementCompétenceNavigation).Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme")));
-            return View(await actualisationContext.ToListAsync());
+            try
+            {
+                var actualisationContext = _context.CompetencesElementCompetence.Include(c => c.CodeCompetenceNavigation).Include(c => c.ElementCompétenceNavigation).Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme")));
+                return View(await actualisationContext.ToListAsync());
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // GET: CompetencesElementCompetences/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var competencesElementCompetence = await _context.CompetencesElementCompetence
-                .Include(c => c.CodeCompetenceNavigation)
-                .Include(c => c.ElementCompétenceNavigation)
-                .FirstOrDefaultAsync(m => m.CodeCompetence == id);
-            if (competencesElementCompetence == null)
+                var competencesElementCompetence = await _context.CompetencesElementCompetence
+                    .Include(c => c.CodeCompetenceNavigation)
+                    .Include(c => c.ElementCompétenceNavigation)
+                    .FirstOrDefaultAsync(m => m.CodeCompetence == id);
+                if (competencesElementCompetence == null)
+                {
+                    return NotFound();
+                }
+
+                return View(competencesElementCompetence);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(competencesElementCompetence);
+            
         }
 
         // GET: CompetencesElementCompetences/Create
         public IActionResult Create()
         {
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
-            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance");
-            return View();
+            try
+            {
+                ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
+                ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance");
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
 
         // POST: CompetencesElementCompetences/Create
@@ -63,35 +87,51 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody][Bind("CodeCompetence,ElementCompétence,NoProgramme")] CompetencesElementCompetence competencesElementCompetence)
         {
-            competencesElementCompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(competencesElementCompetence);
-                await _context.SaveChangesAsync();
-                //retoune les critères de performance de la compétence
-                return Ok(_context.Elementcompetence.ToList().Find(x=>x.ElementCompétence==competencesElementCompetence.ElementCompétence).CriterePerformance);
+                competencesElementCompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
+                if (ModelState.IsValid)
+                {
+                    _context.Add(competencesElementCompetence);
+                    await _context.SaveChangesAsync();
+                    //retoune les critères de performance de la compétence
+                    return Ok(_context.Elementcompetence.ToList().Find(x => x.ElementCompétence == competencesElementCompetence.ElementCompétence).CriterePerformance);
+                }
+                ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
+                ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "Idelementcomp", competencesElementCompetence.ElementCompétence);
+                return BadRequest("élément non ajouté");
             }
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
-            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "Idelementcomp", competencesElementCompetence.ElementCompétence);
-            return BadRequest("élément non ajouté");
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // GET: CompetencesElementCompetences/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var competencesElementCompetence = await _context.CompetencesElementCompetence.FindAsync(id);
-            if (competencesElementCompetence == null)
-            {
-                return NotFound();
+                var competencesElementCompetence = await _context.CompetencesElementCompetence.FindAsync(id);
+                if (competencesElementCompetence == null)
+                {
+                    return NotFound();
+                }
+                ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
+                ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "Idelementcomp", competencesElementCompetence.ElementCompétence);//changé CriterePerformance par Idelementcomp
+                return View(competencesElementCompetence);
             }
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
-            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "Idelementcomp", competencesElementCompetence.ElementCompétence);//changé CriterePerformance par Idelementcomp
-            return View(competencesElementCompetence);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // POST: CompetencesElementCompetences/Edit/5
@@ -101,54 +141,70 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("CodeCompetence,ElementCompétence,NoProgramme")] CompetencesElementCompetence competencesElementCompetence)
         {
-            if (id != competencesElementCompetence.CodeCompetence)
+            try
             {
-                return NotFound();
-            }
+                if (id != competencesElementCompetence.CodeCompetence)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(competencesElementCompetence);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CompetencesElementCompetenceExists(competencesElementCompetence.CodeCompetence))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(competencesElementCompetence);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!CompetencesElementCompetenceExists(competencesElementCompetence.CodeCompetence))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(ListComp_Elem));
                 }
-                return RedirectToAction(nameof(ListComp_Elem));
+                ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
+                ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance", competencesElementCompetence.ElementCompétence);
+                return View(competencesElementCompetence);
             }
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", competencesElementCompetence.CodeCompetence);
-            ViewData["Idelementcomp"] = new SelectList(_context.Elementcompetence, "Idelementcomp", "CriterePerformance", competencesElementCompetence.ElementCompétence);
-            return View(competencesElementCompetence);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // GET: CompetencesElementCompetences/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var competencesElementCompetence = await _context.CompetencesElementCompetence
-                .Include(c => c.CodeCompetenceNavigation)
-                .Include(c => c.ElementCompétenceNavigation)
-                .FirstOrDefaultAsync(m => m.CodeCompetence == id);
-            if (competencesElementCompetence == null)
+                var competencesElementCompetence = await _context.CompetencesElementCompetence
+                    .Include(c => c.CodeCompetenceNavigation)
+                    .Include(c => c.ElementCompétenceNavigation)
+                    .FirstOrDefaultAsync(m => m.CodeCompetence == id);
+                if (competencesElementCompetence == null)
+                {
+                    return NotFound();
+                }
+
+                return View(competencesElementCompetence);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(competencesElementCompetence);
+            
         }
 
         // POST: CompetencesElementCompetences/Delete/5
@@ -156,10 +212,18 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var competencesElementCompetence = await _context.CompetencesElementCompetence.FindAsync(id);
-            _context.CompetencesElementCompetence.Remove(competencesElementCompetence);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(ListComp_Elem));
+            try
+            {
+                var competencesElementCompetence = await _context.CompetencesElementCompetence.FindAsync(id);
+                _context.CompetencesElementCompetence.Remove(competencesElementCompetence);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(ListComp_Elem));
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
 
         private bool CompetencesElementCompetenceExists(string id)
@@ -172,15 +236,23 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> supprimer([FromBody][Bind("CodeCompetence,ElementCompétence,NoProgramme")] CompetencesElementCompetence comp)
         {
-            comp.NoProgramme = this.HttpContext.Session.GetString("programme");
-            if (ModelState.IsValid)
+            try
             {
-                _context.CompetencesElementCompetence.Remove(comp);              
-                await _context.SaveChangesAsync();
-                return Ok(comp.ElementCompétence);
+                comp.NoProgramme = this.HttpContext.Session.GetString("programme");
+                if (ModelState.IsValid)
+                {
+                    _context.CompetencesElementCompetence.Remove(comp);
+                    await _context.SaveChangesAsync();
+                    return Ok(comp.ElementCompétence);
+                }
+
+                return BadRequest("élément non supprimer");
             }
-            
-            return BadRequest("élément non supprimer");
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
     }
 }

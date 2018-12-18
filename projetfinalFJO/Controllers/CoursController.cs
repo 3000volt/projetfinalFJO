@@ -28,14 +28,23 @@ namespace projetfinalFJO.Controllers
         /// Affiche la liste de cours
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> ListeCours(string search)
+        public async Task<IActionResult> ListeCours()
         {
-            return View(await _contexte.Cours.Where(x => x.NomCours.StartsWith(search) && x.NoProgramme == this.HttpContext.Session.GetString("programme") || x.DepartementCours.StartsWith(search) && x.NoProgramme == this.HttpContext.Session.GetString("programme") || search == null && x.NoProgramme == this.HttpContext.Session.GetString("programme")).ToListAsync());
+            try
+            {
+                return View(await _contexte.Cours.Where(x => x.NoProgramme == this.HttpContext.Session.GetString("programme")).ToListAsync());
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         [HttpPost]
         public List<string> ChargerGroupe(string NomSession)
         {
+            
             List<GroupeCompetence> listeGroupeCompetence = this._contexte.GroupeCompetence.ToList();
             listeGroupeCompetence.RemoveAll(x => x.NomSession != NomSession);
             List<string> listeGroupe = new List<string>();
@@ -52,7 +61,15 @@ namespace projetfinalFJO.Controllers
 
         public async Task<IActionResult> ListeCoursGeneral()
         {
-            return View(await _contexte.Cours.Where(x => x.TypedeCours == "Général").ToListAsync());
+            try
+            {
+                return View(await _contexte.Cours.Where(x => x.TypedeCours == "Général").ToListAsync());
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
         //[HttpGet]
         //public async Task<IActionResult> AssocierCoursGeneralSession()
@@ -69,14 +86,22 @@ namespace projetfinalFJO.Controllers
         [HttpGet]
         public IActionResult AjouterCours()
         {
-            //peupler les listes
-            ViewBag.NoProgramme = new SelectList(_contexte.Programmes, "NoProgramme", "NoProgramme");
-            ViewBag.NomSession = new SelectList(_contexte.Session, "NomSession", "NomSession");
-            //Ajuster le selectlist du groupe a la session sélectionné
-            ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
-            ViewBag.Cours = new Cours();
-            ViewBag.CoursList = new SelectList(_contexte.Cours.ToList(), "NoCours", "NomCours");
-            return View();
+            try
+            {
+                //peupler les listes
+                ViewBag.NoProgramme = new SelectList(_contexte.Programmes, "NoProgramme", "NoProgramme");
+                ViewBag.NomSession = new SelectList(_contexte.Session, "NomSession", "NomSession");
+                //Ajuster le selectlist du groupe a la session sélectionné
+                ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
+                ViewBag.Cours = new Cours();
+                ViewBag.CoursList = new SelectList(_contexte.Cours.ToList(), "NoCours", "NomCours");
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
         /// <summary>
         /// Ajoute un cours
@@ -87,33 +112,41 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AjouterCours([FromBody][Bind("NoCours,NomCours,PonderationCours,TypedeCours,DepartementCours,NomSession,NomGroupe")]Cours cours)
         {
-            cours.NoProgramme = this.HttpContext.Session.GetString("programme");
-
-            if (ModelState.IsValid)
+            try
             {
-                
-                HttpContext.Session.SetString("Cours",JsonConvert.SerializeObject(cours));
-                _contexte.Add(cours);
-                //Ajouter a la table CoursCompetences
-                //Trouver la liste contenant tout les codeCompetence du groupe concerné
-                List<GroupeCompetence> listeGroupe = this._contexte.GroupeCompetence.ToList().FindAll(x => x.NomGroupe == cours.NomGroupe);
-                foreach (GroupeCompetence g in listeGroupe)
-                {
-                    //Ajouter a la BD chaque Competence au cours a la table en approprié
-                    this._contexte.CoursCompetences.Add(new CoursCompetences()
-                    {
-                        NoCours = cours.NoCours,
-                        CodeCompetence = g.CodeCompetence,
-                        Complete = true, //TODO -- GÉRER CA!!!!!!
-                        NoProgramme = cours.NoProgramme
-                    });
-                }
-                //Sauvegarder les modifications
-                await _contexte.SaveChangesAsync();
-                return Json(Url.Action("ListeCours", "Cours"));
-            }
+                cours.NoProgramme = this.HttpContext.Session.GetString("programme");
 
-            return BadRequest("Erreur,Le cours n'a pas pu être ajouté");
+                if (ModelState.IsValid)
+                {
+
+                    HttpContext.Session.SetString("Cours", JsonConvert.SerializeObject(cours));
+                    _contexte.Add(cours);
+                    //Ajouter a la table CoursCompetences
+                    //Trouver la liste contenant tout les codeCompetence du groupe concerné
+                    List<GroupeCompetence> listeGroupe = this._contexte.GroupeCompetence.ToList().FindAll(x => x.NomGroupe == cours.NomGroupe);
+                    foreach (GroupeCompetence g in listeGroupe)
+                    {
+                        //Ajouter a la BD chaque Competence au cours a la table en approprié
+                        this._contexte.CoursCompetences.Add(new CoursCompetences()
+                        {
+                            NoCours = cours.NoCours,
+                            CodeCompetence = g.CodeCompetence,
+                            Complete = true, //TODO -- GÉRER CA!!!!!!
+                            NoProgramme = cours.NoProgramme
+                        });
+                    }
+                    //Sauvegarder les modifications
+                    await _contexte.SaveChangesAsync();
+                    return Json(Url.Action("ListeCours", "Cours"));
+                }
+
+                return BadRequest("Erreur,Le cours n'a pas pu être ajouté");
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
         /// <summary>
         /// Affiche les détails du cours
@@ -121,19 +154,27 @@ namespace projetfinalFJO.Controllers
         /// <returns></returns>
         public async Task<IActionResult> DetailsCours(string id)
         {
-            //vérifier si l'id est null
-            if (id == null)
-                return NotFound();
+            try
+            {
+                //vérifier si l'id est null
+                if (id == null)
+                    return NotFound();
 
 
-            //récupérer le cours
-            Cours cours = await _contexte.Cours.FindAsync(id);
+                //récupérer le cours
+                Cours cours = await _contexte.Cours.FindAsync(id);
 
-            //vérifier si le cours est null
-            if (cours == null)
-                return NotFound();
+                //vérifier si le cours est null
+                if (cours == null)
+                    return NotFound();
 
-            return View(cours);
+                return View(cours);
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
 
         /// <summary>
@@ -143,26 +184,34 @@ namespace projetfinalFJO.Controllers
         [HttpGet]
         public async Task<IActionResult> ModifierCours(string id)
         {
-            //vérifier si l'id est null
-            if (id == null)
-                return NotFound();
-
-
-            //récupérer le cours
-            Cours cours = await _contexte.Cours.FindAsync(id);
-
-            //vérifier si le cours est null
-            if (cours == null)
+            try
             {
-                return NotFound();
+                //vérifier si l'id est null
+                if (id == null)
+                    return NotFound();
+
+
+                //récupérer le cours
+                Cours cours = await _contexte.Cours.FindAsync(id);
+
+                //vérifier si le cours est null
+                if (cours == null)
+                {
+                    return NotFound();
+                }
+
+                //peupler les 3 listes
+                ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
+                ViewBag.NoProgramme = new SelectList(_contexte.Programmes, "NoProgramme", "NomProgramme");
+                ViewBag.NomSession = new SelectList(_contexte.Session, "NomSession", "NomSession");
+
+                return View(cours);
             }
-
-            //peupler les 3 listes
-            ViewBag.NomGroupe = new SelectList(_contexte.Groupe, "NomGroupe", "NomGroupe");
-            ViewBag.NoProgramme = new SelectList(_contexte.Programmes, "NoProgramme", "NomProgramme");
-            ViewBag.NomSession = new SelectList(_contexte.Session, "NomSession", "NomSession");
-
-            return View(cours);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
         /// <summary>
         /// Modifier un cours éxistant
@@ -172,14 +221,22 @@ namespace projetfinalFJO.Controllers
         [HttpPost]
         public async Task<IActionResult> ModifierCours([Bind("NoCours,NomCours,PonderationCours,DepartementCours,TypedeCours,NoProgramme,NomSession,NomGroupe")]Cours cours)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _contexte.Update(cours);
-                await _contexte.SaveChangesAsync();
+                if (ModelState.IsValid)
+                {
+                    _contexte.Update(cours);
+                    await _contexte.SaveChangesAsync();
 
-                return RedirectToAction(nameof(ListeCours));
+                    return RedirectToAction(nameof(ListeCours));
+                }
+                return BadRequest("Erreur,Le cours n'a pas pu être modifié");
             }
-            return BadRequest("Erreur,Le cours n'a pas pu être modifié");
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
         /// <summary>
         /// Afficher la vue pour supprimer un cours
@@ -188,18 +245,26 @@ namespace projetfinalFJO.Controllers
         [HttpGet]
         public async Task<IActionResult> SupprimerCours(string id)
         {
-            //vérifier si l'id est null
-            if (id == null)
-                return NotFound();
+            try
+            {
+                //vérifier si l'id est null
+                if (id == null)
+                    return NotFound();
 
-            //aller chercher le cours dans le contexte
-            Cours cours = await _contexte.Cours.FindAsync(id);
+                //aller chercher le cours dans le contexte
+                Cours cours = await _contexte.Cours.FindAsync(id);
 
-            //vérifier si le cours est null
-            if (cours == null)
-                return NotFound();
+                //vérifier si le cours est null
+                if (cours == null)
+                    return NotFound();
 
-            return View(cours);
+                return View(cours);
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
         /// <summary>
         /// Supprimer le cours
@@ -210,10 +275,18 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SupprimerCoursPost(string id)
         {
-            Cours cours = await _contexte.Cours.FindAsync(id);
-            _contexte.Cours.Remove(cours);
-            await _contexte.SaveChangesAsync();
-            return RedirectToAction(nameof(ListeCours));
+            try
+            {
+                Cours cours = await _contexte.Cours.FindAsync(id);
+                _contexte.Cours.Remove(cours);
+                await _contexte.SaveChangesAsync();
+                return RedirectToAction(nameof(ListeCours));
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
         /// <summary>
         /// Afficher les groupes éxistants
@@ -221,9 +294,17 @@ namespace projetfinalFJO.Controllers
         /// <returns></returns>
         public PartialViewResult AfficherGroupe()
         {
-            ViewData["Groupes"] = _contexte.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
-            ViewData["GroupeCompetence"] = _contexte.GroupeCompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
-            return PartialView("_AddPartialListeGroupe");
+            try
+            {
+                ViewData["Groupes"] = _contexte.Groupe.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
+                ViewData["GroupeCompetence"] = _contexte.GroupeCompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToList();
+                return PartialView("_AddPartialListeGroupe");
+            }
+            catch (Exception e)
+            {
+                return PartialView("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
         /// <summary>
         /// Afficher la vue d'ajout de préalable
@@ -232,33 +313,64 @@ namespace projetfinalFJO.Controllers
         [HttpGet]
         public IActionResult AjouterPrealable()
         {
-            ViewBag.CoursList = new SelectList(_contexte.Cours.ToList(), "NoCours", "NomCours");
-            return View();
+            try
+            {
+                ViewBag.CoursList = new SelectList(_contexte.Cours.ToList(), "NoCours", "NomCours");
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         [HttpPost]
         public IActionResult AjouterPrealablePost([Bind("NoCoursPrealable,NoCours")] Prealables prealables)
         {
-            prealables.NoProgramme = this.HttpContext.Session.GetString("programme");
-            Cours cours =  JsonConvert.DeserializeObject<Cours>(this.HttpContext.Session.GetString("Cours"));
-            cours.Prealables.Add(prealables);
-            this._contexte.Cours.Update(cours);
-            return View();
+            try
+            {
+                prealables.NoProgramme = this.HttpContext.Session.GetString("programme");
+                Cours cours = JsonConvert.DeserializeObject<Cours>(this.HttpContext.Session.GetString("Cours"));
+                cours.Prealables.Add(prealables);
+                this._contexte.Cours.Update(cours);
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         public PartialViewResult PartialAjouterPrealable()
         {
-            //ViewBag.groupe = new GroupeCompetence();
-            ViewData["CoursList"] = new SelectList(_contexte.Cours, "NoCours", "NomCours");
-            return PartialView("_AddPartialAjouterPrealable");
+            try
+            {
+                ViewData["CoursList"] = new SelectList(_contexte.Cours, "NoCours", "NomCours");
+                return PartialView("_AddPartialAjouterPrealable");
+            }
+            catch (Exception e)
+            {
+                return PartialView("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
 
         public PartialViewResult PartialListePrealable()
         {
-            //ViewBag.groupe = new GroupeCompetence();
-            ViewData["CoursList"] = new SelectList(_contexte.Cours, "NoCours", "NomCours");
-            ViewBag.CoursList = new SelectList(_contexte.Cours.ToList(), "NoCours", "NomCours");
-            return PartialView("_AddPartialListePrealable");
+
+            try
+            {
+                ViewData["CoursList"] = new SelectList(_contexte.Cours, "NoCours", "NomCours");
+                ViewBag.CoursList = new SelectList(_contexte.Cours.ToList(), "NoCours", "NomCours");
+                return PartialView("_AddPartialListePrealable");
+            }
+            catch (Exception e)
+            {
+                return PartialView("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         //[HttpPost]
