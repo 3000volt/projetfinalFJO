@@ -8,6 +8,11 @@
                 <th scope="col">
                     @element.NomCours
                 </th>
+                <th >
+                    @element.NomSession
+                </th>
+
+
             }
         </tr>
     </thead>
@@ -19,21 +24,6 @@
             {
                 <tr>
                     <td>@item.NoCours</td>
-
-                    @foreach (var element in ViewBag.CourList as IEnumerable<projetfinalFJO.Appdata.Cours>)
-                    {
-
-                        if (element.NomCours == item.NomCours)
-                        {
-                            <td scope="col">
-                                X
-                            </td>
-                        }
-                        else
-                        {
-                            <td></td>
-                        }
-                    }
                     <td>@item.NomSession</td>
                 </tr>
             }

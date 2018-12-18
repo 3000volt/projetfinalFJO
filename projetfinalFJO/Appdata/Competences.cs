@@ -26,18 +26,31 @@ namespace projetfinalFJO.Appdata
         public string Description { get; set; }
         [Display(Name = "Contexte de réalisation : ")]
         public string ContextRealisation { get; set; }
+        [Display(Name = "Famille")]
         public string NomFamille { get; set; }
+        [Display(Name = "Numéro de programme")]
         public string NoProgramme { get; set; }
+        [Display(Name = "Séquence")]
         public string NomSequence { get; set; }
 
+
+        [Display(Name = "Numéro de programme")]
         public Programmes NoProgrammeNavigation { get; set; }
+        [Display(Name = "Famille")]
         public Famillecompetence NomFamilleNavigation { get; set; }
+        [Display(Name = "Séquence")]
         public Sequences NomSequenceNavigation { get; set; }
+        [Display(Name = "Analyse de compétence")]
         public ICollection<AnalyseCompétence> AnalyseCompétence { get; set; }
+        [Display(Name = "Élément de compétence")]
         public ICollection<CompetencesElementCompetence> CompetencesElementCompetence { get; set; }
+
         public ICollection<CoursCompetences> CoursCompetences { get; set; }
+
         public ICollection<GroupeCompetence> GroupeCompetence { get; set; }
+
         public ICollection<RepartirHeureCompetence> RepartirHeureCompetence { get; set; }
+
         public ICollection<RepartitionHeureCours> RepartitionHeureCours { get; set; }
         public ICollection<RepartitionHeuresession> RepartitionHeuresession { get; set; }
     }

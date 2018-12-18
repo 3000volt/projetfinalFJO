@@ -4,10 +4,10 @@
     ViewData["Title"] = "ListeElementCompetence";
 }
 
-<h2>ListeElementCompetence</h2>
+<h2>Liste des éléments de compétence</h2>
 
 <p>
-    <a asp-controller="Elementcompetences" asp-action="Creer">Créer un nouvel élément de compétence</a>
+    <a asp-controller="Elementcompetences" asp-action="Creer" class="btn btn-info">  <i class="fas fa-plus-circle">Créer un nouvel élément</i></a>
 </p>
 <table class="table">
     <thead>
@@ -18,9 +18,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.CriterePerformance)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NoProgramme)
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -37,9 +35,9 @@
                 @Html.DisplayFor(modelItem => item.NoProgramme)
             </td>
             <td>
-                @Html.ActionLink("Modifier", "Modifier", new {  id=item.ElementCompétence }) |
-                @Html.ActionLink("Details", "Details", new {  id=item.ElementCompétence }) |
-                @Html.ActionLink("Supprimer", "Supprimer", new {  id=item.ElementCompétence  })
+                <a class="btn btn-info btnlist testing" asp-action="Modifier" asp-route-id="@item.ElementCompétence"><i class="fas fa-pen iconlist"></i><span>Modifier</span></a> |
+                <a class="btn btn-info btnlist testing" asp-action="Details" asp-route-id="@item.ElementCompétence"><i class="fas fa-info-circle iconlist"></i><span>Détails</span></a> |
+                <a class="btn btn-info btnlist testing" asp-action="Supprimer" asp-route-id="@item.ElementCompétence"><i class="fas fa-trash iconlist"></i><span>Supprimer</span></a>
             </td>
         </tr>
 }
