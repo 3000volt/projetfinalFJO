@@ -42,7 +42,7 @@ function fnAddcommpetenceAjax() {
     }
 }
 
-//Modifier la compétence
+//Modifier la compétence 
 function fnUpdatecommpetenceAjax() {
     var url = "/Competences/Update";
     var data = {
