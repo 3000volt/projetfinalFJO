@@ -6,34 +6,40 @@ $(function () {
 var compname = "";
 var name = "";
 function fnAddcommpetenceAjax() {
-    var url = "/Competences/Create";
-    var data = {
-        CodeCompetence: $("#CodeCompetence").val(),
-        ObligatoireCégep: $("[name=Obli]:checked").val(),
-        Description: $("#Description").val(),
-        Titre: $("#Titre").val(),
-        ContextRealisation: $("#ContextRealisation").val(),
-        Titre: $("#Titre").val(),
-    };
-    $.ajax({
-        data: JSON.stringify(data),
-        type: "POST",
-        url: url,
-        datatype: "text/plain",
-        contentType: "application/json; charset=utf-8",
-        beforeSend: function (request) {
-            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
-        },
-        success: function (result) {
-            alert("Compétence créé avec succès!");
-            compname = $("#CodeCompetence").val();
-            $('#tabs').show();
-            disableEnvoie();
-            return true;
-        },
-        error: function (xhr) { alert("erreur: Le code de compétence doit être unique!"); }
-    });
-    return false;
+    //S'assurer que les champs de code compétence et de titre sont remplis
+    if ($("#CodeCompetence").val() != "" && $("#Titre").val() != "") {
+        var url = "/Competences/Create";
+        var data = {
+            CodeCompetence: $("#CodeCompetence").val(),
+            ObligatoireCégep: $("[name=Obli]:checked").val(),
+            Description: $("#Description").val(),
+            Titre: $("#Titre").val(),
+            ContextRealisation: $("#ContextRealisation").val(),
+            Titre: $("#Titre").val(),
+        };
+        $.ajax({
+            data: JSON.stringify(data),
+            type: "POST",
+            url: url,
+            datatype: "text/plain",
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function (request) {
+                request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+            },
+            success: function (result) {
+                alert("Compétence créé avec succès!");
+                compname = $("#CodeCompetence").val();
+                $('#tabs').show();
+                disableEnvoie();
+                return true;
+            },
+            error: function (xhr) { alert("erreur: Le code de compétence doit être unique et remplis!"); }
+        });
+        return false;
+    }
+    else {
+        alert("Les champs de code dompétence et de titre doivent être remplis!")
+    }
 }
 
 //Modifier la compétence
