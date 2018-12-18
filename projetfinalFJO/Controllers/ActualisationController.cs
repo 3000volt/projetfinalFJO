@@ -279,7 +279,9 @@ namespace projetfinalFJO.Controllers
         [HttpPost]
         public ActionResult Modifier(IFormCollection iAction)
         {
-            ActualisationInformation actu = new ActualisationInformation()
+            try
+            {
+                 ActualisationInformation actu = new ActualisationInformation()
             {
                 NumActualisation = Convert.ToInt32(iAction["NumActualisation"][0]),
                 NomActualisation = iAction["NomActualisation"].ElementAt(0),
@@ -291,6 +293,11 @@ namespace projetfinalFJO.Controllers
             this.contexteActu.Update(actu);
             this.contexteActu.SaveChanges();
             return RedirectToAction("Actualisation");
+            }catch(Exception e)
+            {
+                return View("\\Views\\Shared\\Error.cshtml");
+            }
+           
         }
 
         public ActionResult Details(int numActu)
