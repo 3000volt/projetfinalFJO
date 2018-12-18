@@ -8,26 +8,9 @@
     <a class="btn btn-info" asp-action="Create">
         <i class="fas fa-plus-circle"> Ajouter une compétence</i>
     </a>
-    <p>
-        @using (@Html.BeginForm("ListeCompetence", "Competences", FormMethod.Get))
-        {
-            <b>Recherche par description / numero de programme:</b>
+    
+    <table class="table-responsive table-hover table-condensed" id="myTable">             
 
-            @Html.TextBox("search")
-            <input type="submit" value="Rechercher" />
-        }
-    </p>
-    <table class="table table-hover">
-        @if (Model.Count() == 0)
-        {
-            <tr>
-                <td colspan="4">
-                    Aucune compétence trouvée.
-                </td>
-            </tr>
-        }
-        else
-        {
             <thead class="card-header">
                 <tr>
                     <th>
@@ -38,10 +21,7 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ContextRealisation)
-                    </th>
+                    </th>                    
                     <th>
                         @Html.DisplayNameFor(model => model.NoProgramme)
                     </th>
@@ -54,33 +34,70 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Titre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ObligatoireCégep)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ContextRealisation)
-                        </td>
-                         <td>
-                            @Html.DisplayFor(modelItem => item.NoProgramme)
-                        </td>
-                       
-                         <td>
-                             <a class="btn btn-info btnlist testing" asp-controller="Elementcompetences" asp-action="ListeElementCompetence"  asp-route-id="@item.CodeCompetence"><i class="fas fa-door-open"></i><span>Voir la liste des éléments de compétences</span></a>
-                             <a class="btn btn-info btnlist testing" asp-action="ModifierCompetence" asp-route-id="@item.CodeCompetence"><i class="fas fa-pen iconlist"></i><span>Modifier la compétence</span></a> |
-                             <a class="btn btn-info btnlist testing" asp-action="Details" asp-route-id="@item.CodeCompetence"><i class="fas fa-info-circle iconlist"></i><span>Voir les détails</span></a> |
-                             <a class="btn btn-info btnlist testing" asp-action="Supprimer_Compétence" asp-route-id="@item.CodeCompetence"><i class="fas fa-trash iconlist"></i><span>Supprimer</span></a>
-                         </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ObligatoireCégep)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>                 
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NoProgramme)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomFamilleNavigation.NomFamille)
+                    </td>
+                    <td>
+                        <a class="btn btn-info btnlist testing" asp-controller="Elementcompetences" asp-action="ListeElementCompetence" asp-route-id="@item.CodeCompetence"><i class="fas fa-door-open"></i><span>Voir la liste des éléments de compétences</span></a>
+                        <a class="btn btn-info btnlist testing" asp-action="ModifierCompetence" asp-route-id="@item.CodeCompetence"><i class="fas fa-pen iconlist"></i><span>Modifier la compétence</span></a> |
+                        <a class="btn btn-info btnlist testing" asp-action="Details" asp-route-id="@item.CodeCompetence"><i class="fas fa-info-circle iconlist"></i><span>Voir les détails</span></a> |
+                        <a class="btn btn-info btnlist testing" asp-action="Supprimer_Compétence" asp-route-id="@item.CodeCompetence"><i class="fas fa-trash iconlist"></i><span>Supprimer</span></a>
+                    </td>
+                </tr>
                 }
             </tbody>
-        }
     </table>
 </div>
 
+@section Scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                language: {
+                    processing: "Traitement en cours...",
+                    search: "Rechercher&nbsp;:",
+                    lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+                    info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                    infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                    infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    infoPostFix: "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable: "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first: "Premier",
+                        previous: "Pr&eacute;c&eacute;dent",
+                        next: "Suivant",
+                        last: "Dernier"
+                    },
+                    aria: {
+                        sortAscending: ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+
+            $("input[type='search']").css({ "border-radius": "10px", "border": "2px solid #17a2b8" });
+
+        });
+    </script>
+
+}
