@@ -28,20 +28,28 @@ namespace projetfinalFJO.Appdata
             Sequences = new HashSet<Sequences>();
         }
         [Display(Name="Numéro")]
+        [Required(ErrorMessage ="Le numéro est obligatoire")]
         public string NoProgramme { get; set; }
         [Display(Name ="Titre du programme")]
+        [Required(ErrorMessage = "Le nom du programme est obligatoire")]
         public string NomProgramme { get; set; }
         [Display(Name = "Heures de la formation générale")]
+        [Required(ErrorMessage = "Le nombre d'heure de formation générale est obligatoire")]
         public int? NbHeureFormationGenerale { get; set; }
         [Display(Name = "Unités de la formation générale")]
+        [Required(ErrorMessage = "Le nombre d'unités est obligatoire")]
         public string NbUniteFormationGenerale { get; set; }
         [Display(Name = "Heures de la formation technique")]
+        [Required(ErrorMessage = "Le nombre d'heure de formation technique est obligatoire")]
         public int? NbHeureFormationTechnique { get; set; }
         [Display(Name = "Unités de la formation technique")]
+        [Required(ErrorMessage = "Le nombre d'unités de la formation technique est obligatoire")]
         public string NbUniteFormationTechnique { get; set; }
         [Display(Name = "Nombre de compétences obligatoires")]
+        [Required(ErrorMessage = "Le nombre de compétences obligatoires est obligatoire")]
         public int? NbCompetencesObligatoires { get; set; }
         [Display(Name = "Nombre de compétences optionnelles")]
+        [Required(ErrorMessage = "Le nombre de compétences optionnelles est obligatoire")]
         public int? NbCompetencesOptionnelles { get; set; }
         [Display(Name = "Conditions d'admission")]
         public string CondtionsAdmission { get; set; }
