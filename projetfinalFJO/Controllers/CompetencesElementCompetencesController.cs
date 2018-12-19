@@ -103,7 +103,7 @@ namespace projetfinalFJO.Controllers
             }
             catch (Exception e)
             {
-                return View("\\Views\\Shared\\page_erreur.cshtml");
+                return BadRequest("Probleme de clée primaire");
             }
             
         }

@@ -151,7 +151,7 @@ function fnAssocierelecommpetenceAjax() {
                 "</p></div>" +
                 "</div></div> ");
         },
-        error: function (xhr, status) { alert("erreur:" + status); }
+        error: function (xhr, status) { alert("erreur:" + " Vous ne pouvez pas ajouter 2 fois le même élément!"); }
     });
     return false;
 }
