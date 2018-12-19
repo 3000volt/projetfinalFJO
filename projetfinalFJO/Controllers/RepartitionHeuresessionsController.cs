@@ -24,38 +24,62 @@ namespace projetfinalFJO.Controllers
         // GET: RepartitionHeuresessions
         public async Task<IActionResult> Index()
         {
-            var actualisationContext = _context.RepartitionHeuresession.Include(r => r.AdresseCourrielNavigation).Include(r => r.CodeCompetenceNavigation).Include(r => r.NomSessionNavigation);
-            return View(await actualisationContext.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
-        }
+            try
+            {
+                var actualisationContext = _context.RepartitionHeuresession.Include(r => r.AdresseCourrielNavigation).Include(r => r.CodeCompetenceNavigation).Include(r => r.NomSessionNavigation);
+                return View(await actualisationContext.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
+
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+         }
 
         // GET: RepartitionHeuresessions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var repartitionHeuresession = await _context.RepartitionHeuresession
-                .Include(r => r.AdresseCourrielNavigation)
-                .Include(r => r.CodeCompetenceNavigation)
-                .Include(r => r.NomSessionNavigation)
-                .FirstOrDefaultAsync(m => m.IdAnalyseRhs == id);
-            if (repartitionHeuresession == null)
+                var repartitionHeuresession = await _context.RepartitionHeuresession
+                    .Include(r => r.AdresseCourrielNavigation)
+                    .Include(r => r.CodeCompetenceNavigation)
+                    .Include(r => r.NomSessionNavigation)
+                    .FirstOrDefaultAsync(m => m.IdAnalyseRhs == id);
+                if (repartitionHeuresession == null)
+                {
+                    return NotFound();
+                }
+
+                return View(repartitionHeuresession);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(repartitionHeuresession);
+            
         }
 
         // GET: RepartitionHeuresessions/Create
         public IActionResult Create()
         {
-            ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel");
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
-            ViewData["Idsession"] = new SelectList(_context.Session, "NomSession", "NomSession");
-            return View();
+            try
+            {
+                ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel");
+                ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence");
+                ViewData["Idsession"] = new SelectList(_context.Session, "NomSession", "NomSession");
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // POST: RepartitionHeuresessions/Create
@@ -65,34 +89,50 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody][Bind("NbhCompetenceSession,ValidationApprouve,IdAnalyseRhs,CodeCompetence,NomSession,NoProgramme")] RepartitionHeuresession repartitionHeuresession)
         {
-            repartitionHeuresession.NoProgramme = this.HttpContext.Session.GetString("programme");
-            repartitionHeuresession.AdresseCourriel = this.HttpContext.User.Identity.Name;
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(repartitionHeuresession);
-                await _context.SaveChangesAsync();
-                return Ok("ajout reussi");
+                repartitionHeuresession.NoProgramme = this.HttpContext.Session.GetString("programme");
+                repartitionHeuresession.AdresseCourriel = this.HttpContext.User.Identity.Name;
+                if (ModelState.IsValid)
+                {
+                    _context.Add(repartitionHeuresession);
+                    await _context.SaveChangesAsync();
+                    return Ok("ajout reussi");
+                }
+                return BadRequest("repartition non ajouté");
             }
-            return BadRequest("repartition non ajouté");
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
 
         // GET: RepartitionHeuresessions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var repartitionHeuresession = await _context.RepartitionHeuresession.FindAsync(id);
-            if (repartitionHeuresession == null)
-            {
-                return NotFound();
+                var repartitionHeuresession = await _context.RepartitionHeuresession.FindAsync(id);
+                if (repartitionHeuresession == null)
+                {
+                    return NotFound();
+                }
+                ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeuresession.AdresseCourriel);
+                ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeuresession.CodeCompetence);
+                ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.NomSession);
+                return View(repartitionHeuresession);
             }
-            ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeuresession.AdresseCourriel);
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeuresession.CodeCompetence);
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.NomSession);
-            return View(repartitionHeuresession);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // POST: RepartitionHeuresessions/Edit/5
@@ -102,56 +142,72 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("NbhCompetenceSession,ValidationApprouve,IdAnalyseRhs,AdresseCourriel,CodeCompetence,Idsession,NoProgramme")] RepartitionHeuresession repartitionHeuresession)
         {
-            if (id != repartitionHeuresession.IdAnalyseRhs)
+            try
             {
-                return NotFound();
-            }
+                if (id != repartitionHeuresession.IdAnalyseRhs)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(repartitionHeuresession);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RepartitionHeuresessionExists(repartitionHeuresession.IdAnalyseRhs))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(repartitionHeuresession);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!RepartitionHeuresessionExists(repartitionHeuresession.IdAnalyseRhs))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeuresession.AdresseCourriel);
+                ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeuresession.CodeCompetence);
+                ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.NomSession);
+                return View(repartitionHeuresession);
             }
-            ViewData["AdresseCourriel"] = new SelectList(_context.Utilisateur, "AdresseCourriel", "AdresseCourriel", repartitionHeuresession.AdresseCourriel);
-            ViewData["CodeCompetence"] = new SelectList(_context.Competences, "CodeCompetence", "CodeCompetence", repartitionHeuresession.CodeCompetence);
-            ViewData["Idsession"] = new SelectList(_context.Session, "Idsession", "NomSession", repartitionHeuresession.NomSession);
-            return View(repartitionHeuresession);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // GET: RepartitionHeuresessions/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var repartitionHeuresession = await _context.RepartitionHeuresession
-                .Include(r => r.AdresseCourrielNavigation)
-                .Include(r => r.CodeCompetenceNavigation)
-                .Include(r => r.NomSessionNavigation)
-                .FirstOrDefaultAsync(m => m.IdAnalyseRhs == id);
-            if (repartitionHeuresession == null)
+                var repartitionHeuresession = await _context.RepartitionHeuresession
+                    .Include(r => r.AdresseCourrielNavigation)
+                    .Include(r => r.CodeCompetenceNavigation)
+                    .Include(r => r.NomSessionNavigation)
+                    .FirstOrDefaultAsync(m => m.IdAnalyseRhs == id);
+                if (repartitionHeuresession == null)
+                {
+                    return NotFound();
+                }
+
+                return View(repartitionHeuresession);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(repartitionHeuresession);
+            
         }
 
         // POST: RepartitionHeuresessions/Delete/5
@@ -159,10 +215,18 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var repartitionHeuresession = await _context.RepartitionHeuresession.FindAsync(id);
-            _context.RepartitionHeuresession.Remove(repartitionHeuresession);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var repartitionHeuresession = await _context.RepartitionHeuresession.FindAsync(id);
+                _context.RepartitionHeuresession.Remove(repartitionHeuresession);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
 
         private bool RepartitionHeuresessionExists(int id)
