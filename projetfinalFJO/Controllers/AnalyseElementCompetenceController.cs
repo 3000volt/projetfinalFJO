@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using projetfinalFJO.Appdata;
 
 namespace projetfinalFJO.Controllers
@@ -40,7 +41,7 @@ namespace projetfinalFJO.Controllers
             }
             catch (Exception e)
             {
-                return View("\\Views\\Shared\\page_erreur.cshtml");
+                return BadRequest("Erreur");
             }
            
         }
@@ -68,8 +69,54 @@ namespace projetfinalFJO.Controllers
             catch (Exception e)
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
-            }
-           
+            }           
         }
+
+        [HttpGet]
+        public ActionResult ModifierAnalyse(string code, string email)
+        {
+            try
+            {
+                //Sélectionner l'analyse en question
+                AnalyseElementsCompetence analyse = this._context.AnalyseElementsCompetence.ToList().Find(x => x.ElementCompétence == code && x.AdresseCourriel == email);
+                //Mettre l'analyse dans une session
+                this.HttpContext.Session.SetString("analsyeModif", JsonConvert.SerializeObject(analyse));
+                //ViewBag pour le niveau taxonomique
+                List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
+                ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
+                return View(analyse);
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+
+        }
+
+        [HttpPost]
+        public IActionResult ModifierAnalyse(AnalyseCompétence analyse)
+        {
+            try
+            {
+                //Sélectionner l'analyse en question
+                AnalyseElementsCompetence analyseModif = JsonConvert.DeserializeObject<AnalyseElementsCompetence>(this.HttpContext.Session.GetString("analsyeModif"));
+                //Changer les valeurs modifiées
+                analyseModif.NiveauTaxonomique = analyse.NiveauTaxonomique;
+                analyseModif.Reformulation = analyse.Reformulation;
+                analyseModif.SavoirEtreProgramme = analyse.SavoirEtreProgramme;
+                analyseModif.SavoirFaireProgramme = analyse.SavoirFaireProgramme;
+                analyseModif.Context = analyse.Context;
+                //Sauvegarder
+                this._context.Update(analyseModif);
+                this._context.SaveChanges();
+                //Retourner à la liste d'analyse
+                return View("ListeElements");
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+        }
+
     }
 }

@@ -229,7 +229,6 @@ namespace projetfinalFJO.Controllers
                 analyseModif.SavoirEtreProgramme = analyse.SavoirEtreProgramme;
                 analyseModif.SavoirFaireProgramme = analyse.SavoirFaireProgramme;
                 analyseModif.Context = analyse.Context;
-                analyseModif.ValidationApprouve = analyse.ValidationApprouve;
                 //Sauvegarder
                 this._context.Update(analyseModif);
                 this._context.SaveChanges();

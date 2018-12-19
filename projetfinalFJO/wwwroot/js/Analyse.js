@@ -21,17 +21,52 @@ function Ajustation(item) {
     AnalyseElementCompetence(num);
 }
 
+function Ajustation2(item) {
+    alert(item);
+    var a = document.getElementById(item).id;
+    num = a.charAt(6);
+    AnalyseElementCompetence2(num);
+}
+
 
 function AnalyseElementCompetence(i) {
-
     var url = "/AnalyseElementCompetence/Create";
     var data = {
         NiveauTaxonomique: $("#Formulaire_" + i + " select[id=NiveauTaxonomique]").val(),
-        Reformulation: $("#Formulaire_" + i + " input[id=Reformulation]").val(),
-        Context: $("#Formulaire_" + i + " input[id=Context]").val(),
-        SavoirFaireProgramme: $("#Formulaire_" + i + " input[id=SavoirFaireProgramme]").val(),
-        SavoirEtreProgramme: $("#Formulaire_" + i + " input[id=SavoirEtreProgramme]").val(),
+        Reformulation: $("#Formulaire_" + i + " textarea[id=Reformulation]").val(),
+        Context: $("#Formulaire_" + i + " textarea[id=Context]").val(),
+        SavoirFaireProgramme: $("#Formulaire_" + i + " textarea[id=SavoirFaireProgramme]").val(),
+        SavoirEtreProgramme: $("#Formulaire_" + i + " textarea[id=SavoirEtreProgramme]").val(),
         ElementCompétence: $("#Formulaire_" + i + " #ElementComp_tence").val(),
+    };
+    $.ajax({
+        data: JSON.stringify(data),
+        type: "POST",
+        url: url,
+        datatype: "text/plain",
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (request) {
+            //alert(AdresseCourriel);
+            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+        },
+        success: function (result) {
+            alert("Analyse de l'élément de compétence ajoutée avec succès!");
+        },
+        error: function (xhr, status) { alert("erreur:" + status); }
+    });
+    return false;
+}
+
+
+function AnalyseElementCompetence2(i) {
+    var url = "/AnalyseElementCompetence/Create";
+    var data = {
+        NiveauTaxonomique: $("#Formulaire_" + i + " select[id=NiveauTaxonomique]").val(),
+        Reformulation: $("#Formulaire_" + i + " textarea[id=Reformulation]").val(),
+        Context: $("#Formulaire_" + i + " textarea[id=Context]").val(),
+        SavoirFaireProgramme: $("#Formulaire_" + i + " textarea[id=SavoirFaireProgramme]").val(),
+        SavoirEtreProgramme: $("#Formulaire_" + i + " textarea[id=SavoirEtreProgramme]").val(),
+        ElementCompétence: $("#Formulaire_" + i + " #ElementComp_tence option:selected").text(),
     };
     $.ajax({
         data: JSON.stringify(data),
@@ -115,15 +150,6 @@ function DimensionAjoutAjax(divId) {
     });
     return formModal;
 } var formModal;
-
-
-function Ajustation(item) {
-    alert(item);
-    var a = document.getElementById(item).id;
-    num = a.charAt(6);
-
-    AnalyseElementCompetence(num);
-}
 
 function AssocierFamilleAjax() {
     if ($("#NomFamille option:selected").text() != "") {
