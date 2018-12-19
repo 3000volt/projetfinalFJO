@@ -121,7 +121,7 @@ function AjouterNbHeuresCours(tableau_donner) {
             alert(result);
             return true;
         },
-        error: function (xhr, result) { alert("erreur:" + result); }
+        error: function (xhr, result) { alert("erreur:" + " Vous devez remplir toute les case convenablement!"); }
     });
     return false;
 }

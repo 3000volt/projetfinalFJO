@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projetfinalFJO.Appdata;
 using projetfinalFJO.Models;
@@ -22,12 +23,13 @@ namespace projetfinalFJO.Controllers
         {
             try
             {
+                string noPorgramme = this.HttpContext.Session.GetString("programme");
                 //La liste de tout les cours
-                List<Cours> listeCours = this._context.Cours.ToList();
+                List<Cours> listeCours = this._context.Cours.ToList().FindAll(x => x.NoProgramme == noPorgramme);
                 //La liste des repartitions des heures
-                List<RepartitionHeuresession> listeRepartirHeureCompetence = this._context.RepartitionHeuresession.ToList();
+                List<RepartitionHeuresession> listeRepartirHeureCompetence = this._context.RepartitionHeuresession.ToList().FindAll(x=>x.NoProgramme == noPorgramme);
                 //La liste des cours et competences
-                List<CoursCompetences> listeCoursCompetence = this._context.CoursCompetences.ToList();
+                List<CoursCompetences> listeCoursCompetence = this._context.CoursCompetences.ToList().FindAll(x => x.NoProgramme == noPorgramme);
                 //La liste des session
                 List<Session> listeSession = this._context.Session.ToList();
                 //Creation du ViewModel qui nou permettra d'inserer les heures aux compétences par cours
