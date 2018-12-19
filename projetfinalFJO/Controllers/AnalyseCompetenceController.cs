@@ -161,7 +161,9 @@ namespace projetfinalFJO.Controllers
                 {
                     if (elements.Any(x => x.ElementCompétence == a.ElementCompétence))
                     {
-                        listeElemCompComplete.Add(analyses.Find(x => x.ElementCompétence == a.ElementCompétence));
+                        //listeElemCompComplete.Add(analyses.Find(x => x.ElementCompétence == a.ElementCompétence));
+                        listeElemCompComplete.Add(a);
+
                     }
                 }
                 List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
@@ -174,9 +176,43 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
         }
 
+        public ActionResult ListeElements2()
+        {
+            try
+            {
+                //Trouver le code a l'aide de la session
+                string code = this.HttpContext.Session.GetString("CodeCompetence");
+                //Liste de tout les analyses dans la bd des elements
+                List<AnalyseElementsCompetence> analyses = this._context.AnalyseElementsCompetence.ToList();
+                List<string> numeroAnalyse = new List<string>();
+                foreach (AnalyseElementsCompetence a in analyses)
+                {
+                    numeroAnalyse.Add(a.ElementCompétence);
+                }
+                List<CompetencesElementCompetence> elements = new List<CompetencesElementCompetence>();
+                elements = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == code);
+                List<AnalyseElementsCompetence> listeElemCompComplete = new List<AnalyseElementsCompetence>();
+
+                foreach (AnalyseElementsCompetence a in analyses)
+                {
+                    if (elements.Any(x => x.ElementCompétence == a.ElementCompétence))
+                    {
+                        //listeElemCompComplete.Add(analyses.Find(x => x.ElementCompétence == a.ElementCompétence));
+                        listeElemCompComplete.Add(a);
+
+                    }
+                }
+                List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
+                ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
+                return View("ListeElements", listeElemCompComplete);
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+        }
 
         public ActionResult ConsulterAnalyse(string code, string email)
         {

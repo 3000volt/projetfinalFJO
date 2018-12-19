@@ -73,12 +73,12 @@ namespace projetfinalFJO.Controllers
         }
 
         [HttpGet]
-        public ActionResult ModifierAnalyse(string code, string email)
+        public ActionResult ModifierAnalyse(int id)
         {
             try
             {
                 //Sélectionner l'analyse en question
-                AnalyseElementsCompetence analyse = this._context.AnalyseElementsCompetence.ToList().Find(x => x.ElementCompétence == code && x.AdresseCourriel == email);
+                AnalyseElementsCompetence analyse = this._context.AnalyseElementsCompetence.ToList().Find(x => x.IdAnalyseAc == id);
                 //Mettre l'analyse dans une session
                 this.HttpContext.Session.SetString("analsyeModif", JsonConvert.SerializeObject(analyse));
                 //ViewBag pour le niveau taxonomique
@@ -110,7 +110,59 @@ namespace projetfinalFJO.Controllers
                 this._context.Update(analyseModif);
                 this._context.SaveChanges();
                 //Retourner à la liste d'analyse
-                return View("ListeElements");
+                return RedirectToAction("ListeElements", "AnalyseCompetence", new { code = this.HttpContext.Session.GetString("CodeCompetence"), email = analyse.AdresseCourriel });
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ConsulterAnalyse(int id)
+        {
+            try
+            {
+                //Sélectionner l'analyse en question
+                AnalyseElementsCompetence analyse = this._context.AnalyseElementsCompetence.ToList().Find(x => x.IdAnalyseAc == id);
+                //Mettre l'analyse dans une session
+                this.HttpContext.Session.SetString("analsyeModif", JsonConvert.SerializeObject(analyse));
+                return View(analyse);
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+
+        }
+
+        [HttpGet]
+        public ActionResult SupprimerAnalyse(int id)
+        {
+            try
+            {
+                //Sélectionner l'analyse en question
+                AnalyseElementsCompetence analyse = this._context.AnalyseElementsCompetence.ToList().Find(x => x.IdAnalyseAc == id);
+                //Retourner la vue
+                return View(analyse);
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult SupprimerAnalyse2(int id)
+        {
+            try
+            {
+                AnalyseElementsCompetence analyse = this._context.AnalyseElementsCompetence.ToList().Find(x => x.IdAnalyseAc == id);
+               //Supprimer
+                this._context.Remove(analyse);
+                this._context.SaveChanges();
+                //Retourner à la liste d'analyse
+                return RedirectToAction("ListeElements", "AnalyseCompetence", new { code = this.HttpContext.Session.GetString("CodeCompetence"), email = analyse.AdresseCourriel });
             }
             catch (Exception e)
             {
