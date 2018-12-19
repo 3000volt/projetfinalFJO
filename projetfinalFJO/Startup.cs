@@ -126,20 +126,20 @@ namespace projetfinalFJO
                 }
             }
 
-            LoginUser user = await UserManager.FindByEmailAsync("Bullshit@gmail.com");
+            LoginUser user = await UserManager.FindByEmailAsync("Admin@gmail.com");
 
             if (user == null)
             {
                 user = new LoginUser()
                 {
-                    UserName = "Bullshit@gmail.com",
-                    Email = "Bullshit@gmail.com",
+                    UserName = "Admin@gmail.com",
+                    Email = "Admin@gmail.com",
                 };
-                var CreateUser = await UserManager.CreateAsync(user, "bullshit1234");
+                var CreateUser = await UserManager.CreateAsync(user, "Password1");
                 if (CreateUser.Succeeded)
                 {
                     await UserManager.AddToRoleAsync(user, "Admin");
-                    Utilisateur util = new Utilisateur() { Nom = "Bullshit@gmail.com", Prenom = "Bullshit@gmail.com", RegisterDate = DateTime.Now, AdresseCourriel = "Bullshit@gmail.com" };
+                    Utilisateur util = new Utilisateur() { Nom = "Admin@gmail.com", Prenom = "Admin@gmail.com", RegisterDate = DateTime.Now, AdresseCourriel = "Admin@gmail.com" };
                     contexteActu.Utilisateur.Add(util);
                     await contexteActu.SaveChangesAsync();
                 }              
