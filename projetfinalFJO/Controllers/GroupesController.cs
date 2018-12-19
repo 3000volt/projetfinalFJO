@@ -22,34 +22,33 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Groupes
-        public async Task<IActionResult> List_groupe(string search)
+        public async Task<IActionResult> List_groupe()
         {
-            return View(await _context.Groupe.Where(x => x.NomGroupe.StartsWith(search) && x.NoProgramme == this.HttpContext.Session.GetString("programme") || x.NoProgramme.StartsWith(search) && x.NoProgramme == this.HttpContext.Session.GetString("programme") || search == null && x.NoProgramme == this.HttpContext.Session.GetString("programme")).ToListAsync());
-        }
-
-        // GET: Groupes/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
+            try
             {
-                return NotFound();
+                return View(await _context.Groupe.Where(x => x.NoProgramme == this.HttpContext.Session.GetString("programme")).ToListAsync());
             }
-
-            var groupe = await _context.Groupe
-                .FirstOrDefaultAsync(m => m.NomGroupe == id);
-            if (groupe == null)
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(groupe);
+           
         }
-
+   
         // GET: Groupes/Create
         public IActionResult Create()
         {
-            ViewData["NoProgramme"] = new SelectList(_context.Programmes, "NoProgramme", "NoProgramme");
-            return View();
+            //permet de créer un groupe
+            try
+            {
+                ViewData["NoProgramme"] = new SelectList(_context.Programmes.Where(x => x.NoProgramme == this.HttpContext.Session.GetString("programme")), "NoProgramme", "NoProgramme");
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // POST: Groupes/Create
@@ -59,14 +58,23 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody][Bind("NomGroupe,NoProgramme")] Groupe groupe)
         {
-            groupe.NoProgramme = this.HttpContext.Session.GetString("programme"); ;
-            if (ModelState.IsValid)
+            //permet de créer un groupe
+            try
             {
-                _context.Add(groupe);
-                await _context.SaveChangesAsync();
-                return Ok("ajout reussi");
+                groupe.NoProgramme = this.HttpContext.Session.GetString("programme"); ;
+                if (ModelState.IsValid)
+                {
+                    _context.Add(groupe);
+                    await _context.SaveChangesAsync();
+                    return Ok("ajout reussi");
+                }
+                return BadRequest("groupe non ajouté");
             }
-            return BadRequest("groupe non ajouté");
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
 
         // POST: Groupes/Create
@@ -76,30 +84,47 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CréerGroupe(/*[FromBody]*/[Bind("NomGroupe,NoProgramme")] Groupe groupe)
         {
-            groupe.NoProgramme = this.HttpContext.Session.GetString("programme"); ;
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(groupe);
-                await _context.SaveChangesAsync();
-                RedirectToAction(nameof(List_groupe));
+                groupe.NoProgramme = this.HttpContext.Session.GetString("programme"); ;
+                if (ModelState.IsValid)
+                {
+                    _context.Add(groupe);
+                    await _context.SaveChangesAsync();
+                    RedirectToAction(nameof(List_groupe));
+                }
+                return BadRequest("groupe non ajouté");
             }
-            return BadRequest("groupe non ajouté");
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // GET: Groupes/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null)
+            //permet de modifier un groupe
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var groupe = await _context.Groupe.FindAsync(id);
-            if (groupe == null)
-            {
-                return NotFound();
+                var groupe = await _context.Groupe.FindAsync(id);
+                if (groupe == null)
+                {
+                    return NotFound();
+                }
+                return View(groupe);
             }
-            return View(groupe);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // POST: Groupes/Edit/5
@@ -109,50 +134,68 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("NomGroupe,NoProgramme")] Groupe groupe)
         {
-            if (id != groupe.NomGroupe)
+            //permet de modifier un groupe
+            try
             {
-                return NotFound();
-            }
+                if (id != groupe.NomGroupe)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(groupe);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GroupeExists(groupe.NomGroupe))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(groupe);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!GroupeExists(groupe.NomGroupe))
+                        {
+                            return View("\\Views\\Shared\\page_erreur.cshtml");
+                        }
+                        else
+                        {
+                            return View("\\Views\\Shared\\page_erreur.cshtml");
+                        }
                     }
+                    return RedirectToAction(nameof(List_groupe));
                 }
-                return RedirectToAction(nameof(List_groupe));
+                return View(groupe);
             }
-            return View(groupe);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+          
         }
 
         // GET: Groupes/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
+            //permet de supprimer un groupe
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var groupe = await _context.Groupe
-                .FirstOrDefaultAsync(m => m.NomGroupe == id);
-            if (groupe == null)
+                var groupe = await _context.Groupe
+                    .FirstOrDefaultAsync(m => m.NomGroupe == id);
+                if (groupe == null)
+                {
+                    return NotFound();
+                }
+
+                return View(groupe);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(groupe);
+            
         }
 
         // POST: Groupes/Delete/5
@@ -160,10 +203,19 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var groupe = await _context.Groupe.FindAsync(id);
-            _context.Groupe.Remove(groupe);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(List_groupe));
+            //permet de supprimer un groupe
+            try
+            {
+                var groupe = await _context.Groupe.FindAsync(id);
+                _context.Groupe.Remove(groupe);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(List_groupe));
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         private bool GroupeExists(string id)

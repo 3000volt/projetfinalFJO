@@ -24,14 +24,23 @@ namespace projetfinalFJO.Controllers
         }
 
         // GET: Programmes
-        public async Task<IActionResult> List_Programme(string search)
+        public async Task<IActionResult> List_Programme()
         {
-            return View(await _context.Programmes.Where(x => x.NomProgramme.StartsWith(search) || search == null).ToListAsync());
+            try
+            {
+                return View(await _context.Programmes.ToListAsync());
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // GET: Programmes/Details/5
         public async Task<IActionResult> InfoProgramme(string id)
         {
+            
             try
             {
                 if (id == null)
