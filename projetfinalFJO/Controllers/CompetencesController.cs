@@ -163,6 +163,13 @@ namespace projetfinalFJO.Controllers
         {
             try
             {
+                //Prend rel enuméro du programme
+                competences.NoProgramme = this.HttpContext.Session.GetString("programme");
+
+                if (id != competences.CodeCompetence)
+                {
+                    return NotFound();
+                }
                 if (ModelState.IsValid)
                 {
                     try
@@ -189,13 +196,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            //Prend rel enuméro du programme
-            competences.NoProgramme = this.HttpContext.Session.GetString("programme");
-
-            if (id != competences.CodeCompetence)
-            {
-                return NotFound();
-            }
+            
 
             
         }
