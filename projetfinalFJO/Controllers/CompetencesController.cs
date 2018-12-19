@@ -145,6 +145,8 @@ namespace projetfinalFJO.Controllers
                 {
                     return NotFound();
                 }
+                ViewBag.Idfamille = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
+                ViewBag.NomSequence = new SelectList(_context.Sequences, "NomSequence", "NomSequence");
                 return View(competences);
             }
             catch (Exception e)
@@ -159,7 +161,7 @@ namespace projetfinalFJO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ModifierCompetence(string id, [Bind("CodeCompetence,ObligatoireCégep,Titre,Description,ContextRealisation,Idfamille,NoProgramme")] Competences competences)
+        public async Task<IActionResult> ModifierCompetence(string id, [Bind("CodeCompetence,ObligatoireCégep,Titre,Description,ContextRealisation,NomFamille,NoProgramme")] Competences competences)
         {
             try
             {
@@ -236,7 +238,14 @@ namespace projetfinalFJO.Controllers
         {
             try
             {
+
                 var competences = await _context.Competences.FindAsync(id);
+                var element_et_competences = _context.CompetencesElementCompetence.ToList().FindAll(x=>x.CodeCompetence==competences.CodeCompetence);
+                foreach(CompetencesElementCompetence c in element_et_competences)
+                {
+                    _context.CompetencesElementCompetence.Remove(c);
+                }
+                await _context.SaveChangesAsync();
                 _context.Competences.Remove(competences);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(ListeCompetence));
@@ -245,7 +254,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         private bool CompetencesExists(string id)
