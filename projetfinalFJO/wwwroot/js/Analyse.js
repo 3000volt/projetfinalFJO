@@ -1,7 +1,7 @@
 ﻿var formModal;
 $(function () {
     var code = $("#CodeCompetence").val().toString();
-    alert("testss");
+    alert("test2");
     $("#Titre").val(AfficherDescription(code));
     //$("#Description").val(AfficherDescription(code));
     //Appeler la fonction au changement de valeur du select
@@ -52,43 +52,53 @@ function AnalyseElementCompetence(i) {
 }
 
 function AjouterFamilleAjax() {
-    alert("allo");
-    alert($("#NomFamille2").val());
-    var url = "/AnalyseCompetence/AjouterFamille";
-    var data = {
-        NomFamille: $("#NomFamille2").val(),
-    };
-    $.ajax({
-        data: JSON.stringify(data),
-        //data: $("form").serialize(),
-        type: "POST",
-        url: url,
-        datatype: "text/plain",
-        contentType: "application/json; charset=utf-8",
-        //contentType : "application/x-www-form-urlencoded; charset=utf-8",
-        success: function (result) {
-            alert("Famille ajoutée avec succès");
-        },
-        error: function (xhr, status) { alert("erreur:" + status); }
-    });
+    //Voir si le champs a été remplis
+    if ($("#NomFamille2").val() != "") {
+        var url = "/AnalyseCompetence/AjouterFamille";
+        var data = {
+            NomFamille: $("#NomFamille2").val(),
+        };
+        $.ajax({
+            data: JSON.stringify(data),
+            //data: $("form").serialize(),
+            type: "POST",
+            url: url,
+            datatype: "text/plain",
+            contentType: "application/json; charset=utf-8",
+            //contentType : "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (result) {
+                alert("Famille ajoutée avec succès!");
+            },
+            error: function (xhr, status) { alert("erreur:" + status); }
+        });
+    }
+    else {
+        alert("Vous devez remplir le champs pour ajouter une famille!");
+    }
 }
 
 function AjouterSequenceAjax() {
-    var url = "/AnalyseCompetence/AjouterSequence";
-    var data = {
-        NomSequence: $("#NomSequence2").val(),
-    };
-    $.ajax({
-        data: JSON.stringify(data),
-        type: "POST",
-        url: url,
-        datatype: "text/plain",
-        contentType: "application/json; charset=utf-8",
-        success: function (result) {
-            alert("Séquence ajoutée avec succès!");
-        },
-        error: function (xhr, status) { alert("erreur:" + status); }
-    });
+    //Voir si le champs a été remplis
+    if ($("#NomSequence2").val() != "") {
+        var url = "/AnalyseCompetence/AjouterSequence";
+        var data = {
+            NomSequence: $("#NomSequence2").val(),
+        };
+        $.ajax({
+            data: JSON.stringify(data),
+            type: "POST",
+            url: url,
+            datatype: "text/plain",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                alert("Séquence ajoutée avec succès!");
+            },
+            error: function (xhr, status) { alert("erreur:" + status); }
+        });
+    }
+    else {
+        alert("Vous devez remplir le champs pour ajouter une séquence!");
+    }
 }
 
 function DimensionAjoutAjax(divId) {
@@ -116,51 +126,57 @@ function Ajustation(item) {
 }
 
 function AssocierFamilleAjax() {
-    var url = "/AnalyseCompetence/AssocierFamille";
-    var data = {
-        CodeCompetence: $("#CodeCompetence").val(),
-        NomFamille: $("#NomFamille").val()
-    };
-    $.ajax({
-        data: JSON.stringify(data),
-        type: "POST",
-        url: url,
-        datatype: "text/plain",
-        contentType: "application/json; charset=utf-8",
-        //beforeSend: function (request) {
-        //    request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
-        //},
-        success: function (result) {
-            alert(result);
-        },
-        error: function (xhr, status) { alert("erreur:" + status); }
-    });
-    return false;
+    if ($("#NomFamille option:selected").text() != "") {
+        var url = "/AnalyseCompetence/AssocierFamille";
+        var data = {
+            CodeCompetence: $("#CodeCompetence").val(),
+            NomFamille: $("#NomFamille").val()
+        };
+        $.ajax({
+            data: JSON.stringify(data),
+            type: "POST",
+            url: url,
+            datatype: "text/plain",
+            contentType: "application/json; charset=utf-8",
 
+            success: function (result) {
+                alert(result);
+            },
+            error: function (xhr, status) { alert("erreur:" + status); }
+        });
+        return false;
+    }
+    else {
+        alert("Créez des familles avant d'associer!");
+    }
 }
 
 function AssocierSequencejax() {
-    var url = "/AnalyseCompetence/AssocierSequence";
-    var data = {
-        CodeCompetence: $("#CodeCompetence").val(),
-        NomSequence: $("#NomSequence").val()
-    };
-    $.ajax({
-        data: JSON.stringify(data),
-        type: "POST",
-        url: url,
-        datatype: "text/plain",
-        contentType: "application/json; charset=utf-8",
-        //beforeSend: function (request) {
-        //    request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
-        //},
-        success: function (result) {
-            alert(result);
-        },
-        error: function (xhr, status) { alert("erreur:" + status); }
-    });
-    return false;
-
+    if ($("#NomSequence option:selected").text() != "") {
+        var url = "/AnalyseCompetence/AssocierSequence";
+        var data = {
+            CodeCompetence: $("#CodeCompetence").val(),
+            NomSequence: $("#NomSequence").val()
+        };
+        $.ajax({
+            data: JSON.stringify(data),
+            type: "POST",
+            url: url,
+            datatype: "text/plain",
+            contentType: "application/json; charset=utf-8",
+            //beforeSend: function (request) {
+            //    request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
+            //},
+            success: function (result) {
+                alert(result);
+            },
+            error: function (xhr, status) { alert("erreur:" + status); }
+        });
+        return false;
+    }
+    else {
+        alert("Créez des séquences avant d'associer!");
+    }
 }
 
 function AnalyseCompetence() {
@@ -213,7 +229,7 @@ function AfficherDescription(i) {
         data: { codeComp: i },
         type: "POST",
         async: false,
-        url: url,        
+        url: url,
         datatype: "json",
         success: function (data) {
             //$("#Description").val(result);

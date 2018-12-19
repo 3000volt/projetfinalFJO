@@ -64,7 +64,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         public ActionResult CreerAnalyseListe()
@@ -89,7 +89,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         [HttpPost]
@@ -113,7 +113,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         public ActionResult ListeAnalyse(string search)
@@ -139,7 +139,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         public ActionResult ListeElements(string code, string email)
@@ -174,7 +174,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
 
@@ -190,7 +190,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-           
+
         }
 
         public ActionResult ModifierAnalyse(string code, string email)
@@ -205,7 +205,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         [HttpGet]
@@ -221,8 +221,8 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
-           
+
+
         }
 
         [HttpPost]
@@ -240,19 +240,19 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         [HttpPost]
         public string AfficherDescription(string codeComp)
         {
-            
-                //variable de la description
-                string Titre;
-                //l'associer a la description du code correspondant dans la BD
-                Titre = this._context.Competences.ToList().Find(x => x.CodeCompetence == codeComp).Titre;
-                //Retoruenr la valeur
-                return Titre;                     
+
+            //variable de la description
+            string Titre;
+            //l'associer a la description du code correspondant dans la BD
+            Titre = this._context.Competences.ToList().Find(x => x.CodeCompetence == codeComp).Titre;
+            //Retoruenr la valeur
+            return Titre;
         }
 
         [HttpPost]
@@ -274,7 +274,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         [HttpPost]
@@ -297,7 +297,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-           
+
         }
 
         [HttpPost]
@@ -318,7 +318,7 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         [HttpPost]
@@ -339,13 +339,13 @@ namespace projetfinalFJO.Controllers
             {
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         public PartialViewResult PartialAjouterFamille()
         {
             try
-            {                
+            {
                 ViewData["NomFamille"] = new SelectList(_context.Famillecompetence, "NomFamille", "NomFamille");
                 return PartialView("_partialAjouterFamille");
             }
@@ -353,7 +353,7 @@ namespace projetfinalFJO.Controllers
             {
                 return PartialView("\\Views\\Shared\\page_erreur.cshtml");
             }
-           
+
         }
 
         public PartialViewResult PartialListeFamille()
@@ -368,7 +368,7 @@ namespace projetfinalFJO.Controllers
                 return PartialView("\\Views\\Shared\\page_erreur.cshtml");
             }
 
-           
+
         }
 
         public PartialViewResult PartialAjouterSequence()
@@ -382,7 +382,7 @@ namespace projetfinalFJO.Controllers
             {
                 return PartialView("\\Views\\Shared\\page_erreur.cshtml");
             }
-            
+
         }
 
         public PartialViewResult PartialListeSequence()
@@ -396,7 +396,7 @@ namespace projetfinalFJO.Controllers
             {
                 return PartialView("\\Views\\Shared\\page_erreur.cshtml");
             }
-           
+
         }
     }
 }
