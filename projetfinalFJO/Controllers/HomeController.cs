@@ -36,27 +36,36 @@ namespace projetfinalFJO.Controllers
 
         public IActionResult Index()
         {
-            //Retourner les actualisations que l'utilisateur participe
-            List<Membresdesactualisations> membreActusPresent = this.contexteActu.Membresdesactualisations.ToList().FindAll(x => x.AdresseCourriel == this.User.Identity.Name);
-            List<ActualisationInformation> actus = new List<ActualisationInformation>();
-            foreach (Membresdesactualisations membre in membreActusPresent)
+            try
             {
-                actus.Add(new ActualisationInformation{
-                    NumActualisation = membre.NumActualisation,
-                    NomActualisation = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == membre.NumActualisation).NomActualisation,
-                    NoProgramme = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == membre.NumActualisation).NoProgramme,
-                    Approuve = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == membre.NumActualisation).Approuve
-                });
+                //Retourner les actualisations que l'utilisateur participe
+                List<Membresdesactualisations> membreActusPresent = this.contexteActu.Membresdesactualisations.ToList().FindAll(x => x.AdresseCourriel == this.User.Identity.Name);
+                List<ActualisationInformation> actus = new List<ActualisationInformation>();
+                foreach (Membresdesactualisations membre in membreActusPresent)
+                {
+                    actus.Add(new ActualisationInformation
+                    {
+                        NumActualisation = membre.NumActualisation,
+                        NomActualisation = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == membre.NumActualisation).NomActualisation,
+                        NoProgramme = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == membre.NumActualisation).NoProgramme,
+                        Approuve = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == membre.NumActualisation).Approuve
+                    });
+                }
+                List<ActualisationViewModel> actuListe = actus.Select(x => new ActualisationViewModel
+                {
+                    NumActualisation = x.NumActualisation,
+                    NomActualisation = x.NomActualisation,
+                    NoProgramme = x.NoProgramme,
+                    NomProgramme = Selection(x.NoProgramme),
+                    Approuve = x.Approuve
+                }).ToList();
+                return View(actuListe);
             }
-            List<ActualisationViewModel> actuListe = actus.Select(x => new ActualisationViewModel
+            catch (Exception e)
             {
-                NumActualisation = x.NumActualisation,
-                NomActualisation = x.NomActualisation,
-                NoProgramme = x.NoProgramme,
-                NomProgramme = Selection(x.NoProgramme),
-                Approuve = x.Approuve
-            }).ToList();
-            return View(actuListe);
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         //Méthode privé pour retirer le nom du programme
@@ -70,27 +79,43 @@ namespace projetfinalFJO.Controllers
 
         public ActionResult ChoixActualisation(int num, string prog)
         {
-            int numSession = num;
-            this.HttpContext.Session.SetString("programme", prog);
-            //Créer une session pour garder en mémoire l'actualisation en cours
-            this.HttpContext.Session.SetString("NumActualisation", numSession.ToString());
-            return RedirectToAction("Accueil");
+            try
+            {
+                int numSession = num;
+                this.HttpContext.Session.SetString("programme", prog);
+                //Créer une session pour garder en mémoire l'actualisation en cours
+                this.HttpContext.Session.SetString("NumActualisation", numSession.ToString());
+                return RedirectToAction("Accueil");
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         public ActionResult Accueil()
         {
-            int numActu = int.Parse(this.HttpContext.Session.GetString("NumActualisation"));
-            var actu = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == numActu);
-            //Transformer en View Model
-            ActualisationViewModel actuVM = new ActualisationViewModel
+            try
             {
-                NumActualisation = actu.NumActualisation,
-                NomActualisation = actu.NomActualisation,
-                NoProgramme = actu.NoProgramme,
-                NomProgramme = Selection(actu.NoProgramme),
-                Approuve = actu.Approuve
-            };
-            return View(actuVM);
+                int numActu = int.Parse(this.HttpContext.Session.GetString("NumActualisation"));
+                var actu = this.contexteActu.ActualisationInformation.ToList().Find(x => x.NumActualisation == numActu);
+                //Transformer en View Model
+                ActualisationViewModel actuVM = new ActualisationViewModel
+                {
+                    NumActualisation = actu.NumActualisation,
+                    NomActualisation = actu.NomActualisation,
+                    NoProgramme = actu.NoProgramme,
+                    NomProgramme = Selection(actu.NoProgramme),
+                    Approuve = actu.Approuve
+                };
+                return View(actuVM);
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         public IActionResult Privacy()

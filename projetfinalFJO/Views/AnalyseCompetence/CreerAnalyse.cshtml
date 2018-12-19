@@ -1,10 +1,4 @@
-﻿@*@{
-        ViewData["Title"] = "CreerAnalyse";
-    }*@
-<div id="principale">
-    <h2>Création d'analyse</h2>
-
-</div>
+﻿
 
 @if (ViewBag.Contexte == "Prechoisi" || ViewBag.Contexte == "NonChoisi")
 {
@@ -12,8 +6,6 @@
         <partial name="_AnalyseCompetence" />@*model="ViewBag.CreerAnalyse"*@
     </div>
     <hr />
-    @*<div id="accordion">
-    </div>*@
     <div id="tabs">
         <ul>
             <li class="loic"><a href="@Url.Action("PartialListeFamille", "AnalyseCompetence")">Assigner une famille</a></li>
@@ -28,9 +20,12 @@
 @if (ViewBag.Contexte == "Prechoisi" || ViewBag.Contexte == "ElemNonChoisi")
 {
     <div id="divElementCompetence">
-        <partial name="../AnalyseCompetence/_AnalyseElementCompetence" />@*model="ViewBag.CreerAnalyse"*@
+        <partial name="../AnalyseCompetence/_AnalyseElementCompetence" />
     </div>
 }
+    <div>
+        <a asp-action="ListeAnalyse" class="btn btn-info" style="background-color:darkblue;border-color:darkblue;margin-bottom:10px">Retour à la liste d'analyse</a>
+    </div>
 
 @section Scripts
     {

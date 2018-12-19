@@ -24,25 +24,41 @@ namespace projetfinalFJO.Controllers
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Session.ToListAsync());
+            try
+            {
+                return View(await _context.Session.ToListAsync());
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // GET: Sessions/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var session = await _context.Session
-                .FirstOrDefaultAsync(m => m.NomSession == id);
-            if (session == null)
+                var session = await _context.Session
+                    .FirstOrDefaultAsync(m => m.NomSession == id);
+                if (session == null)
+                {
+                    return NotFound();
+                }
+
+                return View(session);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(session);
+            
         }
 
         // GET: Sessions/Create
@@ -58,29 +74,45 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody][Bind("NomSession")] Session session)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Session.Add(session);
-                await _context.SaveChangesAsync();
-                return Ok("ajout reussi");
+                if (ModelState.IsValid)
+                {
+                    _context.Session.Add(session);
+                    await _context.SaveChangesAsync();
+                    return Ok("ajout reussi");
+                }
+                return BadRequest("groupe non ajouté");
             }
-            return BadRequest("groupe non ajouté");
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // GET: Sessions/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var session = await _context.Session.FindAsync(id);
-            if (session == null)
-            {
-                return NotFound();
+                var session = await _context.Session.FindAsync(id);
+                if (session == null)
+                {
+                    return NotFound();
+                }
+                return View(session);
             }
-            return View(session);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // POST: Sessions/Edit/5
@@ -90,50 +122,66 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("NomSession")] Session session)
         {
-            if (id != session.NomSession)
+            try
             {
-                return NotFound();
-            }
+                if (id != session.NomSession)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(session);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SessionExists(session.NomSession))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(session);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!SessionExists(session.NomSession))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(session);
             }
-            return View(session);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // GET: Sessions/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var session = await _context.Session
-                .FirstOrDefaultAsync(m => m.NomSession == id);
-            if (session == null)
+                var session = await _context.Session
+                    .FirstOrDefaultAsync(m => m.NomSession == id);
+                if (session == null)
+                {
+                    return NotFound();
+                }
+
+                return View(session);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(session);
+           
         }
 
         // POST: Sessions/Delete/5
@@ -141,10 +189,18 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var session = await _context.Session.FindAsync(id);
-            _context.Session.Remove(session);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var session = await _context.Session.FindAsync(id);
+                _context.Session.Remove(session);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         private bool SessionExists(string id)
