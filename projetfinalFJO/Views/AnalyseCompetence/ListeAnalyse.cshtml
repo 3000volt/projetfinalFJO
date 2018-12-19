@@ -7,70 +7,91 @@
 <h2>Liste des analyse</h2>
 <p>
     <a asp-action="CreerAnalyseListe" asp-controller="AnalyseCompetence" class="btn btn-info">
-      <i class="fas fa-plus-circle"> Créer une analyse</i>
+        <i class="fas fa-plus-circle"> Créer une analyse</i>
     </a>
 </p>
-<p>
-    @using (@Html.BeginForm("ListeAnalyse", "AnalyseCompetence", FormMethod.Get))
-    {
-        <b>Recherche par code de compétence / courriel:</b>
+<table class="table table-hover table-condensed" id="myTable">
 
-        @Html.TextBox("search")
-        <input type="submit" value="Rechercher" />
-    }
-</p>
-<table class="table table-hover">
-    @if (Model.Count() == 0)
-    {
+    <thead class="card-header">
         <tr>
-            <td colspan="4">
-                Aucune analyse trouvée.
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeCompetence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NiveauTaxonomique)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValidationApprouve)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdresseCourriel)
+            </th>
+            <th></th>
         </tr>
-    }
-    else
-    {
-        <thead class="card-header">
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CodeCompetence)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NiveauTaxonomique)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ValidationApprouve)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AdresseCourriel)
-                </th>
-                <th></th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodeCompetence)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NiveauTaxonomique)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValidationApprouve)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdresseCourriel)
+                </td>
+                <td>
+                    <a class="btn btn-info btnlist testing" asp-action="ListeElements" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-pen"></i><span>List éléments</span></a> |
+                    <a class="btn btn-info btnlist testing" asp-action="ConsulterAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-info-circle"></i><span>Voir les détails</span></a> |
+                    <a class="btn btn-info btnlist testing" asp-action="ModifierAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-pen"></i><span>Modifier l'analyse</span></a>|
+                    <a class="btn btn-info btnlist testing" asp-action="SupprimerAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-trash"></i><span>Supprimer</span></a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CodeCompetence)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NiveauTaxonomique)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ValidationApprouve)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AdresseCourriel)
-                    </td>
-                    <td>
-                        <a class="btn btn-info btnlist testing" asp-action="ListeElements" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-pen"></i><span>List éléments</span></a> |
-                        <a class="btn btn-info btnlist testing" asp-action="ConsulterAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-info-circle"></i><span>Voir les détails</span></a> |
-                        <a class="btn btn-info btnlist testing" asp-action="ModifierAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-pen"></i><span>Modifier l'analyse</span></a>|
-                        <a class="btn btn-info btnlist testing" asp-action="SupprimerAnalyse" asp-route-code="@item.CodeCompetence" asp-route-email="@item.AdresseCourriel"><i class="fas fa-trash"></i><span>Supprimer</span></a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    }
-    </table>
+        }
+    </tbody>
+
+</table>
+@section Scripts{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                language: {
+                    processing: "Traitement en cours...",
+                    search: "Rechercher&nbsp;:",
+                    lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+                    info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                    infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                    infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    infoPostFix: "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable: "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first: "Premier",
+                        previous: "Pr&eacute;c&eacute;dent",
+                        next: "Suivant",
+                        last: "Dernier"
+                    },
+                    aria: {
+                        sortAscending: ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+
+            $("input[type='search']").css({ "border-radius": "10px", "border": "2px solid #17a2b8" });
+
+        });
+    </script>
+
+}

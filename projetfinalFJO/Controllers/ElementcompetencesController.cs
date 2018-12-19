@@ -24,44 +24,68 @@ namespace projetfinalFJO.Controllers
         // GET: Elementcompetences
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Elementcompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
+            try
+            {
+                return View(await _context.Elementcompetence.Where(x => x.NoProgramme.Equals(this.HttpContext.Session.GetString("programme"))).ToListAsync());
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
 
         public ActionResult ListeElementCompetence(string id)
         {
-            //Il faut retourner la liste des élément sde compétences de la compétence concernée
-            List<CompetencesElementCompetence> listeCompElemComp = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == id);
-            List<string> listeNomElem = new List<string>();
-            foreach (CompetencesElementCompetence compElemComp in listeCompElemComp)
+            try
             {
-                listeNomElem.Add(compElemComp.ElementCompétence);
+                //Il faut retourner la liste des élément sde compétences de la compétence concernée
+                List<CompetencesElementCompetence> listeCompElemComp = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == id);
+                List<string> listeNomElem = new List<string>();
+                foreach (CompetencesElementCompetence compElemComp in listeCompElemComp)
+                {
+                    listeNomElem.Add(compElemComp.ElementCompétence);
+                }
+                List<Elementcompetence> listeElemComp = new List<Elementcompetence>();
+                foreach (string listeElem in listeNomElem)
+                {
+                    listeElemComp.Add(this._context.Elementcompetence.ToList().Find(x => x.ElementCompétence == listeElem));
+                }
+                //Ajouter une session de la compétence
+                this.HttpContext.Session.SetString("Competence", id);
+                return View(listeElemComp);
             }
-            List<Elementcompetence> listeElemComp = new List<Elementcompetence>();
-            foreach (string listeElem in listeNomElem)
+            catch (Exception e)
             {
-                listeElemComp.Add(this._context.Elementcompetence.ToList().Find(x => x.ElementCompétence == listeElem));
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            //Ajouter une session de la compétence
-            this.HttpContext.Session.SetString("Competence", id);
-            return View(listeElemComp);
+           
         }
 
         public ActionResult ListeElementCompetence2()
         {
-            string id = this.HttpContext.Session.GetString("Competence");
-            //Il faut retourner la liste des élément sde compétences de la compétence concernée
-            List<CompetencesElementCompetence> listeCompElemComp = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == id);
-            List<string> listeNomElem = new List<string>();
-            foreach (CompetencesElementCompetence compElemComp in listeCompElemComp)
+            try
             {
-                listeNomElem.Add(compElemComp.ElementCompétence);
+                string id = this.HttpContext.Session.GetString("Competence");
+                //Il faut retourner la liste des élément sde compétences de la compétence concernée
+                List<CompetencesElementCompetence> listeCompElemComp = this._context.CompetencesElementCompetence.ToList().FindAll(x => x.CodeCompetence == id);
+                List<string> listeNomElem = new List<string>();
+                foreach (CompetencesElementCompetence compElemComp in listeCompElemComp)
+                {
+                    listeNomElem.Add(compElemComp.ElementCompétence);
+                }
+                List<Elementcompetence> listeElemComp = new List<Elementcompetence>();
+                foreach (string listeElem in listeNomElem)
+                {
+                    listeElemComp.Add(this._context.Elementcompetence.ToList().Find(x => x.ElementCompétence == listeElem));
+                }
+                return View("ListeElementCompetence", listeElemComp);
             }
-            List<Elementcompetence> listeElemComp = new List<Elementcompetence>();
-            foreach (string listeElem in listeNomElem)
+            catch (Exception e)
             {
-                listeElemComp.Add(this._context.Elementcompetence.ToList().Find(x => x.ElementCompétence == listeElem));
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-            return View("ListeElementCompetence", listeElemComp);
+            
         }
 
         // POST: Elementcompetences/Create
@@ -71,32 +95,48 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody][Bind("ElementCompétence,CriterePerformance,NoProgramme")] Elementcompetence elementcompetence)
         {
-            elementcompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(elementcompetence);
-                await _context.SaveChangesAsync();
-                return Ok("élément ajouté avec succès");
+                elementcompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
+                if (ModelState.IsValid)
+                {
+                    _context.Add(elementcompetence);
+                    await _context.SaveChangesAsync();
+                    return Ok("élément ajouté avec succès");
+                }
+                return BadRequest("élément non ajouté");
             }
-            return BadRequest("élément non ajouté");
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
 
         // GET: Elementcompetences/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var elementcompetence = await _context.Elementcompetence
-                .FirstOrDefaultAsync(m => m.ElementCompétence == id);
-            if (elementcompetence == null)
+                var elementcompetence = await _context.Elementcompetence
+                    .FirstOrDefaultAsync(m => m.ElementCompétence == id);
+                if (elementcompetence == null)
+                {
+                    return NotFound();
+                }
+
+                return View(elementcompetence);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(elementcompetence);
+            
         }
 
         // GET: Elementcompetences/Create
@@ -112,41 +152,57 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Creer(Elementcompetence elementcompetence)
         {
-            elementcompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
-
-            if (ModelState.IsValid)
+            try
             {
-                //Ajouter a la table CompetenceElementCompetence
-                CompetencesElementCompetence compElemComp = new CompetencesElementCompetence()
+                elementcompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
+
+                if (ModelState.IsValid)
                 {
-                    CodeCompetence = this.HttpContext.Session.GetString("Competence"),//TODO
-                    ElementCompétence = elementcompetence.ElementCompétence,
-                    NoProgramme = this.HttpContext.Session.GetString("programme")
-                };
-                _context.Add(compElemComp);
-                //Ajouter a la table element de compétence
-                _context.Add(elementcompetence);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("ListeElementCompetence", new { id = this.HttpContext.Session.GetString("Competence") });
+                    //Ajouter a la table CompetenceElementCompetence
+                    CompetencesElementCompetence compElemComp = new CompetencesElementCompetence()
+                    {
+                        CodeCompetence = this.HttpContext.Session.GetString("Competence"),//TODO
+                        ElementCompétence = elementcompetence.ElementCompétence,
+                        NoProgramme = this.HttpContext.Session.GetString("programme")
+                    };
+                    _context.Add(compElemComp);
+                    //Ajouter a la table element de compétence
+                    _context.Add(elementcompetence);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("ListeElementCompetence", new { id = this.HttpContext.Session.GetString("Competence") });
+                }
+                return BadRequest("élément non ajouté");
             }
-            return BadRequest("élément non ajouté");
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
 
         // GET: Elementcompetences/Edit/5
         public async Task<IActionResult> Modifier(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var elementcompetence = await _context.Elementcompetence.FindAsync(id);
-            if (elementcompetence == null)
-            {
-                return NotFound();
+                var elementcompetence = await _context.Elementcompetence.FindAsync(id);
+                if (elementcompetence == null)
+                {
+                    return NotFound();
+                }
+                return View(elementcompetence);
             }
-            return View(elementcompetence);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // POST: Elementcompetences/Edit/5
@@ -156,50 +212,66 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Modifier(string id, [FromBody][Bind("ElementCompétence,CriterePerformance,NoProgramme")] Elementcompetence elementcompetence)
         {
-            if (id != elementcompetence.ElementCompétence)
+            try
             {
-                return NotFound();
-            }
+                if (id != elementcompetence.ElementCompétence)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(elementcompetence);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ElementcompetenceExists(elementcompetence.ElementCompétence))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(elementcompetence);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!ElementcompetenceExists(elementcompetence.ElementCompétence))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return View("ListeElementCompetence", new { id = this.HttpContext.Session.GetString("Competence") });
                 }
-                return View("ListeElementCompetence", new { id = this.HttpContext.Session.GetString("Competence") });
+                return View(elementcompetence);
             }
-            return View(elementcompetence);
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+            
         }
 
         // GET: Elementcompetences/Delete/5
         public async Task<IActionResult> Supprimer(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();//
-            }
+                if (id == null)
+                {
+                    return NotFound();//
+                }
 
-            var elementcompetence = await _context.Elementcompetence
-                .FirstOrDefaultAsync(m => m.ElementCompétence == id);
-            if (elementcompetence == null)
+                var elementcompetence = await _context.Elementcompetence
+                    .FirstOrDefaultAsync(m => m.ElementCompétence == id);
+                if (elementcompetence == null)
+                {
+                    return NotFound();
+                }
+
+                return View(elementcompetence);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return View("\\Views\\Shared\\page_erreur.cshtml");
             }
-
-            return View(elementcompetence);
+            
         }
 
         // POST: Elementcompetences/Delete/5
@@ -207,10 +279,18 @@ namespace projetfinalFJO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SupprimerConfirme(Elementcompetence elementcompetence)//string id, [Bind("ElementCompétence,CriterePerformance,NoProgramme")]
         {
-            //var elementcompetence = await _context.Elementcompetence.FindAsync(id);
-            _context.Elementcompetence.Remove(elementcompetence);
-            await _context.SaveChangesAsync();
-            return View("ListeElementCompetence", new { id = this.HttpContext.Session.GetString("Competence") });
+            try
+            {
+                
+                _context.Elementcompetence.Remove(elementcompetence);
+                await _context.SaveChangesAsync();
+                return View("ListeElementCompetence", new { id = this.HttpContext.Session.GetString("Competence") });
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
+           
         }
 
         private bool ElementcompetenceExists(string id)
