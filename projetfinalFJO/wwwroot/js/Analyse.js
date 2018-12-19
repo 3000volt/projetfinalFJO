@@ -52,7 +52,7 @@ function AnalyseElementCompetence(i) {
 }
 
 function AjouterFamilleAjax() {
-    //Voir si le champs a été remplis
+    //Voir si le champs a été remplis 
     if ($("#NomFamille2").val() != "") {
         var url = "/AnalyseCompetence/AjouterFamille";
         var data = {
