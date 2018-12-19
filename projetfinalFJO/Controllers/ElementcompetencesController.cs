@@ -279,11 +279,11 @@ namespace projetfinalFJO.Controllers
         // POST: Elementcompetences/Delete/5
         [HttpPost, ActionName("Supprimer")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SupprimerConfirme(Elementcompetence elementcompetence)//string id, [Bind("ElementCompétence,CriterePerformance,NoProgramme")]
+        public async Task<IActionResult> SupprimerConfirme(string id)//string id, [Bind("ElementCompétence,CriterePerformance,NoProgramme")]
         {
             try
             {
-                
+                Elementcompetence elementcompetence = this._context.Elementcompetence.ToList().Find(x=>x.ElementCompétence == id);
                 _context.Elementcompetence.Remove(elementcompetence);
                 await _context.SaveChangesAsync();
                 return View("ListeElementCompetence", new { id = this.HttpContext.Session.GetString("Competence") });

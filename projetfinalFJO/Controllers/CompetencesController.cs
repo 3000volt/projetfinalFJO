@@ -163,7 +163,7 @@ namespace projetfinalFJO.Controllers
         {
             try
             {
-                //Prend rel enuméro du programme
+                //Prendre le numéro du programme
                 competences.NoProgramme = this.HttpContext.Session.GetString("programme");
 
                 if (id != competences.CodeCompetence)

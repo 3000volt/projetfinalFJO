@@ -29,7 +29,7 @@
                 @Html.DisplayFor(model => model.NoProgramme)
             </dd>
         </dl>
-        <form asp-action="Supprimer">
+        <form asp-action="Supprimer" asp-route-id="@Model.ElementCompétence">
             <input type="submit" value="Supprimer" class="btn btn-info" /> |
             <a asp-action="ListeElementCompetence2" class="btn btn-info" style="background-color:darkblue;border-color:darkblue">Retour à la liste</a>
         </form>
