@@ -1,7 +1,6 @@
 ﻿//ajouter une compétence
 $(function () {
     //Variables globales pour aider au fonctionnement
-   
 });
 var compname = "";
 var name = "";
@@ -27,10 +26,12 @@ function fnAddcommpetenceAjax() {
                 request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
             },
             success: function (result) {
-                alert("Compétence créé avec succès!");
+                alert("Compétence créé avec succès! Vous pouvez ajouter ses éléments de compétence!");
                 compname = $("#CodeCompetence").val();
                 $('#tabs').show();
                 disableEnvoie();
+                //Mettre le bouton d'envoie disponible
+                $("#divBoutonsEnvoie").removeAttr('hidden');
                 return true;
             },
             error: function (xhr) { alert("erreur: Le code de compétence doit être unique et remplis!"); }
@@ -38,7 +39,7 @@ function fnAddcommpetenceAjax() {
         return false;
     }
     else {
-        alert("Les champs de code dompétence et de titre doivent être remplis!")
+        alert("Les champs de code de compétence et de titre doivent être remplis!")
     }
 }
 
@@ -91,7 +92,6 @@ function fnAddelecommpetenceAjax() {
         success: function (result) {
             //Message de statut réussie
             alert("Éléments de compétence ajouté avec succès!");
-                           
             //Effacer les champs de l'élément
             $("div[id='ui-id-4'] input[id='ElementComp_tence']").val("");
             $("#CriterePerformance").val("");
@@ -138,6 +138,7 @@ function fnAssocierelecommpetenceAjax() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
+            alert("Élément associé à la compétence avec succès!");
             name = $("div[id='ui-id-2'] select[id='ElementComp_tence']").val();
             $("#accordion").append("<div class=\"card cardcollapse\"><div class=\"card-header\" id=\"headingOne" + name + "\">" +
                 "<div class=\"row\"><div class=\"col-sm-4\"><h5 class=\"mb-0\">" +
@@ -156,7 +157,6 @@ function fnAssocierelecommpetenceAjax() {
 }
 //associer un élément de la compétences à une compétence
 function fnSuppElemComp(i, y) {
-    alert(i+y)
     var url = "/CompetencesElementCompetences/supprimer";
     var data = { ElementCompétence: i, CodeCompetence: y, };
     $.ajax({
@@ -169,7 +169,7 @@ function fnSuppElemComp(i, y) {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(result);
+            alert("Élément retiré de la liste associé à la compétence avec succès!");
             var titre = "#headingOne";
             titre += result;
             $("#"+result).hide();

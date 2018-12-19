@@ -12,7 +12,7 @@
         <partial name="_AddPartialcompetence" model="ViewBag.competence" />
     </div>
 
-    <div id="elementcomp" >
+    <div id="elementcomp">
         <div id="tabs" class="list" style="margin-bottom:5px; display:none;">
             <ul>
                 <li><a href="@Url.Action("partialCompElement", "Competences")">Assigner un enoncé à une compétence</a></li>
@@ -22,10 +22,11 @@
         <div id="accordion">
         </div>
 
-        <div id="divBoutonsEnvoie">
-            <a class="btn btn-info btnanalyse" id="btnAnalyser" asp-controller="AnalyseCompetence" asp-action="CreerAnalyse">Créer Analyse</a><br />
-            <a asp-action="ListeCompetence" class="btn btn-info" id="btnListe" style="background-color:darkblue;border-color:darkblue">Retour à la liste de compétence</a>
+        <div id="divBoutonsEnvoie" hidden>
+            <a class="btn btn-info btnanalyse" id="btnAnalyser" asp-controller="AnalyseCompetence" asp-action="CreerAnalyse">Analyser cette compétence et ses éléments</a><br />
+
         </div>
+        <a asp-action="ListeCompetence" class="btn btn-info" id="btnListe" style="background-color:darkblue;border-color:darkblue">Retour à la liste de compétence</a>
     </div>
 </div>
 
@@ -43,8 +44,8 @@
                             "If this wouldn't be a demo.");
                     });
                 }
-            });  
-        }); 
+            });
+        });
     </script>
 
 }

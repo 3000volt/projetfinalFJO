@@ -1,9 +1,8 @@
 ﻿var formModal;
 $(function () {
-    alert("TROLL");
     var code = $("#CodeCompetence").val().toString();
     alert("testss");
-    $("#Description").val(AfficherDescription(code));
+    $("#Titre").val(AfficherDescription(code));
     //$("#Description").val(AfficherDescription(code));
     //Appeler la fonction au changement de valeur du select
     $("#CodeCompetence").on('change', function () {
@@ -11,7 +10,7 @@ $(function () {
         //appeler la function ajax qui va chanegr la valeur de la description
         var code = $("#CodeCompetence").val().toString();
         //alert(code);
-        $("#Description").val(AfficherDescription(code));
+        $("#Titre").val(AfficherDescription(code));
     });
 });
 
@@ -32,7 +31,6 @@ function AnalyseElementCompetence(i) {
         Context: $("#Formulaire_" + i + " input[id=Context]").val(),
         SavoirFaireProgramme: $("#Formulaire_" + i + " input[id=SavoirFaireProgramme]").val(),
         SavoirEtreProgramme: $("#Formulaire_" + i + " input[id=SavoirEtreProgramme]").val(),
-        //AdresseCourriel: $("#Formulaire_" + i + " input[id=AdresseCourriel]").val(),
         ElementCompétence: $("#Formulaire_" + i + " #ElementComp_tence").val(),
     };
     $.ajax({
@@ -46,7 +44,7 @@ function AnalyseElementCompetence(i) {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(status);
+            alert("Analyse de l'élément de compétence ajoutée avec succès!");
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -69,7 +67,7 @@ function AjouterFamilleAjax() {
         contentType: "application/json; charset=utf-8",
         //contentType : "application/x-www-form-urlencoded; charset=utf-8",
         success: function (result) {
-            alert(result);
+            alert("Famille ajoutée avec succès");
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -82,14 +80,12 @@ function AjouterSequenceAjax() {
     };
     $.ajax({
         data: JSON.stringify(data),
-        //data: $("form").serialize(),
         type: "POST",
         url: url,
         datatype: "text/plain",
         contentType: "application/json; charset=utf-8",
-        //contentType : "application/x-www-form-urlencoded; charset=utf-8",
         success: function (result) {
-            alert(result);
+            alert("Séquence ajoutée avec succès!");
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });
@@ -109,26 +105,7 @@ function DimensionAjoutAjax(divId) {
     });
     return formModal;
 } var formModal;
-//$(function () {
 
-//    $("#AjouterFamilleModal").on("click", function () {
-//        formModal = DimensionAjoutAjax("#divAjouterFamille");
-//        $(formModal).dialog("open");
-//        $("form").prop("title", "Add");
-//    });
-//    $("#btSubmit").on("click", function () {
-//        $(formModal).dialog("close");
-//        //AjouterFamilleAjax();
-//    });
-//    $("#btCancel").on("click", function () { $(formModal).dialog("close"); });
-
-//    $("#AjouterSequenceModal").on("click", function () {
-//        formModal = DimensionAjoutAjax("#divAjouterSequence");//TODO**********
-//        $(formModal).dialog("open");
-//        $("form").prop("title", "Add");
-//    });
-
-//});
 
 function Ajustation(item) {
     alert(item);
@@ -186,38 +163,7 @@ function AssocierSequencejax() {
 
 }
 
-//function AnalyseCompetence() {
-//    alert("test Analyse");
-//    var url = "/AnalyseCompetence/Create";
-//    var data = {
-//        NiveauTaxonomique: $("#NiveauTaxonomique").val(),
-//        Reformulation: $("#Reformulation").val(),
-//        Context: $("#Context").val(),
-//        SavoirFaireProgramme: $("#SavoirFaireProgramme").val(),
-//        SavoirEtreProgramme: $("#SavoirEtreProgramme").val(),
-//        AdresseCourriel: $("#AdresseCourriel").val(),
-//        Famille: $("#Famille").val(),
-//        Sequence: $("#Sequence").val(),
-//        CodeCompetence: $("#CodeCompetence").val(),
-//    };
-//    $.ajax({
-//        data: JSON.stringify(data),
-//        type: "POST",
-//        url: url,
-//        datatype: "text/plain",
-//        contentType: "application/json; charset=utf-8",
-//        beforeSend: function (request) {
-//            request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
-//        },
-//        success: function (result) {
-//            alert(status);
-//        },
-//        error: function (xhr, status) { alert("erreur:" + status); }
-//    });
-//    return false;
-//}
 function AnalyseCompetence() {
-    alert("test REPBS");
     var url = "/AnalyseCompetence/Create";
     var data = {
         NiveauTaxonomique: $("#NiveauTaxonomique").val(),
@@ -226,7 +172,6 @@ function AnalyseCompetence() {
         Titre: $("#Titre").val(),
         SavoirFaireProgramme: $("#SavoirFaireProgramme").val(),
         SavoirEtreProgramme: $("#SavoirEtreProgramme").val(),
-        //AdresseCourriel: $("#AdresseCourriel").val(),
         CodeCompetence: $("#CodeCompetence").val()
     };
     $.ajax({
@@ -239,7 +184,7 @@ function AnalyseCompetence() {
             request.setRequestHeader("RequestVerificationToken", $("input[name='__RequestVerificationToken']").val());
         },
         success: function (result) {
-            alert(status);
+            alert("Analyse de la compétence ajouté avec succès");
         },
         error: function (xhr, status) { alert("erreur:" + status); }
     });

@@ -17,10 +17,12 @@ namespace projetfinalFJO.Appdata
             RepartitionHeuresession = new HashSet<RepartitionHeuresession>();
         }
         [Display(Name = "Code de compétence : ")]
+        [Required(ErrorMessage ="Code de compétence obligatoire")]
         public string CodeCompetence { get; set; }
         [Display(Name = "Obligatoire au cégep : ")]
         public bool? ObligatoireCégep { get; set; }
         [Display(Name = "Titre :")]
+        [Required(ErrorMessage = "Titre obligatoire")]
         public string Titre { get; set; }
         [Display(Name = "Description de la compétence : ")]
         public string Description { get; set; }
