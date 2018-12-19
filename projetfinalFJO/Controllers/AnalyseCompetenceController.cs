@@ -184,6 +184,8 @@ namespace projetfinalFJO.Controllers
             {
                 //Sélectionner l'analyse en question
                 AnalyseCompétence analyse = this._context.AnalyseCompétence.ToList().Find(x => x.CodeCompetence == code && x.AdresseCourriel == email);
+                //Mettre l'analyse dans une session
+                this.HttpContext.Session.SetString("analsyeModif", JsonConvert.SerializeObject(analyse));
                 return View(analyse);
             }
             catch (Exception e)
@@ -193,12 +195,18 @@ namespace projetfinalFJO.Controllers
 
         }
 
+        [HttpGet]
         public ActionResult ModifierAnalyse(string code, string email)
         {
             try
             {
                 //Sélectionner l'analyse en question
                 AnalyseCompétence analyse = this._context.AnalyseCompétence.ToList().Find(x => x.CodeCompetence == code && x.AdresseCourriel == email);
+                //Mettre l'analyse dans une session
+                this.HttpContext.Session.SetString("analsyeModif", JsonConvert.SerializeObject(analyse));
+                //ViewBag pour le niveau taxonomique
+                List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
+                ViewBag.Taxonomie = new SelectList(listeNiveauTaxonomique);
                 return View(analyse);
             }
             catch (Exception e)
@@ -206,6 +214,32 @@ namespace projetfinalFJO.Controllers
                 return View("\\Views\\Shared\\page_erreur.cshtml");
             }
 
+        }
+
+        [HttpPost]
+        public IActionResult ModifierAnalyse(AnalyseCompétence analyse)
+        {
+            try
+            {
+                //Sélectionner l'analyse en question
+                AnalyseCompétence analyseModif = JsonConvert.DeserializeObject<AnalyseCompétence>(this.HttpContext.Session.GetString("analsyeModif"));
+                //Changer les valeurs modifiées
+                analyseModif.NiveauTaxonomique = analyse.NiveauTaxonomique;
+                analyseModif.Reformulation = analyse.Reformulation;
+                analyseModif.SavoirEtreProgramme = analyse.SavoirEtreProgramme;
+                analyseModif.SavoirFaireProgramme = analyse.SavoirFaireProgramme;
+                analyseModif.Context = analyse.Context;
+                analyseModif.ValidationApprouve = analyse.ValidationApprouve;
+                //Sauvegarder
+                this._context.Update(analyseModif);
+                this._context.SaveChanges();
+                //Retourner à la liste d'analyse
+                return RedirectToAction(nameof(ListeAnalyse));
+            }
+            catch (Exception e)
+            {
+                return View("\\Views\\Shared\\page_erreur.cshtml");
+            }
         }
 
         [HttpGet]
