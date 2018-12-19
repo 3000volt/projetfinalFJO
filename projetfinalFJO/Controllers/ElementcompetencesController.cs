@@ -214,6 +214,8 @@ namespace projetfinalFJO.Controllers
         {
             try
             {
+                //Prend rel enuméro du programme
+                elementcompetence.NoProgramme = this.HttpContext.Session.GetString("programme");
                 if (id != elementcompetence.ElementCompétence)
                 {
                     return NotFound();
