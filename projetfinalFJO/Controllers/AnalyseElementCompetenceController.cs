@@ -50,7 +50,7 @@ namespace projetfinalFJO.Controllers
         {
             try
             {
-                //Prendre le numéro du code de compétence dans la session
+                //Prendre le numéro du code de compétence dans la session 
                 string codeCompetence = this.HttpContext.Session.GetString("CodeCompetence");
                 List<string> listeNiveauTaxonomique = new List<string> { "Se rappeler", "Comprendre", "Appliquer", "Analyser", "Évaluer", "Créer" };
                 //Avoir la liste de tout les compétences
